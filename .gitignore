@@ -1,0 +1,11 @@
+.DS_Store
+.idea
+*.swp
+*.swo
+*.log
+
+# Terraform
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfstate.*.backup
