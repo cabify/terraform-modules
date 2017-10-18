@@ -1,0 +1,24 @@
+dist: trusty
+sudo: false
+
+env:
+  # This environment variables tells Terraform not to prompt for input. This is
+  # not required, but if we make a mistake, the Travis builder will hang waiting
+  # for user input, tieing up unnecessary resources.
+  - TF_INPUT=false
+
+# Install terraform
+before_install:
+  - curl -sLo /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.9.11/terraform_0.9.11_linux_amd64.zip
+  - unzip /tmp/terraform.zip -d /tmp
+  - mkdir -p ~/bin
+  - mv /tmp/terraform ~/bin
+  - export PATH="~/bin:$PATH"
+
+script:
+  - terraform fmt -list=true -write=false
+  - exit `terraform fmt -list=true -write=false | wc -l`
+
+notifications:
+  email: false
+
