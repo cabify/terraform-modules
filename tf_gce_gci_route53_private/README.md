@@ -1,20 +1,19 @@
-# SoftLayer Hourly VM
+# Terraform GCI and Route53 Private DNS 
 
-Create a SoftLayer hourly VM with 2 DNS entries (public and private IPs).
+Create a GCI instance with a private DNS record in route53
 
 ### Example usage
 
 ```
-module "softlayer_hourly_vm" {
-  source              = "../../../modules/softlayer_hourly_vm"
-  component           = "${var.component}"
-  region              = "${data.terraform_remote_state.testing.region}"
-  datacenter          = "${data.terraform_remote_state.testing.nomad_datacenter}"
-  environment         = "${data.terraform_remote_state.testing.environment}"
-  zone_id_int         = "${data.terraform_remote_state.testing.zone_id_int}"
-  zone_id_ext         = "${data.terraform_remote_state.testing.zone_id_ext}"
-  ssh_key_id          = "${data.terraform_remote_state.testing.softlayer_ssh_key_deploy_id}"
-  post_install_script = "${data.terraform_remote_state.testing.post_install_script}"
-  instance_count      = "${data.terraform_remote_state.testing.nomad_instances_count}"
+module "tf_gce_gci_route53_private" {
+  source                         = "git@github.com:cabify/terraform-modules.git//tf_gce_gci_route53_private?ref=64fa248f311ebb0ceb07fe3cec127ec66706474c"
+  gce_zone                       = "${data.terraform_remote_state.testing.gce-zone}"
+  component                      = "nomad"
+  host_group                     = "nomad"
+  instance_count                 = "3"
+  aws_route53_zone_id            = "${data.terraform_remote_state.testing.aws_route53_zone_id}"
+  aws_route53_zone_name          = "${data.terraform_remote_state.testing.aws_route53_zone_name}"
+  machine_type                   = "n1-standard-1"
+  google_deployer_ssh_public_key = "${data.terraform_remote_state.testing.google_deployer_ssh_public_key}"
 }
 ```
