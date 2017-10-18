@@ -24,7 +24,6 @@ resource "google_compute_instance" "vm_with_private_dns" {
   }
 }
 
-// DNS INT nomadN.int.g-us-west1.cabify.com
 resource "aws_route53_record" "dns-int" {
   zone_id = "${var.aws_route53_zone_id}"
   name    = "${var.component}${count.index + 1}.int.${var.aws_route53_zone_name}"
