@@ -1,4 +1,4 @@
-resource "google_compute_instance" "vm_with_private_dns" {
+resource "google_compute_instance" "vm" {
   name         = "${var.component}${count.index + 1}"
   machine_type = "${var.machine_type}"
   zone         = "${var.gce_zone}"
