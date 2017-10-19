@@ -32,5 +32,5 @@ resource "aws_route53_record" "dns-int" {
   count   = "${var.instance_count}"
 
   // matches up record N to instance N
-  records = ["${element(google_compute_instance.vm_with_private_dns.*.network_interface.0.address,count.index)}"]
+  records = ["${element(google_compute_instance.vm.*.network_interface.0.address,count.index)}"]
 }
