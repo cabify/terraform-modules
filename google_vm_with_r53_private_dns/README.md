@@ -1,12 +1,14 @@
-# Terraform GCI and Route53 Private DNS 
+# Terraform Google VM with r53 private dns
 
-Create a GCI instance with a private DNS record in route53
+Create a Google Compute Instance with a private DNS record in route53
 
 ### Example usage
 
+In the following example we're creating 3 nomad agent instances.
+
 ```
-module "tf_gce_gci_route53_private" {
-  source                         = "git@github.com:cabify/terraform-modules.git//tf_gce_gci_route53_private?ref=64fa248f311ebb0ceb07fe3cec127ec66706474c"
+module "nomad_agent" {
+  source                         = "git@github.com:cabify/terraform-modules.git//google_vm_with_r53_private_dns?ref=1aac443ede51bc46a0a4b1d3493287e1537ade57"
   gce_zone                       = "${data.terraform_remote_state.testing.gce-zone}"
   component                      = "nomad"
   host_group                     = "nomad"
