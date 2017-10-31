@@ -22,6 +22,10 @@ resource "google_compute_instance" "vm" {
     host_group = "${var.host_group}"
     ssh-keys   = "${var.google_deployer_ssh_public_key}"
   }
+
+  service_account {
+    scopes = "${var.service_account_scopes}"
+  }
 }
 
 resource "aws_route53_record" "dns-int" {
