@@ -43,3 +43,8 @@ variable "google_deployer_ssh_public_key" {
   type    = "string"
   default = ""
 }
+
+variable "service_account_scopes" {
+  type    = "list"
+  default = []
+}
