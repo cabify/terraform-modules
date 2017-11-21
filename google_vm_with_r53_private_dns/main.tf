@@ -24,6 +24,7 @@ resource "google_compute_instance" "vm" {
   }
 
   service_account {
+    email  = "${var.service_account_email}"
     scopes = "${var.service_account_scopes}"
   }
 }
