@@ -39,18 +39,18 @@ variable "user_password" {
 
 variable "instance_maintenance_day" {
   description = "Day of the week to perform maintenance (mon-sun = 1-7)"
-  default    = 1
+  default     = 1
 }
 
 variable "instance_maintenance_hour" {
   description = "Hour of the day to perform maintenance (0-23)"
-  default    = 8
+  default     = 8
 }
 
 variable "instance_maintenance_update_track" {
   description = "Receive updates earlier (canary) or later (stable)"
-  type       = "string"
-  default    = "canary"
+  type        = "string"
+  default     = "canary"
 }
 
 variable "instance_disk_autoresize" {
