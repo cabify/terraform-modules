@@ -38,17 +38,17 @@ variable "user_password" {
 }
 
 variable "instance_maintenance_day" {
-  decription = "Day of the week to perform maintenance (mon-sun = 1-7)"
+  description = "Day of the week to perform maintenance (mon-sun = 1-7)"
   default    = 1
 }
 
 variable "instance_maintenance_hour" {
-  decription = "Hour of the day to perform maintenance (0-23)"
+  description = "Hour of the day to perform maintenance (0-23)"
   default    = 8
 }
 
 variable "instance_maintenance_update_track" {
-  decription = "Receive updates earlier (canary) or later (stable)"
+  description = "Receive updates earlier (canary) or later (stable)"
   type       = "string"
   default    = "canary"
 }

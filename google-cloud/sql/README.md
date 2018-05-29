@@ -50,17 +50,17 @@ module "cabify_google_cloud_sql_mysql_test-database
 
 
 ### instance_maintenance_day
-  decription = "Day of the week to perform maintenance (mon-sun = 1-7)"
+  **Description:** "Day of the week to perform maintenance (mon-sun = 1-7)"
   **Default:** 1
 
 
 ### instance_maintenance_hour
-  decription = "Hour of the day to perform maintenance (0-23)"
+  **Description:** "Hour of the day to perform maintenance (0-23)"
   **Default:** 8
 
 
 ### instance_maintenance_update_track
-  decription = "Receive updates earlier (canary) or later (stable)"
+  **Description:** "Receive updates earlier (canary) or later (stable)"
   **Default:** "canary"
 
 
