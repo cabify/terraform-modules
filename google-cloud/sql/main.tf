@@ -27,7 +27,7 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
 resource "google_sql_database_instance" "google_sql_database_instance-module-failover" {
   name                 = "${var.service_name}-failover-${count.index + 1}"
   database_version     = "${var.database_engine_version}"
-  master_instance_name = "google_sql_database_instance.google_sql_database_instance-module-master.name"
+  master_instance_name = "${google_sql_database_instance.google_sql_database_instance-module-master.name}"
 
   region = "${var.instance_region}"
 
