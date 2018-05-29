@@ -17,9 +17,9 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
     }
 
     maintenance_window {
-      day          = "${var.instance_days_of_the_week["monday"]}"
-      hour         = 8
-      update_track = "${var.instance_maintenance_timing["earlier"]}"
+      day          = "${var.instance_maintenance_day}"
+      hour         = "${var.instance_maintenance_hour}"
+      update_track = "${var.instance_maintenance_update_track}"
     }
   }
 }
@@ -29,7 +29,7 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-fai
   database_version     = "${var.database_engine_version}"
   master_instance_name = "google_sql_database_instance.google_sql_database_instance-module-master.name"
 
-  region               = "${var.instance_region}"
+  region = "${var.instance_region}"
 
   settings {
     tier = "${var.instance_tier}"
@@ -47,7 +47,7 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
   database_version     = "${var.database_engine_version}"
   master_instance_name = "${google_sql_database_instance.google_sql_database_instance-module-master.name}"
 
-  region               = "${var.instance_region}"
+  region = "${var.instance_region}"
 
   settings {
     tier = "${var.instance_tier}"
