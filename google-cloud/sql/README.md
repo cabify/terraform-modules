@@ -94,5 +94,3 @@ module "cabify_google_cloud_sql_mysql_test-database
 
 ### instance_tier
 **Description:** "Type of instance to use - see https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing"
-**Default:** "db-n1-standard-2"
-
