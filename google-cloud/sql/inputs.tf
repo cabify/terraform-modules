@@ -1,90 +1,89 @@
 variable "service_name" {
-  type = "string"
+  description = "Name of the service - will be used for instance names"
+  type        = "string"
 }
 
 variable "database_charset" {
-  type    = "string"
-  default = "utf8"
+  description = "Database character set - default should be correct"
+  type        = "string"
+  default     = "utf8"
 }
 
 variable "database_engine_version" {
-  type    = "string"
-  default = "MYSQL_5_7"
+  description = "Type of database to use - We currently use 5.7 everywhere"
+  type        = "string"
+  default     = "MYSQL_5_7"
 }
 
 variable "database_name" {
-  type    = "string"
-  default = "UNSET"
+  description = "Name of the database - if not set, service_name is used"
+  type        = "string"
+  default     = "UNSET"
 }
 
 variable "user_host" {
-  description = "hosts the user is allowed to connect from"
+  description = "Hosts the user is allowed to connect from"
   type        = "string"
   default     = "%"
 }
 
 variable "user_name" {
-  description = "username for the db (16 char max length)"
+  description = "Username for the db (16 char max length)"
   type        = "string"
 }
 
 variable "user_password" {
-  description = "clear text password for db user"
+  description = "Clear text password for db user"
   type        = "string"
 }
 
-variable "instance_days_of_the_week" {
-  type = "map"
+variable "instance_maintenance_day" {
+  decription = "Day of the week to perform maintenance (mon-sun = 1-7)"
+  default    = 1
+}
 
-  default = {
-    monday    = 1
-    tuesday   = 2
-    wednesday = 3
-    thursday  = 4
-    friday    = 5
-    saturday  = 6
-    sunday    = 7
-  }
+variable "instance_maintenance_hour" {
+  decription = "Hour of the day to perform maintenance (0-23)"
+  default    = 8
+}
+
+variable "instance_maintenance_update_track" {
+  decription = "Receive updates earlier (canary) or later (stable)"
+  type       = "string"
+  default    = "canary"
 }
 
 variable "instance_disk_autoresize" {
-  default = true
+  description = "Will the disk autosize to the usage"
+  default     = true
 }
 
 variable "instance_disk_size" {
-  description = "size in Gb of the disk"
+  description = "Size in Gb of the disk"
   default     = 10
 }
 
 variable "instance_disk_type" {
-  type    = "string"
-  default = "PD_SSD"
+  description = "Disk backend to use - PD_HDD or PD_SSD"
+  type        = "string"
 }
 
 variable "instance_failover_members" {
-  description = "number of failover instances to start"
+  description = "Number of failover instances to start"
   default     = 1
 }
 
-variable "instance_maintenance_timing" {
-  type = "map"
-
-  default = {
-    earlier = "canary"
-    later   = "stable"
-  }
-}
-
 variable "instance_read_only_replica_count" {
-  description = "number of read only replicas to create"
+  description = "Number of read only replicas to create"
   default     = 0
 }
 
 variable "instance_region" {
-  type = "string"
+  description = "Where to start the instances"
+  type        = "string"
 }
 
 variable "instance_tier" {
-  type    = "string"
-  default = "db-n1-standard-2"
+  description = "Type of instance to use - see https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing"
+  type        = "string"
 }
