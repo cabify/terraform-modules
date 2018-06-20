@@ -4,17 +4,18 @@
 To add a new database at minimum:
 
 ```
-module "cabify_google_cloud_sql_mysql_test-database
-  source = "../../../../../../terraform-modules/google-cloud/sql"
+module "cabify_google_cloud_sql_mysql_test-database" {
+  source             = "git@github.com:cabify/terraform-modules.git//google-cloud/sql?ref=google-cloud_sql-v0.1.1"
   service_name = "test"
   user_name = "test-user"
   user_password = "this-is-my-password"
   instance_tier = "db-n1-standard-2"
   instance_disk_type = "PD_HDD"
-  instance_region = "${data.terraform_remote_state.staging.gc_region"
-
+  instance_region = "${data.terraform_remote_state.staging.gc_region}"
+}
 ```
 
+where `?ref=google-cloud_sql-v0.1.1` corresponds to a TAG in this repository.
 
 ## Argument references
 ### service_name
