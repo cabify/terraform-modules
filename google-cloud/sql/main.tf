@@ -40,6 +40,7 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-fai
   }
 
   count = "${var.instance_failover_members}"
+  depends_on = ["google_sql_database_instance.google_sql_database_instance-module-master"]
 }
 
 resource "google_sql_database_instance" "google_sql_database_instance-module-read-replica" {
@@ -54,4 +55,5 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
   }
 
   count = "${var.instance_read_only_replica_count}"
+  depends_on = ["google_sql_database_instance.google_sql_database_instance-module-master"]
 }

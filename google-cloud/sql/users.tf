@@ -4,4 +4,5 @@ resource "google_sql_user" "google_sql_user-module" {
   host     = "${var.user_host}"
   password = "${var.user_password}"
   instance = "${google_sql_database_instance.google_sql_database_instance-module-master.name}"
+  depends_on =["google_sql_database_instance.google_sql_database_instance-module-failover"]
 }
