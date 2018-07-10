@@ -57,3 +57,13 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
   count      = "${var.instance_read_only_replica_count}"
   depends_on = ["google_sql_database_instance.google_sql_database_instance-module-master"]
 }
+
+module "cabify_prometheus_mysql_scraper" {
+  source               = "git@github.com:cabify/terraform-modules.git//google-cloud/sql?ref=google-cloud_kubernetes-prometheus-mysql-scraper-v0.1.1"
+  service_name         = "${var.service_name}"
+  user_name            = "${var.user_name}"
+  user_password        = "${var.user_password}"
+  instance_region      = "${var.instance_region}"
+  project              = "${var.project}"
+  service_account_file = "${var.service_account_file}"
+}
