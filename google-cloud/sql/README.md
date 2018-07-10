@@ -97,4 +97,7 @@ where `?ref=google-cloud_sql-v0.1.1` corresponds to a TAG in this repository.
 **Description:** "Type of instance to use - see https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing"
 
 ### project
-**Description:** "Name of the gcp project"
+**Description:** "Name of the gcp project - this is automatically filled"
+
+### service_account_file
+**Description:** "Service account to use for the monitoring containers"

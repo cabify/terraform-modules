@@ -92,3 +92,8 @@ variable "project" {
   description = "Name of gcp project"
   type        = "string"
 }
+
+variable "service_account_file" {
+  description = "File name to be used for scrapers as a service account json"
+  type        = "string"
+}
