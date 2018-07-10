@@ -87,3 +87,8 @@ variable "instance_tier" {
   description = "Type of instance to use - see https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing"
   type        = "string"
 }
+
+variable "project" {
+  description = "Name of gcp project"
+  type        = "string"
+}

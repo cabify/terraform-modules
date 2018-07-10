@@ -57,3 +57,12 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
   count      = "${var.instance_read_only_replica_count}"
   depends_on = ["google_sql_database_instance.google_sql_database_instance-module-master"]
 }
+
+module "cabify_promethues_mysql_scraper" {
+  source          = "../kubernetes/prometheus-mysql-scraper/"
+  service_name    = "${var.service_name}"
+  user_name       = "${var.user_name}"
+  user_password   = "${var.user_password}"
+  instance_region = "${var.instance_region}"
+  project         = "${var.project}"
+}
