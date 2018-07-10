@@ -53,8 +53,14 @@ resource "kubernetes_pod" "kubernetes_pod-mysql-scraper-module" {
       }
 
       env {
-        name  = "DATA_SOURCE_NAME"
-        value = "${var.user_name}:${var.user_password}@tcp(localhost)/"
+        name = "DATA_SOURCE_NAME"
+
+        value_from {
+          secret_key_ref {
+            name = "${kubernetes_secret.kubernetes_secret_module.metadata.0.name}"
+            key  = "connection_string"
+          }
+        }
       }
 
       args = [
