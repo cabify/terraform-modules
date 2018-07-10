@@ -3,6 +3,7 @@ resource "kubernetes_namespace" "prometheus-scrapers" {
     annotations {
       type = "scrapers"
     }
+
     name = "prometheus-scrapers"
   }
 }
