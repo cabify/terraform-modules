@@ -6,7 +6,7 @@ resource "kubernetes_pod" "kubernetes_pod-mysql-scraper-module" {
       pod = "${var.service_name}-mysql-scraper"
     }
 
-    namespace = "${kubernetes_namespace.prometheus-scrapers.metadata.0.name}"
+    namespace = "${var.namespace}"
   }
 
   spec {

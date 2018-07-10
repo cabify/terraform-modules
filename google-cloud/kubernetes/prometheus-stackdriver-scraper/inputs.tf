@@ -1,21 +1,11 @@
-variable "service_name" {
+variable "service" {
   description = "Name of the service - will be used for instance names"
   type        = "string"
 }
 
-variable "user_name" {
-  description = "Username for the db (16 char max length)"
-  type        = "string"
-}
-
-variable "user_password" {
-  description = "Clear text password for db user"
-  type        = "string"
-}
-
-variable "instance_region" {
-  description = "Where to start the instances"
-  type        = "string"
+variable "args" {
+  description = "List of args passed to the docker container - "
+  type        = "list"
 }
 
 variable "project" {
