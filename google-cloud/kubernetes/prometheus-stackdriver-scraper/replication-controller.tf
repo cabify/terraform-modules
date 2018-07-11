@@ -15,6 +15,7 @@ resource "kubernetes_replication_controller" "stackdriver_scraper" {
     selector {
       pod = "${var.service}-stackdriver-scraper"
     }
+
     template {
       node_selector {
         "cloud.google.com/gke-nodepool" = "gke-prometheus-scrapers"

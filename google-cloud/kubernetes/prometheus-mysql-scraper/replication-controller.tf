@@ -13,6 +13,7 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
     selector {
       pod = "${var.service_name}-mysql-scraper"
     }
+
     template {
       node_selector {
         "cloud.google.com/gke-nodepool" = "gke-prometheus-scrapers"
@@ -71,6 +72,7 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
           "--collect.engine_innodb_status",
           "--collect.info_schema.innodb_metrics",
         ]
+
         liveness_probe {
           http_get {
             path = "/"
@@ -80,7 +82,6 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
           initial_delay_seconds = 5
           period_seconds        = 3
         }
-
       }
     }
   }
