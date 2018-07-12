@@ -15,6 +15,7 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
     }
 
     template {
+      restart_policy = "Always"
       node_selector {
         "cloud.google.com/gke-nodepool" = "gke-prometheus-scrapers"
       }
