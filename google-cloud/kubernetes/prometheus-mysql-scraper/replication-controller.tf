@@ -3,7 +3,7 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
     name = "${var.service_name}-mysql-scraper"
 
     labels {
-      pod = "${var.service_name}-mysql-scraper"
+      app = "${var.service_name}-mysql-scraper"
     }
 
     namespace = "${var.namespace}"
@@ -11,11 +11,12 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
 
   spec {
     selector {
-      pod = "${var.service_name}-mysql-scraper"
+      app = "${var.service_name}-mysql-scraper"
     }
 
     template {
       restart_policy = "Always"
+
       node_selector {
         "cloud.google.com/gke-nodepool" = "gke-prometheus-scrapers"
       }
