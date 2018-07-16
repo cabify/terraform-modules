@@ -1,11 +1,11 @@
-//We need this until https://github.com/terraform-providers/terraform-provider-kubernetes/pull/101 can be merged
+// We need this until https://github.com/terraform-providers/terraform-provider-kubernetes/pull/101 can be merged
 
-resource "kubernetes_replication_controller" "kubernetes_replication_controller-stackdriver-scraper-module" {
+resource "kubernetes_replication_controller" "stackdriver_scraper" {
   metadata {
     name = "${var.service}-stackdriver-scraper"
 
     labels {
-      app = "${var.service}-stackdriver-scraper"
+      pod = "${var.service}-stackdriver-scraper"
     }
 
     namespace = "${var.namespace}"
@@ -13,12 +13,10 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
 
   spec {
     selector {
-      app = "${var.service}-stackdriver-scraper"
+      pod = "${var.service}-stackdriver-scraper"
     }
 
     template {
-      restart_policy = "Always"
-
       node_selector {
         "cloud.google.com/gke-nodepool" = "gke-prometheus-scrapers"
       }
