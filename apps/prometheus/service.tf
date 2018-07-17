@@ -12,8 +12,8 @@ resource "kubernetes_service" "prometheus-kubernetes_service" {
     session_affinity = "ClientIP"
 
     port {
-      port        = 9090
-      target_port = 9090
+      port        = "${var.prometheus-port}"
+      target_port = "${var.prometheus-port}"
     }
 
     type = "LoadBalancer"

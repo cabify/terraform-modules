@@ -1,8 +1,3 @@
-variable "prometheus-port" {
-  type    = "string"
-  default = "9090"
-}
-
 resource "kubernetes_replication_controller" "prometheus-kubernetes_replication_controller" {
   metadata {
     name = "prometheus-server"
