@@ -13,3 +13,8 @@ variable "namespace" {
   type        = "string"
   default     = "prometheus-scrapers"
 }
+
+variable "prometheus-port" {
+  type    = "String"
+  default = "9090"
+}
