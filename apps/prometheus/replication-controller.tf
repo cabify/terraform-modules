@@ -16,7 +16,7 @@ resource "kubernetes_replication_controller" "prometheus" {
 
     template {
       restart_policy       = "Always"
-      service_account_name = "prometheus-server"
+      service_account_name = "prometheus"
 
       // "nobody" from prometheus Dockerfile
       security_context {
