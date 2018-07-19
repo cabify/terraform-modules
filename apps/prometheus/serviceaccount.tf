@@ -6,7 +6,7 @@ variable "rbac" {
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
-  name: prometheus-server
+  name: prometheus
 rules:
 - apiGroups: [""]
   resources:
@@ -27,22 +27,22 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: prometheus-server
+  name: prometheus
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus-server
+  name: prometheus
 subjects:
 - kind: ServiceAccount
-  name: prometheus-server
-  namespace: prometheus-scrapers
+  name: prometheus
+  namespace: prometheus
 EOF
 }
 
-resource "kubernetes_service_account" "prometheus-server-kubernetes_service_account" {
+resource "kubernetes_service_account" "prometheus" {
   metadata {
-    name      = "prometheus-server"
-    namespace = "${kubernetes_namespace.prometheus-scrapers.metadata.0.name}"
+    name      = "prometheus"
+    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
   }
 
   // There are no resources for `v1beta1` api endpoints

@@ -15,6 +15,6 @@ variable "namespace" {
 }
 
 variable "prometheus-port" {
-  type    = "String"
+  type    = "string"
   default = "9090"
 }

@@ -1,14 +1,15 @@
-resource "kubernetes_config_map" "prometheus-config-map-kubernetes_config_map" {
+resource "kubernetes_config_map" "prometheus-config-map" {
   metadata {
     name      = "prometheus-configuration"
-    namespace = "${kubernetes_namespace.prometheus-scrapers.metadata.0.name}"
+    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
   }
 
   data {
     prometheus.yml = <<EOF
     global:
-      scrape_interval: 5s
-      evaluation_interval: 5s
+      scrape_interval: 15s
+      scrape_timeout: 15s
+      evaluation_interval: 1m
 
     scrape_configs:
       - job_name: 'kubernetes-nodes'
@@ -30,7 +31,7 @@ resource "kubernetes_config_map" "prometheus-config-map-kubernetes_config_map" {
         - source_labels: [__meta_kubernetes_node_name]
           regex: (.+)
           target_label: __metrics_path__
-          replacement: /api/v1/nodes/$\{1}/proxy/metrics
+          replacement: /api/v1/nodes/${1}/proxy/metrics
 
       
       - job_name: 'kubernetes-service-endpoints'

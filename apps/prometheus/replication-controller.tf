@@ -1,4 +1,4 @@
-resource "kubernetes_replication_controller" "prometheus-kubernetes_replication_controller" {
+resource "kubernetes_replication_controller" "prometheus" {
   metadata {
     name = "prometheus-server"
 
@@ -6,7 +6,7 @@ resource "kubernetes_replication_controller" "prometheus-kubernetes_replication_
       app = "prometheus-server"
     }
 
-    namespace = "${kubernetes_namespace.prometheus-scrapers.metadata.0.name}"
+    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
   }
 
   spec {
@@ -25,14 +25,14 @@ resource "kubernetes_replication_controller" "prometheus-kubernetes_replication_
       }
 
       node_selector {
-        "cloud.google.com/gke-nodepool" = "gke-prometheus-scrapers"
+        "cloud.google.com/gke-nodepool" = "gke-prometheus"
       }
 
       volume {
         name = "service-account-volume"
 
         secret {
-          secret_name  = "${kubernetes_service_account.prometheus-server-kubernetes_service_account.default_secret_name}"
+          secret_name  = "${kubernetes_service_account.prometheus.default_secret_name}"
           default_mode = 420
         }
       }
@@ -41,7 +41,7 @@ resource "kubernetes_replication_controller" "prometheus-kubernetes_replication_
         name = "prometheus-config-volume"
 
         config_map {
-          name         = "${kubernetes_config_map.prometheus-config-map-kubernetes_config_map.metadata.0.name}"
+          name         = "${kubernetes_config_map.prometheus-config-map.metadata.0.name}"
           default_mode = 420
         }
       }
@@ -50,7 +50,7 @@ resource "kubernetes_replication_controller" "prometheus-kubernetes_replication_
         name = "prometheus-storage-volume"
 
         persistent_volume_claim {
-          claim_name = "${kubernetes_persistent_volume_claim.prometheus-server-data-kubernetes_persistent_volume_claim.metadata.0.name}"
+          claim_name = "${kubernetes_persistent_volume_claim.prometheus-server-data.metadata.0.name}"
         }
       }
 
