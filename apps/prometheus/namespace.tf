@@ -1,9 +1,9 @@
-resource "kubernetes_namespace" "prometheus-scrapers" {
+resource "kubernetes_namespace" "prometheus" {
   metadata {
     annotations {
-      type = "scrapers"
+      type = "prometheus"
     }
 
-    name = "prometheus-scrapers"
+    name = "prometheus"
   }
 }

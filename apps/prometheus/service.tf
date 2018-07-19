@@ -1,12 +1,12 @@
-resource "kubernetes_service" "prometheus-kubernetes_service" {
+resource "kubernetes_service" "prometheus" {
   metadata {
-    name      = "${kubernetes_replication_controller.prometheus-kubernetes_replication_controller.metadata.0.name}"
-    namespace = "${kubernetes_namespace.prometheus-scrapers.metadata.0.name}"
+    name      = "${kubernetes_replication_controller.prometheus.metadata.0.name}"
+    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
   }
 
   spec {
     selector {
-      app = "${kubernetes_replication_controller.prometheus-kubernetes_replication_controller.metadata.0.labels.app}"
+      app = "${kubernetes_replication_controller.prometheus.metadata.0.labels.app}"
     }
 
     session_affinity = "ClientIP"

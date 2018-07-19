@@ -1,4 +1,4 @@
-resource "kubernetes_storage_class" "ssd-kubernetes_storage_class" {
+resource "kubernetes_storage_class" "ssd" {
   metadata {
     name = "ssd"
   }

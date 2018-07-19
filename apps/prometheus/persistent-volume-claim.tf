@@ -1,7 +1,7 @@
-resource "kubernetes_persistent_volume_claim" "prometheus-server-data-kubernetes_persistent_volume_claim" {
+resource "kubernetes_persistent_volume_claim" "prometheus-server-data" {
   metadata {
     name      = "prometheus-server-data"
-    namespace = "${kubernetes_namespace.prometheus-scrapers.metadata.0.name}"
+    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
   }
 
   spec {
@@ -11,10 +11,10 @@ resource "kubernetes_persistent_volume_claim" "prometheus-server-data-kubernetes
 
     resources {
       requests {
-        storage = "3Gi"
+        storage = "120Gi"
       }
     }
   }
 
-  depends_on = ["kubernetes_storage_class.ssd-kubernetes_storage_class"]
+  depends_on = ["kubernetes_storage_class.ssd"]
 }
