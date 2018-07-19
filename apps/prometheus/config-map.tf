@@ -31,7 +31,7 @@ resource "kubernetes_config_map" "prometheus-config-map" {
         - source_labels: [__meta_kubernetes_node_name]
           regex: (.+)
           target_label: __metrics_path__
-          replacement: /api/v1/nodes/${1}/proxy/metrics
+          replacement: /api/v1/nodes/$${1}/proxy/metrics
 
       
       - job_name: 'kubernetes-service-endpoints'
