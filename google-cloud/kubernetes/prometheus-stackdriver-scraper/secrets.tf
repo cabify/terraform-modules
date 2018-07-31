@@ -1,10 +1,10 @@
-resource "kubernetes_secret" "kubernetes_secret_module" {
+resource "kubernetes_secret" "stackdriver" {
   metadata {
-    name      = "${var.service}-secrets"
+    name      = "${var.service}-stackdriver-application-credentials"
     namespace = "${var.namespace}"
   }
 
   data {
-    gcloud-service-account-key = "${file("${var.service_account_file}")}"
+    credentials.json = "${base64decode(google_service_account_key.stackdriver.private_key)}"
   }
 }

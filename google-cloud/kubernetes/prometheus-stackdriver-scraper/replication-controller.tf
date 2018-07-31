@@ -1,6 +1,6 @@
 //We need this until https://github.com/terraform-providers/terraform-provider-kubernetes/pull/101 can be merged
 
-resource "kubernetes_replication_controller" "kubernetes_replication_controller-stackdriver-scraper-module" {
+resource "kubernetes_replication_controller" "stackdriver" {
   metadata {
     name = "${var.service}-stackdriver-scraper"
 
@@ -20,14 +20,14 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
       restart_policy = "Always"
 
       node_selector {
-        "cloud.google.com/gke-nodepool" = "gke-prometheus-scrapers"
+        "cloud.google.com/gke-nodepool" = "gke-prometheus"
       }
 
       volume {
         name = "secret-volume"
 
         secret {
-          secret_name = "${kubernetes_secret.kubernetes_secret_module.metadata.0.name}"
+          secret_name = "${kubernetes_secret.stackdriver.metadata.0.name}"
         }
       }
 
@@ -46,7 +46,7 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
 
         env {
           name  = "GOOGLE_APPLICATION_CREDENTIALS"
-          value = "/etc/secret-volume/gcloud-service-account-key"
+          value = "/etc/secret-volume/credentials.json"
         }
 
         args = "${var.args}"
