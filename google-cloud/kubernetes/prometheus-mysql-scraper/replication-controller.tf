@@ -1,4 +1,4 @@
-resource "kubernetes_replication_controller" "kubernetes_replication_controller-mysql-scraper-module" {
+resource "kubernetes_replication_controller" "cloudsql" {
   metadata {
     name = "${var.service_name}-mysql-scraper"
 
@@ -18,14 +18,14 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
       restart_policy = "Always"
 
       node_selector {
-        "cloud.google.com/gke-nodepool" = "gke-prometheus-scrapers"
+        "cloud.google.com/gke-nodepool" = "gke-prometheus"
       }
 
       volume {
         name = "secret-volume"
 
         secret {
-          secret_name = "${kubernetes_secret.kubernetes_secret_module.metadata.0.name}"
+          secret_name = "${kubernetes_secret.cloudsql.metadata.0.name}"
         }
       }
 
@@ -46,7 +46,7 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
 
         args = [
           "-instances=${var.project}:${var.instance_region}:${var.service_name}-master=tcp:0.0.0.0:3306",
-          "-credential_file=/etc/secret-volume/gcloud-service-account-key",
+          "-credential_file=/etc/secret-volume/credentials.json",
           "-dir=/root/cloudsql",
         ]
       }
@@ -64,7 +64,7 @@ resource "kubernetes_replication_controller" "kubernetes_replication_controller-
 
           value_from {
             secret_key_ref {
-              name = "${kubernetes_secret.kubernetes_secret_module.metadata.0.name}"
+              name = "${kubernetes_secret.cloudsql.metadata.0.name}"
               key  = "connection_string"
             }
           }

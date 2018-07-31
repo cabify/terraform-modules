@@ -1,11 +1,11 @@
-resource "kubernetes_secret" "kubernetes_secret_module" {
+resource "kubernetes_secret" "cloudsql" {
   metadata {
     name      = "${var.service_name}-secrets"
     namespace = "${var.namespace}"
   }
 
   data {
-    connection_string          = "${var.user_name}:${var.user_password}@tcp(localhost)/"
-    gcloud-service-account-key = "${file("${var.service_account_file}")}"
+    connection_string = "${var.user_name}:${var.user_password}@tcp(localhost)/"
+    credentials.json  = "${base64decode(google_service_account_key.cloudsql.private_key)}"
   }
 }
