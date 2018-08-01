@@ -1,0 +1,18 @@
+# See the official documentation here: https://kubernetes.github.io/ingress-nginx/deploy/#mandatory-command
+# This templates come from https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
+---
+
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: nginx-ingress-role-nisa-binding
+  namespace: ingress-nginx
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: nginx-ingress-role
+subjects:
+  - kind: ServiceAccount
+    name: nginx-ingress-serviceaccount
+    namespace: ingress-nginx
+
