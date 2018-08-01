@@ -1,0 +1,8 @@
+# See the official documentation here: https://kubernetes.github.io/ingress-nginx/deploy/#mandatory-command
+# This templates come from https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx
