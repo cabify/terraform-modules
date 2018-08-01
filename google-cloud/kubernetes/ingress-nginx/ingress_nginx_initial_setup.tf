@@ -67,7 +67,7 @@ data "template_file" "ingress_nginx_mandatory_template_9" {
   template = "${file("${path.module}/9_mandatory_role_nginx.yaml")}"
 }
 
-resource "k9s_manifest" "ingress_nginx_mandatory_9" {
+resource "k8s_manifest" "ingress_nginx_mandatory_9" {
   content = "${data.template_file.ingress_nginx_mandatory_template_9.rendered}"
 }
 
@@ -75,7 +75,7 @@ data "template_file" "ingress_nginx_mandatory_template_10" {
   template = "${file("${path.module}/10_mandatory_rolebinding.yaml")}"
 }
 
-resource "k10s_manifest" "ingress_nginx_mandatory_10" {
+resource "k8s_manifest" "ingress_nginx_mandatory_10" {
   content = "${data.template_file.ingress_nginx_mandatory_template_10.rendered}"
 }
 
@@ -83,7 +83,7 @@ data "template_file" "ingress_nginx_mandatory_template_11" {
   template = "${file("${path.module}/11_mandatory_clusterrolebinding.yaml")}"
 }
 
-resource "k11s_manifest" "ingress_nginx_mandatory_11" {
+resource "k8s_manifest" "ingress_nginx_mandatory_11" {
   content = "${data.template_file.ingress_nginx_mandatory_template_11.rendered}"
 }
 
@@ -91,6 +91,6 @@ data "template_file" "ingress_nginx_mandatory_template_12" {
   template = "${file("${path.module}/12_mandatory_deployment_ingress_nginx.yaml")}"
 }
 
-resource "k12s_manifest" "ingress_nginx_mandatory_12" {
+resource "k8s_manifest" "ingress_nginx_mandatory_12" {
   content = "${data.template_file.ingress_nginx_mandatory_template_12.rendered}"
 }
