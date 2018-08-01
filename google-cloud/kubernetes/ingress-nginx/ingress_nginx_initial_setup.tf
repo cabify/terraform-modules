@@ -40,7 +40,7 @@ resource "k8s_manifest" "ingress_nginx_mandatory_5" {
 }
 
 data "template_file" "ingress_nginx_mandatory_template_6" {
-  template = "${file("${path.module}/6_mandatory_configmap_tcp_services.yaml")}"
+  template = "${file("${path.module}/6_mandatory_configmap_udp_services.yaml")}"
 }
 
 resource "k8s_manifest" "ingress_nginx_mandatory_6" {
