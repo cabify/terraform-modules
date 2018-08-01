@@ -1,5 +1,6 @@
 resource "google_service_account" "stackdriver" {
-  account_id   = "${var.service}-prometheus-account"
+  // 30 char limit - md5 so we dont have collisions
+  account_id   = "${format("%.19s", md5(var.service_name))}-prom-sa"
   display_name = "${var.service} Service Account for Prometheus"
   project      = "${var.project}"
 }

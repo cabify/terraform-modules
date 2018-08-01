@@ -1,5 +1,6 @@
 resource "google_service_account" "cloudsql" {
-  account_id   = "${var.service_name}-prometheus-account"
+  // 30 char limit - md5 so we dont have collisions
+  account_id   = "${format("%.19s", md5(var.service_name))}-prom-sa"
   display_name = "${var.service_name} Service Account for prometheus"
   project      = "${var.project}"
 }
