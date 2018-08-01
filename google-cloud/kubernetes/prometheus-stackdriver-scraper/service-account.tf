@@ -10,6 +10,6 @@ resource "google_service_account_key" "stackdriver" {
 
 resource "google_project_iam_member" "stackdriver" {
   project = "${var.project}"
-  role    = "roles/monitoring.viewer"
+  role    = "projects/${var.project}/roles/stackdriverreadaccess"
   member  = "serviceAccount:${google_service_account.stackdriver.email}"
 }

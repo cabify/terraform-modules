@@ -10,6 +10,6 @@ resource "google_service_account_key" "cloudsql" {
 
 resource "google_project_iam_member" "cloudsql" {
   project = "${var.project}"
-  role    = "roles/cloudsql.client"
+  role    = "projects/${var.project}/roles/cloudsqlconnectionaccess"
   member  = "serviceAccount:${google_service_account.cloudsql.email}"
 }
