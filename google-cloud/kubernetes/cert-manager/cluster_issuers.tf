@@ -4,16 +4,30 @@
 
 # This file will generate the clusterissues for letsencrypt that will be
 # available cluster wide.
-data "template_file" "issuer" {
-  template = "${file("${path.module}/cluster_issuers_template.yaml")}"
+data "template_file" "issuer_staging" {
+  template = "${file("${path.module}/cluster_issuers_staging_template.yaml")}"
 
   vars {
     email                  = "${var.letsencrypt_email}"
-    cluster_issuer_prod    = "${var.letsencrypt_prod_issuer_name}"
     cluster_issuer_staging = "${var.letsencrypt_staging_issuer_name}"
+    server                 = "https://acme-staging-v02.api.letsencrypt.org/directory"
   }
 }
 
-resource "k8s_manifest" "issuer" {
-  content = "${data.template_file.issuer.rendered}"
+resource "k8s_manifest" "issuer_staging" {
+  content = "${data.template_file.issuer_staging.rendered}"
+}
+
+data "template_file" "issuer_production" {
+  template = "${file("${path.module}/cluster_issuers_template.yaml")}"
+
+  vars {
+    email               = "${var.letsencrypt_email}"
+    cluster_issuer_prod = "${var.letsencrypt_prod_issuer_name}"
+    server              = "https://acme-v02.api.letsencrypt.org/directory"
+  }
+}
+
+resource "k8s_manifest" "issuer_production" {
+  content = "${data.template_file.issuer_production.rendered}"
 }
