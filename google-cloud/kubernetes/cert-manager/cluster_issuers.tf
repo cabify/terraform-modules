@@ -8,9 +8,9 @@ data "template_file" "issuer_staging" {
   template = "${file("${path.module}/cluster_issuers_template.yaml")}"
 
   vars {
-    email                  = "${var.letsencrypt_email}"
-    cluster_issuer_staging = "${var.letsencrypt_staging_issuer_name}"
-    server                 = "https://acme-staging-v02.api.letsencrypt.org/directory"
+    email               = "${var.letsencrypt_email}"
+    cluster_issuer_name = "${var.letsencrypt_staging_issuer_name}"
+    server              = "https://acme-staging-v02.api.letsencrypt.org/directory"
   }
 }
 
@@ -23,7 +23,7 @@ data "template_file" "issuer_production" {
 
   vars {
     email               = "${var.letsencrypt_email}"
-    cluster_issuer_prod = "${var.letsencrypt_prod_issuer_name}"
+    cluster_issuer_name = "${var.letsencrypt_prod_issuer_name}"
     server              = "https://acme-v02.api.letsencrypt.org/directory"
   }
 }
