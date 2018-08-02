@@ -1,0 +1,48 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  labels:
+    app: oauth2-proxy
+  name: oauth2-proxy
+  namespace: ${namespace}
+spec:
+  replicas: ${replicas}
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: oauth2-proxy
+  template:
+    metadata:
+      labels:
+        app: oauth2-proxy
+    spec:
+      containers:
+      - name: oauth2-proxy
+        image: ${image}
+        args:
+        - --email-domain=${email_domain}
+        - --upstream=file:///dev/null
+        - --http-address=0.0.0.0:4180
+        - --set-xauthrequest=true
+        - --request-logging=true
+        env:
+        - name: OAUTH2_PROXY_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: oauth2-proxy-api-oauth-credentials
+              key: client_id
+        - name: OAUTH2_PROXY_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth2-proxy-api-oauth-credentials
+              key: client_secret
+        - name: OAUTH2_PROXY_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth2-proxy-api-oauth-credentials
+              key: cookie
+        - name: OAUTH2_PROXY_PROVIDER
+          value: "google"
+        ports:
+        - containerPort: 4180
+          protocol: TCP
