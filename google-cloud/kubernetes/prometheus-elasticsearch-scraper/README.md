@@ -13,7 +13,7 @@ variable "url" {}
 variable "port" {}
 
 module "cabify_elasticsearch_scraper" {
-  source   = "git@github.com:cabify/terraform-modules.git//google-cloud/kubernetes/prometheus-mysql-scraper?ref=google-cloud_kubernetes-prometheus-elasticsearch-scraper-v0.1.1"
+  source   = "git@github.com:cabify/terraform-modules.git//google-cloud/kubernetes/prometheus-elasticsearch-scraper?ref=google-cloud_kubernetes-prometheus-elasticsearch-scraper-v0.1.1"
   username = "${var.username}"
   password = "${var.password}"
   url      = "${var.url}"
