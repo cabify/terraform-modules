@@ -5,7 +5,7 @@
 # This file will generate the clusterissues for letsencrypt that will be
 # available cluster wide.
 data "template_file" "issuer_staging" {
-  template = "${file("${path.module}/cluster_issuers_staging_template.yaml")}"
+  template = "${file("${path.module}/cluster_issuers_template.yaml")}"
 
   vars {
     email                  = "${var.letsencrypt_email}"
