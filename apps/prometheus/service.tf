@@ -15,7 +15,5 @@ resource "kubernetes_service" "prometheus" {
       port        = "${var.prometheus-port}"
       target_port = "${var.prometheus-port}"
     }
-
-    type = "LoadBalancer"
   }
 }
