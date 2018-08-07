@@ -138,11 +138,9 @@ resource "kubernetes_config_map" "prometheus-config-map" {
           action: replace
           target_label: __metrics_path__
           regex: (.+)
-        - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_https_port]
+        - source_labels: [__meta_kubernetes_service_annotation_instance]
           action: replace
           target_label: __address__
-          regex: ([^:]+)(?::\d+)?;(\d+)
-          replacement: $1:$2
         - action: labelmap
           regex: __meta_kubernetes_service_label_(.+)
         - source_labels: [__meta_kubernetes_namespace]
@@ -151,15 +149,6 @@ resource "kubernetes_config_map" "prometheus-config-map" {
         - source_labels: [__meta_kubernetes_service_name]
           action: replace
           target_label: kubernetes_name
-      
-      - job_name: 'external-endpoints'
-        kubernetes_sd_configs:
-        - role: endpoints
-        scheme: https
-        relabel_configs:
-        - source_labels: [__meta_kubernetes_service_annotation_fqdn]
-          action: keep
-          regex: .+
     EOF
   }
 }

@@ -3,6 +3,7 @@ resource "kubernetes_service" "external-service" {
     annotations {
       prometheus_io_https_scrape = "${var.https == "true" ? "true" : "false"}"
       prometheus_io_scrape       = "${var.https != "true" ? "true" : "false"}"
+      instance                   = "${var.fqdn}:${var.port}"
     }
 
     name      = "${var.name}"
@@ -10,6 +11,9 @@ resource "kubernetes_service" "external-service" {
   }
 
   spec {
+    external_name = "${var.fqdn}"
+    type          = "ExternalName"
+
     port {
       port        = "${var.port}"
       target_port = "${var.port}"
