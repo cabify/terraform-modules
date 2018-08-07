@@ -1,7 +1,8 @@
 resource "kubernetes_service" "external-service" {
   metadata {
     annotations {
-      prometheus_io_scrape = "true"
+      prometheus_io_https_scrape = "${var.https = "true" ? "true" : "false"}"
+      prometheus_io_scrape       = "${var.https = "false" ? "true" : "false"}"
     }
 
     name      = "${var.name}"

@@ -17,3 +17,9 @@ variable "ipaddress" {
   type        = "string"
   description = "Ipaddress of the service"
 }
+
+variable "https" {
+  type        = "string"
+  description = "Is this service scraped via https?"
+  default     = "false"
+}
