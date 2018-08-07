@@ -15,7 +15,8 @@ data "template_file" "issuer_staging" {
 }
 
 resource "k8s_manifest" "issuer_staging" {
-  content = "${data.template_file.issuer_staging.rendered}"
+  content    = "${data.template_file.issuer_staging.rendered}"
+  depends_on = ["k8s_manifest.8_mandatory_deployment_cert_manager"]
 }
 
 data "template_file" "issuer_production" {
@@ -29,5 +30,6 @@ data "template_file" "issuer_production" {
 }
 
 resource "k8s_manifest" "issuer_production" {
-  content = "${data.template_file.issuer_production.rendered}"
+  content    = "${data.template_file.issuer_production.rendered}"
+  depends_on = ["k8s_manifest.8_mandatory_deployment_cert_manager"]
 }

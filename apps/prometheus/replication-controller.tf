@@ -24,10 +24,6 @@ resource "kubernetes_replication_controller" "prometheus" {
         run_as_user = 65534
       }
 
-      node_selector {
-        "cloud.google.com/gke-nodepool" = "gke-prometheus"
-      }
-
       volume {
         name = "service-account-volume"
 
