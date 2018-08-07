@@ -151,6 +151,15 @@ resource "kubernetes_config_map" "prometheus-config-map" {
         - source_labels: [__meta_kubernetes_service_name]
           action: replace
           target_label: kubernetes_name
+      
+      - job_name: 'external-endpoints'
+        kubernetes_sd_configs:
+        - role: endpoints
+        scheme: https
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_service_annotation_fqdn]
+          action: keep
+          regex: .+
     EOF
   }
 }

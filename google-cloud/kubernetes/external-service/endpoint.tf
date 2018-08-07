@@ -5,6 +5,8 @@ apiVersion: v1
 metadata:
   name: $${name}
   namespace: $${namespace}
+  annotations:
+    fqdn: $${fqdn}
 subsets:
   - addresses:
       - ip: $${ipaddress}
@@ -17,6 +19,7 @@ EOF
     namespace = "${var.namespace}"
     port      = "${var.port}"
     ipaddress = "${var.ipaddress}"
+    fqdn      = "${var.fqdn}"
   }
 }
 

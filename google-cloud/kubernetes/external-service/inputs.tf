@@ -23,3 +23,9 @@ variable "https" {
   description = "Is this service scraped via https?"
   default     = "false"
 }
+
+variable "fqdn" {
+  type        = "string"
+  description = "FQDN for external service to scrape"
+  default     = ""
+}
