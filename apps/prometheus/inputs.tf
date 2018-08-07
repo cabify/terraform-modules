@@ -8,11 +8,6 @@ variable "gc_project" {
   type        = "string"
 }
 
-variable "hostname" {
-  description = "Hostname that the prometheus web interface will be availible under"
-  type        = "string"
-}
-
 variable "namespace" {
   description = "Namespace to use"
   type        = "string"
