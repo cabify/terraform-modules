@@ -19,10 +19,6 @@ resource "kubernetes_replication_controller" "elasticsearch" {
     template {
       restart_policy = "Always"
 
-      node_selector {
-        "cloud.google.com/gke-nodepool" = "gke-prometheus"
-      }
-
       container {
         image = "justwatch/elasticsearch_exporter"
         name  = "elasticsearch-exporter"

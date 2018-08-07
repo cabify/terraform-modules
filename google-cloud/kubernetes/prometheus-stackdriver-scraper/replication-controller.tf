@@ -19,10 +19,6 @@ resource "kubernetes_replication_controller" "stackdriver" {
     template {
       restart_policy = "Always"
 
-      node_selector {
-        "cloud.google.com/gke-nodepool" = "gke-prometheus"
-      }
-
       volume {
         name = "secret-volume"
 
