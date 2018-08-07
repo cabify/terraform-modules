@@ -81,7 +81,7 @@ resource "kubernetes_replication_controller" "prometheus" {
             port = "${var.prometheus-port}"
           }
 
-          initial_delay_seconds = 5
+          initial_delay_seconds = 30
           period_seconds        = 3
         }
       }
