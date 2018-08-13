@@ -51,6 +51,18 @@ resource "kubernetes_replication_controller" "prometheus" {
       }
 
       container {
+        image = "weaveworks/watch:master-5b2a6e5"
+        name  = "config-watcher"
+
+        volume_mount {
+          name       = "prometheus-config-volume"
+          mount_path = "/etc/prometheus/"
+        }
+
+        args = ["-v", "-t", "-p=/etc/prometheus", "curl", "-X", "POST", "--fail", "-o", "-", "-sS", "http://localhost:${var.prometheus-port}/-/reload"]
+      }
+
+      container {
         image = "prom/prometheus:v2.2.1"
         name  = "prometheus"
 
@@ -73,7 +85,7 @@ resource "kubernetes_replication_controller" "prometheus" {
           mount_path = "/prometheus/"
         }
 
-        args = ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.path=/prometheus/"]
+        args = ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.path=/prometheus/", "--web.enable-lifecycle"]
 
         liveness_probe {
           http_get {
