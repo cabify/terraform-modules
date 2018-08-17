@@ -63,7 +63,7 @@ resource "kubernetes_replication_controller" "prometheus" {
       }
 
       container {
-        image = "prom/prometheus:v2.2.1"
+        image = "prom/prometheus:v2.3.2"
         name  = "prometheus"
 
         port {
