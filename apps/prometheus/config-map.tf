@@ -8,8 +8,6 @@ metadata:
   name: alertrules
   namespace: prometheus
 data:
-  placeholder: /
-    empty
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -17,8 +15,6 @@ metadata:
   name: recordingrules 
   namespace: prometheus
 data:
-  placeholder: /
-    empty
 EOF
 }
 
