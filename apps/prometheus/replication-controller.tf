@@ -43,6 +43,24 @@ resource "kubernetes_replication_controller" "prometheus" {
       }
 
       volume {
+        name = "prometheus-alertrules-volume"
+
+        config_map {
+          name         = "alertrules"
+          default_mode = 420
+        }
+      }
+
+      volume {
+        name = "prometheus-recordingrules-volume"
+
+        config_map {
+          name         = "recordingrules"
+          default_mode = 420
+        }
+      }
+
+      volume {
         name = "prometheus-storage-volume"
 
         persistent_volume_claim {
@@ -56,7 +74,17 @@ resource "kubernetes_replication_controller" "prometheus" {
 
         volume_mount {
           name       = "prometheus-config-volume"
-          mount_path = "/etc/prometheus/"
+          mount_path = "/etc/prometheus/config/"
+        }
+
+        volume_mount {
+          name       = "prometheus-alertrules-volume"
+          mount_path = "/etc/prometheus/alerts/"
+        }
+
+        volume_mount {
+          name       = "prometheus-recordingrules-volume"
+          mount_path = "/etc/prometheus/recordings/"
         }
 
         args = ["-v", "-t", "-p=/etc/prometheus", "curl", "-X", "POST", "--fail", "-o", "-", "-sS", "http://localhost:${var.prometheus-port}/-/reload"]
@@ -77,7 +105,17 @@ resource "kubernetes_replication_controller" "prometheus" {
 
         volume_mount {
           name       = "prometheus-config-volume"
-          mount_path = "/etc/prometheus/"
+          mount_path = "/etc/prometheus/config/"
+        }
+
+        volume_mount {
+          name       = "prometheus-alertrules-volume"
+          mount_path = "/etc/prometheus/alerts/"
+        }
+
+        volume_mount {
+          name       = "prometheus-recordingrules-volume"
+          mount_path = "/etc/prometheus/recordings/"
         }
 
         volume_mount {
@@ -85,7 +123,7 @@ resource "kubernetes_replication_controller" "prometheus" {
           mount_path = "/prometheus/"
         }
 
-        args = ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.path=/prometheus/", "--web.enable-lifecycle"]
+        args = ["--config.file=/etc/prometheus/config/prometheus.yml", "--storage.tsdb.path=/prometheus/", "--web.enable-lifecycle"]
 
         liveness_probe {
           http_get {
