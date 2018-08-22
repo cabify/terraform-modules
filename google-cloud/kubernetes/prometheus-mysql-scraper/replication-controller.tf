@@ -67,6 +67,8 @@ resource "kubernetes_replication_controller" "cloudsql" {
         }
 
         args = [
+          "--collect.info_schema.clientstats",
+          "--collect.info_schema.processlist",
           "--collect.engine_innodb_status",
           "--collect.info_schema.innodb_metrics",
         ]
