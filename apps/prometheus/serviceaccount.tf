@@ -1,57 +1,24 @@
-variable "rbac" {
-  type = "string"
-
-  default = <<EOF
-
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRole
-metadata:
-  name: prometheus
-rules:
-- apiGroups: [""]
-  resources:
-  - nodes
-  - nodes/proxy
-  - services
-  - endpoints
-  - pods
-  verbs: ["get", "list", "watch"]
-- apiGroups:
-  - extensions
-  resources:
-  - ingresses
-  verbs: ["get", "list", "watch"]
-- nonResourceURLs: ["/metrics"]
-  verbs: ["get"]
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  name: prometheus
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: prometheus
-subjects:
-- kind: ServiceAccount
-  name: prometheus
-  namespace: prometheus
-EOF
-}
-
 resource "kubernetes_service_account" "prometheus" {
   metadata {
     name      = "prometheus"
     namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
   }
+}
 
-  // There are no resources for `v1beta1` api endpoints
-  provisioner "local-exec" {
-    command = "cat <<EOF | kubectl create -f - ${var.rbac}EOF"
-  }
+data "template_file" "clusterrole" {
+  template = "${file("${path.module}/files/clusterrole.yaml")}"
+}
 
-  provisioner "local-exec" {
-    command = "cat <<EOF | kubectl delete -f - ${var.rbac}EOF"
-    when    = "destroy"
-  }
+resource "k8s_manifest" "clusterrole" {
+  content    = "${data.template_file.clusterrole.rendered}"
+  depends_on = ["kubernetes_service_account.prometheus"]
+}
+
+data "template_file" "clusterrolebinding" {
+  template = "${file("${path.module}/files/clusterrolebinding.yaml")}"
+}
+
+resource "k8s_manifest" "clusterrolebinding" {
+  content    = "${data.template_file.clusterrolebinding.rendered}"
+  depends_on = ["kubernetes_service_account.prometheus"]
 }
