@@ -30,11 +30,11 @@ resource "kubernetes_config_map" "prometheus-config-map" {
 
   // Create empty configmaps to be filled by CI
   provisioner "local-exec" {
-    command = "cat <<EOF | kubectl create -f - ${var.configmaps}EOF"
+    command = "cat <<EOF | kubectl --v=6 create -f - ${var.configmaps}EOF"
   }
 
   provisioner "local-exec" {
-    command = "cat <<EOF | kubectl delete -f - ${var.configmaps}EOF"
+    command = "cat <<EOF | kubectl --v=6 delete -f - ${var.configmaps}EOF"
     when    = "destroy"
   }
 }

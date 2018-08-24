@@ -47,11 +47,11 @@ resource "kubernetes_service_account" "prometheus" {
 
   // There are no resources for `v1beta1` api endpoints
   provisioner "local-exec" {
-    command = "cat <<EOF | kubectl create -f - ${var.rbac}EOF"
+    command = "cat <<EOF | kubectl --v=6 create -f - ${var.rbac}EOF"
   }
 
   provisioner "local-exec" {
-    command = "cat <<EOF | kubectl delete -f - ${var.rbac}EOF"
+    command = "cat <<EOF | kubectl --v=6 delete -f - ${var.rbac}EOF"
     when    = "destroy"
   }
 }
