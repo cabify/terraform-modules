@@ -50,8 +50,8 @@ resource "kubernetes_service_account" "prometheus" {
   //    command = "cat <<EOF | kubectl --v=6 create -f - ${var.rbac}EOF"
   //  }
 
-  provisioner "local-exec" {
-    command = "cat <<EOF | kubectl --v=6 delete -f - ${var.rbac}EOF"
-    when    = "destroy"
-  }
+  //  provisioner "local-exec" {
+  //    command = "cat <<EOF | kubectl --v=6 delete -f - ${var.rbac}EOF"
+  //    when    = "destroy"
+  //  }
 }
