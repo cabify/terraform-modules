@@ -1,24 +1,4 @@
-variable "configmaps" {
-  type = "string"
-
-  default = <<EOF
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: alertrules
-  namespace: prometheus
-data:
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: recordingrules 
-  namespace: prometheus
-data:
-EOF
-}
-
-resource "kubernetes_config_map" "prometheus-config-map" {
+resource "kubernetes_config_map" "prometheus" {
   metadata {
     name      = "prometheus-configuration"
     namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
@@ -27,14 +7,22 @@ resource "kubernetes_config_map" "prometheus-config-map" {
   data {
     prometheus.yml = "${file("${path.module}/files/prometheus.yaml")}"
   }
+}
 
-  // Create empty configmaps to be filled by CI
-  provisioner "local-exec" {
-    command = "cat <<EOF | kubectl create -f - ${var.configmaps}EOF"
-  }
+data "template_file" "alertrules" {
+  template = "${file("${path.module}/files/config-map-alertrules.yaml")}"
+}
 
-  provisioner "local-exec" {
-    command = "cat <<EOF | kubectl delete -f - ${var.configmaps}EOF"
-    when    = "destroy"
-  }
+resource "k8s_manifest" "alertrules" {
+  content    = "${data.template_file.alertrules.rendered}"
+  depends_on = ["kubernetes_config_map.prometheus"]
+}
+
+data "template_file" "recordingrules" {
+  template = "${file("${path.module}/files/config-map-recordingrules.yaml")}"
+}
+
+resource "k8s_manifest" "recordingrules" {
+  content    = "${data.template_file.recordingrules.rendered}"
+  depends_on = ["kubernetes_config_map.prometheus"]
 }

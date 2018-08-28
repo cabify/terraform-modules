@@ -37,7 +37,7 @@ resource "kubernetes_replication_controller" "prometheus" {
         name = "prometheus-config-volume"
 
         config_map {
-          name         = "${kubernetes_config_map.prometheus-config-map.metadata.0.name}"
+          name         = "${kubernetes_config_map.prometheus.metadata.0.name}"
           default_mode = 420
         }
       }
