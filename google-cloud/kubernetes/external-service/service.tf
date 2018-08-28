@@ -6,7 +6,10 @@ resource "kubernetes_service" "external-service" {
       instance                   = "${var.fqdn}:${var.port}"
     }
 
-    fqdn      = "${var.fqdn}"
+    labels {
+      fqdn = "${var.fqdn}"
+    }
+
     name      = "${var.name}"
     namespace = "${var.namespace}"
   }
