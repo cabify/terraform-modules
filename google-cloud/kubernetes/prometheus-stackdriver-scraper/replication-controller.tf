@@ -45,6 +45,11 @@ resource "kubernetes_replication_controller" "stackdriver" {
           value = "/etc/secret-volume/credentials.json"
         }
 
+        env {
+          name  = "STACKDRIVER_EXPORTER_GOOGLE_PROJECT_ID"
+          value = "${var.project}"
+        }
+
         args = "${var.args}"
 
         liveness_probe {
