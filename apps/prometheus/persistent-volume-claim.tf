@@ -7,7 +7,7 @@ resource "kubernetes_persistent_volume_claim" "prometheus-server-data" {
   spec {
     access_modes = ["ReadWriteOnce"]
 
-    storage_class_name = "ssd"
+    storage_class_name = "${kubernetes_storage_class.ssd.metadata.0.name}"
 
     resources {
       requests {
@@ -15,6 +15,4 @@ resource "kubernetes_persistent_volume_claim" "prometheus-server-data" {
       }
     }
   }
-
-  depends_on = ["kubernetes_storage_class.ssd"]
 }

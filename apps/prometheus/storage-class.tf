@@ -1,6 +1,6 @@
 resource "kubernetes_storage_class" "ssd" {
   metadata {
-    name = "ssd"
+    name = "prometheus-ssd"
   }
 
   storage_provisioner = "kubernetes.io/gce-pd"
