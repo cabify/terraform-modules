@@ -5,5 +5,5 @@
 resource "google_compute_address" "ingress_nginx_static_ip" {
   name         = "ingress-nginx-static-ip"
   address_type = "EXTERNAL"
-  region       = "us-central1"
+  region       = "${var.region}"
 }
