@@ -16,5 +16,5 @@ resource "kubernetes_persistent_volume_claim" "prometheus-server-data" {
     }
   }
 
-  depends_on = ["kubernetes_storage_class.ssd"]
+  #  depends_on = ["kubernetes_storage_class.ssd"]
 }
