@@ -18,3 +18,9 @@ variable "namespace" {
   type        = "string"
   default     = "prometheus"
 }
+
+variable "image-tag" {
+  description = "Tag for the stackdriver container image"
+  type        = "string"
+  default     = "latest"
+}
