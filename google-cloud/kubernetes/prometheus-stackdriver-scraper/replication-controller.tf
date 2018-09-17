@@ -28,7 +28,7 @@ resource "kubernetes_replication_controller" "stackdriver" {
       }
 
       container {
-        image = "frodenas/stackdriver-exporter"
+        image = "frodenas/stackdriver-exporter:${var.image-tag}"
         name  = "${var.service}-stackdriver-exporter"
 
         port {
