@@ -1,7 +1,7 @@
 resource "kubernetes_service" "stackdriver" {
   metadata {
     annotations {
-      prometheus_io_scrape = "true"
+      prometheus_io_stackdriver_scrape = "true"
     }
 
     name      = "${kubernetes_replication_controller.stackdriver.metadata.0.name}"
