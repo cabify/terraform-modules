@@ -23,3 +23,14 @@ variable "prometheus-storageclass" {
   type    = "string"
   default = "prometheus-ssd"
 }
+
+variable "scrape_tag" {
+  description = "Scrape tag that prometheus will use"
+  type        = "string"
+  default     = "scrape_me"
+}
+
+variable "prometheus_config" {
+  description = "Valid rendered prometheus.yaml config"
+  type        = "string"
+}
