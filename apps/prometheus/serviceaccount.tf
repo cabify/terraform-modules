@@ -1,6 +1,6 @@
 resource "kubernetes_service_account" "prometheus" {
   metadata {
-    name      = "prometheus"
+    name      = "${kubernetes_namespace.prometheus.metadata.0.name}"
     namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
   }
 }

@@ -11,7 +11,7 @@ resource "kubernetes_persistent_volume_claim" "prometheus-server-data" {
 
     resources {
       requests {
-        storage = "120Gi"
+        storage = "${var.storage_size}"
       }
     }
   }
