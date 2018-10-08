@@ -197,33 +197,33 @@ scrape_configs:
       - source_labels: [__address__]
         separator:     ':'
         regex:         '(.*):(53)'
-        target_label:  '__address__'
-        replacement:   '${1}:9253'
+        target_label:  __address__
+        replacement:   $1:9253
       - source_labels: [__meta_consul_tags]
         regex: ',(?:[^,]+,){0}([^=]+)=([^,]+),.*'
-        replacement: '${2}'
-        target_label: '${1}'
+        replacement: $2
+        target_label: $1
       - source_labels: [__meta_consul_tags]
-        regex: ',(?:[^,]+,){1}([^=]+)=([^,]+),.*'
-        replacement: '${2}'
-        target_label: '${1}'
+        regex: ',(?:[^,]+,)1([^=]+)=([^,]+),.*'
+        replacement: $2
+        target_label: $1
       - source_labels: [__meta_consul_tags]
-        regex: ',(?:[^,]+,){2}([^=]+)=([^,]+),.*'
-        replacement: '${2}'
-        target_label: '${1}'
+        regex: ',(?:[^,]+,)2([^=]+)=([^,]+),.*'
+        replacement: $2
+        target_label: $1
       - source_labels: [__meta_consul_tags]
         regex: ',(?:[^,]+,){3}([^=]+)=([^,]+),.*'
-        replacement: '${2}'
-        target_label: '${1}'
+        replacement: $2
+        target_label: $1
       - source_labels: [__meta_consul_tags]
         regex: ',(?:[^,]+,){4}([^=]+)=([^,]+),.*'
-        replacement: '${2}'
-        target_label: '${1}'
+        replacement: $2
+        target_label: $1
       - source_labels: [__meta_consul_tags]
         regex: ',(?:[^,]+,){5}([^=]+)=([^,]+),.*'
-        replacement: '${2}'
-        target_label: '${1}'
+        replacement: $2
+        target_label: $1
       - source_labels: [__meta_consul_tags]
         regex: ',(?:[^,]+,){6}([^=]+)=([^,]+),.*'
-        replacement: '${2}'
-        target_label: '${1}'
+        replacement: $2
+        target_label: $1
