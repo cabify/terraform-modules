@@ -1,9 +1,9 @@
 resource "kubernetes_namespace" "prometheus" {
   metadata {
     annotations {
-      type = "prometheus"
+      type = "${var.namespace}"
     }
 
-    name = "prometheus"
+    name = "${var.namespace}"
   }
 }
