@@ -34,3 +34,13 @@ variable "prometheus_config" {
   description = "Valid rendered prometheus.yaml config"
   type        = "string"
 }
+
+variable "consul_address" {
+  description = "Consul address"
+  type        = "string"
+}
+
+variable "consul_datacenter" {
+  description = "Consul Datacenter"
+  type        = "string"
+}

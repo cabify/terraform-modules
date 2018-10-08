@@ -178,3 +178,52 @@ scrape_configs:
     - source_labels: [__meta_kubernetes_service_name]
       action: replace
       target_label: kubernetes_name
+
+
+  - job_name: consul-service-discovery
+    metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        regex: 'erlang_vm_allocators'
+        action: drop
+    consul_sd_configs:
+    - server: ${consul_address}:8500
+      datacenter: ${consul_datacenter}
+    relabel_configs:
+      - source_labels: [__meta_consul_tags]
+        regex: .*,scrape_me,.*
+        action: keep
+      - source_labels: [__meta_consul_service]
+        target_label: job
+      - source_labels: [__address__]
+        separator:     ':'
+        regex:         '(.*):(53)'
+        target_label:  '__address__'
+        replacement:   '${1}:9253'
+      - source_labels: [__meta_consul_tags]
+        regex: ',(?:[^,]+,){0}([^=]+)=([^,]+),.*'
+        replacement: '${2}'
+        target_label: '${1}'
+      - source_labels: [__meta_consul_tags]
+        regex: ',(?:[^,]+,){1}([^=]+)=([^,]+),.*'
+        replacement: '${2}'
+        target_label: '${1}'
+      - source_labels: [__meta_consul_tags]
+        regex: ',(?:[^,]+,){2}([^=]+)=([^,]+),.*'
+        replacement: '${2}'
+        target_label: '${1}'
+      - source_labels: [__meta_consul_tags]
+        regex: ',(?:[^,]+,){3}([^=]+)=([^,]+),.*'
+        replacement: '${2}'
+        target_label: '${1}'
+      - source_labels: [__meta_consul_tags]
+        regex: ',(?:[^,]+,){4}([^=]+)=([^,]+),.*'
+        replacement: '${2}'
+        target_label: '${1}'
+      - source_labels: [__meta_consul_tags]
+        regex: ',(?:[^,]+,){5}([^=]+)=([^,]+),.*'
+        replacement: '${2}'
+        target_label: '${1}'
+      - source_labels: [__meta_consul_tags]
+        regex: ',(?:[^,]+,){6}([^=]+)=([^,]+),.*'
+        replacement: '${2}'
+        target_label: '${1}'

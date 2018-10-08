@@ -1,3 +1,12 @@
+data "template_file" "prometheus_config" {
+  template = "${file("${path.module}/files/prometheus.yaml")}"
+
+  vars {
+    consul_address    = "${var.consul_address}"
+    consul_datacenter = "${var.consul_datacenter}"
+  }
+}
+
 resource "kubernetes_config_map" "prometheus" {
   metadata {
     name      = "prometheus-configuration"
@@ -5,7 +14,7 @@ resource "kubernetes_config_map" "prometheus" {
   }
 
   data {
-    prometheus.yml = "${file("${path.module}/files/prometheus.yaml")}"
+    prometheus.yml = "${data.template_file.prometheus_config.rendered}"
   }
 }
 
