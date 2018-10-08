@@ -1,13 +1,13 @@
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: prometheus
+  name: ${namespace}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus
+  name: ${namespace}
 subjects:
 - kind: ServiceAccount
-  name: prometheus
-  namespace: prometheus
+  name: ${namespace}
+  namespace: ${namespace}
 

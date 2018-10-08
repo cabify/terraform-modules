@@ -11,6 +11,10 @@ resource "kubernetes_config_map" "prometheus" {
 
 data "template_file" "alertrules" {
   template = "${file("${path.module}/files/config-map-alertrules.yaml")}"
+
+  vars {
+    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
+  }
 }
 
 resource "k8s_manifest" "alertrules" {
@@ -20,6 +24,10 @@ resource "k8s_manifest" "alertrules" {
 
 data "template_file" "recordingrules" {
   template = "${file("${path.module}/files/config-map-recordingrules.yaml")}"
+
+  vars {
+    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
+  }
 }
 
 resource "k8s_manifest" "recordingrules" {
