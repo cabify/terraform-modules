@@ -4,6 +4,7 @@ data "template_file" "prometheus_config" {
   vars {
     consul_address    = "${var.consul_address}"
     consul_datacenter = "${var.consul_datacenter}"
+    scrape_tag        = "${var.scrape_tag}"
   }
 }
 

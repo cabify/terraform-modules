@@ -190,7 +190,7 @@ scrape_configs:
       datacenter: ${consul_datacenter}
     relabel_configs:
       - source_labels: [__meta_consul_tags]
-        regex: .*,scrape_me,.*
+        regex: .*,${scrape_tag},.*
         action: keep
       - source_labels: [__meta_consul_service]
         target_label: job

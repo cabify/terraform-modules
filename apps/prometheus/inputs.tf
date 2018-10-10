@@ -44,3 +44,9 @@ variable "consul_datacenter" {
   description = "Consul Datacenter"
   type        = "string"
 }
+
+variable "scrape_tag" {
+  description = "Scrape tag that prometheus will use"
+  type        = "string"
+  default     = "scrape_me"
+}
