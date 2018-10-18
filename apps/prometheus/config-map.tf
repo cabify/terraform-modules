@@ -9,7 +9,7 @@ resource "kubernetes_config_map" "prometheus" {
   }
 
   data {
-    prometheus.yml = "${data.http.prometheus_config.rendered}"
+    prometheus.yml = "${data.http.prometheus_config.body}"
   }
 }
 
