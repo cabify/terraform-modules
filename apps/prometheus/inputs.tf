@@ -35,18 +35,13 @@ variable "prometheus_config" {
   type        = "string"
 }
 
-variable "consul_address" {
-  description = "Consul address"
-  type        = "string"
-}
-
-variable "consul_datacenter" {
-  description = "Consul Datacenter"
-  type        = "string"
-}
-
 variable "scrape_tag" {
   description = "Scrape tag that prometheus will use"
   type        = "string"
   default     = "scrape_me"
+}
+
+variable "promtheus_config" {
+  description = "Valid HTTP URL with a prometheus.yaml config"
+  type        = "string"
 }

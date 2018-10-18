@@ -1,11 +1,5 @@
-data "template_file" "prometheus_config" {
-  template = "${file("${path.module}/files/prometheus.yaml")}"
-
-  vars {
-    consul_address    = "${var.consul_address}"
-    consul_datacenter = "${var.consul_datacenter}"
-    scrape_tag        = "${var.scrape_tag}"
-  }
+data "http" "prometheus_config" {
+  url = "${var.prometheus_config}"
 }
 
 resource "kubernetes_config_map" "prometheus" {
@@ -15,7 +9,7 @@ resource "kubernetes_config_map" "prometheus" {
   }
 
   data {
-    prometheus.yml = "${data.template_file.prometheus_config.rendered}"
+    prometheus.yml = "${data.http.prometheus_config.rendered}"
   }
 }
 
