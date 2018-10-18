@@ -41,7 +41,7 @@ variable "scrape_tag" {
   default     = "scrape_me"
 }
 
-variable "promtheus_config" {
+variable "prometheus_config" {
   description = "Valid HTTP URL with a prometheus.yaml config"
   type        = "string"
 }
