@@ -1,6 +1,6 @@
-data "http" "prometheus_config" {
-  url = "${var.prometheus_config}"
-}
+# data "http" "prometheus_config" {
+#   url = "${var.prometheus_config}"
+# }
 
 resource "kubernetes_config_map" "prometheus" {
   metadata {
@@ -9,7 +9,7 @@ resource "kubernetes_config_map" "prometheus" {
   }
 
   data {
-    prometheus.yml = "${data.http.prometheus_config.body}"
+    prometheus.yml = "${var.prometheus_config}"
   }
 }
 
