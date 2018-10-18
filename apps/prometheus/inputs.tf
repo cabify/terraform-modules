@@ -18,3 +18,8 @@ variable "prometheus-port" {
   type    = "string"
   default = "9090"
 }
+
+variable "prometheus-storageclass" {
+  type    = "string"
+  default = "prometheus-ssd"
+}
