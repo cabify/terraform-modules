@@ -16,7 +16,11 @@ resource "kubernetes_replication_controller" "prometheus" {
 
     template {
       restart_policy       = "Always"
-      service_account_name = "prometheus"
+      service_account_name = "${kubernetes_namespace.prometheus.metadata.0.name}"
+
+      node_selector {
+        "beta.kubernetes.io/instance-type" = "${var.instance_type}"
+      }
 
       // "nobody" from prometheus Dockerfile
       security_context {
