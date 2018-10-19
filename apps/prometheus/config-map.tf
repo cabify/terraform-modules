@@ -1,7 +1,3 @@
-# data "http" "prometheus_config" {
-#   url = "${var.prometheus_config}"
-# }
-
 resource "kubernetes_config_map" "prometheus" {
   metadata {
     name      = "prometheus-configuration"
