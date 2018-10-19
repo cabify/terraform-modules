@@ -24,6 +24,11 @@ variable "prometheus-storageclass" {
   default = "prometheus-ssd"
 }
 
+variable "storage_size" {
+  type    = "string"
+  default = "120Gi"
+}
+
 variable "prometheus_config" {
   description = "Valid rendered prometheus.yaml config"
   type        = "string"
