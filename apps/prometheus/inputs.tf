@@ -29,6 +29,11 @@ variable "storage_size" {
   default = "120Gi"
 }
 
+variable "instance_type" {
+  type    = "string"
+  default = "n1-standard-1"
+}
+
 variable "prometheus_config" {
   description = "Valid rendered prometheus.yaml config"
   type        = "string"
