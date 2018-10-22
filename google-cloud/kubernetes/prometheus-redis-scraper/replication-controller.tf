@@ -39,8 +39,8 @@ resource "kubernetes_replication_controller" "redis" {
         }
 
         env {
-          name = "REDIS_ADDR"
-          key  = "${var.url}:${var.port}"
+          name  = "REDIS_ADDR"
+          value = "${var.url}:${var.port}"
         }
 
         args = ["--web.listen-address", "0.0.0.0:${var.container_port}"]
