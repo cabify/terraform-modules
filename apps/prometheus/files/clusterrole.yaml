@@ -1,16 +1,16 @@
 apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRole                                      
-metadata:                   
-  name: prometheus                                            
+kind: ClusterRole
+metadata:
+  name: ${namespace}
 rules:
 - apiGroups: [""]
-  resources:                
-  - nodes                                                     
-  - nodes/proxy        
+  resources:
+  - nodes
+  - nodes/proxy
   - services
   - endpoints
-  - pods                                                                                                                                                                     
-  verbs: ["get", "list", "watch"]                                                                                                                                            
+  - pods
+  verbs: ["get", "list", "watch"]
 - apiGroups:
   - extensions
   resources:
