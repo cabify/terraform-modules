@@ -8,7 +8,6 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
     tier = "${var.instance_tier}"
 
     disk_autoresize = "${var.instance_disk_autoresize}"
-    disk_size       = "${var.instance_disk_size}"
     disk_type       = "${var.instance_disk_type}"
 
     backup_configuration {
