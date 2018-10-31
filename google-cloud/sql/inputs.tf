@@ -58,11 +58,6 @@ variable "instance_disk_autoresize" {
   default     = true
 }
 
-variable "instance_disk_size" {
-  description = "Size in Gb of the disk"
-  default     = 10
-}
-
 variable "instance_disk_type" {
   description = "Disk backend to use - PD_HDD or PD_SSD"
   type        = "string"
