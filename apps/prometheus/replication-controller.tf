@@ -127,7 +127,12 @@ resource "kubernetes_replication_controller" "prometheus" {
           mount_path = "/prometheus/"
         }
 
-        args = ["--config.file=/etc/prometheus/config/prometheus.yml", "--storage.tsdb.path=/prometheus/", "--web.enable-lifecycle"]
+        args = [
+          "--config.file=/etc/prometheus/config/prometheus.yml",
+          "--storage.tsdb.path=/prometheus/",
+          "--web.enable-lifecycle",
+          "--web.external-url=${var.external_url}",
+        ]
 
         liveness_probe {
           http_get {
@@ -135,7 +140,7 @@ resource "kubernetes_replication_controller" "prometheus" {
             port = "${var.prometheus-port}"
           }
 
-          initial_delay_seconds = 30
+          initial_delay_seconds = "${var.livenessprobe_delay}"
           period_seconds        = 3
         }
       }

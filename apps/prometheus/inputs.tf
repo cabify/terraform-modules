@@ -38,3 +38,14 @@ variable "prometheus_config" {
   description = "Valid rendered prometheus.yaml config"
   type        = "string"
 }
+
+variable "livenessprobe_delay" {
+  description = "Liveness probe delay for prometheus kubernetes pod"
+  type        = "string"
+  default     = "30"
+}
+
+variable "external_url" {
+  description = "External URL. Read about web.external-url in prometheus config"
+  type        = "string"
+}
