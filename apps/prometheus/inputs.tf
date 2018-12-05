@@ -51,7 +51,7 @@ variable "external_url" {
 }
 
 variable "prometheus_io_scrape" {
-  description = "Set it to your desired value to get prometheus scraped. By default it will be false"
+  description = "Set it to your desired value to get prometheus scraped. By default it will be true"
   type        = "string"
-  default     = "false"
+  default     = "true"
 }
