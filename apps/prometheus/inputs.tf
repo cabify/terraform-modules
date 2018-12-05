@@ -49,3 +49,9 @@ variable "external_url" {
   description = "External URL. Read about web.external-url in prometheus config"
   type        = "string"
 }
+
+variable "prometheus_io_scrape" {
+  description = "Set it to your desired value to get prometheus scraped. By default it will be true"
+  type        = "string"
+  default     = "true"
+}
