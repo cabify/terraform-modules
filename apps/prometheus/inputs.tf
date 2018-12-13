@@ -53,7 +53,7 @@ variable "external_url" {
 variable "log_level" {
   description = "Log level for the instance. Defaults to info."
   type        = "string"
-  default     = "info"
+  default     = "warn"
 }
 
 variable "prometheus_io_scrape" {
