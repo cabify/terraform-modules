@@ -50,6 +50,12 @@ variable "external_url" {
   type        = "string"
 }
 
+variable "log_level" {
+  description = "Log level for the instance. Defaults to info."
+  type        = "string"
+  default     = "info"
+}
+
 variable "prometheus_io_scrape" {
   description = "Set it to your desired value to get prometheus scraped. By default it will be true"
   type        = "string"
