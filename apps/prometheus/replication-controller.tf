@@ -132,7 +132,7 @@ resource "kubernetes_replication_controller" "prometheus" {
           "--storage.tsdb.path=/prometheus/",
           "--web.enable-lifecycle",
           "--web.external-url=${var.external_url}",
-          "--log.level=${var.log_level}"
+          "--log.level=${var.log_level}",
         ]
 
         liveness_probe {
