@@ -143,6 +143,7 @@ resource "kubernetes_replication_controller" "prometheus" {
 
           initial_delay_seconds = "${var.livenessprobe_delay}"
           period_seconds        = 3
+          timeout_seconds       = "${var.livenessprobe_timeout_seconds}"
         }
       }
     }
