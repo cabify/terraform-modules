@@ -45,6 +45,12 @@ variable "livenessprobe_delay" {
   default     = "30"
 }
 
+variable "livenessprobe_timeout_seconds" {
+  description = "Number of seconds after which the probe times out"
+  type        = "string"
+  default     = "5"
+}
+
 variable "external_url" {
   description = "External URL. Read about web.external-url in prometheus config"
   type        = "string"
