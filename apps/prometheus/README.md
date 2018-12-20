@@ -1,5 +1,11 @@
 # ChangeLog
 
+### 0.1.22
+- Make resource requirements configurable
+
+### 0.1.22
+- Make liveness probe timeouts configurable
+
 ### 0.1.21
 - Switch default log-level to warn
 
