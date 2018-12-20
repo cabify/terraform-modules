@@ -100,13 +100,13 @@ resource "kubernetes_replication_controller" "prometheus" {
 
         resources {
           requests {
-            memory = "${var.prometheus-memory-request}"
-            cpu    = "${var.prometheus-cpu-request}"
+            memory = "${var.prometheus_memory_request}"
+            cpu    = "${var.prometheus_cpu_request}"
           }
 
           limits {
-            memory = "${var.prometheus-memory-limit}"
-            cpu    = "${var.prometheus-cpu-limit}"
+            memory = "${var.prometheus_memory_limit}"
+            cpu    = "${var.prometheus_cpu_limit}"
           }
         }
 
