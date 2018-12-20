@@ -39,6 +39,30 @@ variable "prometheus_config" {
   type        = "string"
 }
 
+variable "prometheus_memory_limit" {
+  description = "Memory limit for the kubernetes prometheus pod"
+  type        = "string"
+  default     = "6Gi"
+}
+
+variable "prometheus_memory_request" {
+  description = "Memory request (minimum) for the kubernetes prometheus pod"
+  type        = "string"
+  default     = "3Gi"
+}
+
+variable "prometheus_cpu_limit" {
+  description = "CPU limit for the prometheus kubernetes pod"
+  type        = "string"
+  default     = "2"
+}
+
+variable "prometheus_cpu_request" {
+  description = "CPU request for the prometheus kubernetes pod"
+  type        = "string"
+  default     = "1"
+}
+
 variable "livenessprobe_delay" {
   description = "Liveness probe delay for prometheus kubernetes pod"
   type        = "string"

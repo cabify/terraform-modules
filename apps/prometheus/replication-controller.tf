@@ -98,6 +98,18 @@ resource "kubernetes_replication_controller" "prometheus" {
         image = "prom/prometheus:v2.5.0"
         name  = "prometheus"
 
+        resources {
+          requests {
+            memory = "${var.prometheus_memory_request}"
+            cpu    = "${var.prometheus_cpu_request}"
+          }
+
+          limits {
+            memory = "${var.prometheus_memory_limit}"
+            cpu    = "${var.prometheus_cpu_limit}"
+          }
+        }
+
         port {
           container_port = "${var.prometheus-port}"
         }
