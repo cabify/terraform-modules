@@ -42,13 +42,13 @@ variable "prometheus_config" {
 variable "prometheus_memory_limit" {
   description = "Memory limit for the kubernetes prometheus pod"
   type        = "string"
-  default     = "10Gi"
+  default     = "6Gi"
 }
 
 variable "prometheus_memory_request" {
   description = "Memory request (minimum) for the kubernetes prometheus pod"
   type        = "string"
-  default     = "4Gi"
+  default     = "3Gi"
 }
 
 variable "prometheus_cpu_limit" {
