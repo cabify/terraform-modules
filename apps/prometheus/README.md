@@ -1,5 +1,8 @@
 # ChangeLog
 
+### 0.1.23
+- Switch dashes by underscores in parameter names prometheus-port and prometheus-storageclass 
+
 ### 0.1.22
 - Make resource requirements configurable
 
