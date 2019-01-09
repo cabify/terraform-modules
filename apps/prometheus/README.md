@@ -1,5 +1,11 @@
 # ChangeLog
 
+### 0.1.25
+- Upgrade prometheus to v2.6.0
+
+### 0.1.24
+- Fix unnoticed typo in 0.1.23
+
 ### 0.1.23
 - Switch dashes by underscores in parameter names prometheus-port and prometheus-storageclass 
 
