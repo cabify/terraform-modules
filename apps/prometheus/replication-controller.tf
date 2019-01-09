@@ -149,14 +149,22 @@ resource "kubernetes_replication_controller" "prometheus" {
 
         liveness_probe {
           http_get {
-            path = "/"
+            path = "/-/healthy"
             port = "${var.prometheus-port}"
           }
 
           initial_delay_seconds = "${var.livenessprobe_delay}"
-          period_seconds        = 3
+          period_seconds        = "${var.livenessprobe_period_seconds}"
           timeout_seconds       = "${var.livenessprobe_timeout_seconds}"
         }
+        readiness_probe {
+          http_get {
+            path = "/-/ready"
+            port = "${var.prometheus-port}"
+          }
+          period_seconds        = "${var.readinessprobe_period_seconds}"
+          timeout_seconds       = "${var.readinessprobe_timeout_seconds}"
+         }
       }
     }
   }

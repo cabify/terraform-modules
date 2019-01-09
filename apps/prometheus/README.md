@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 0.1.26
+- Fix readiness and liveness probes
+- Expose liveness and readiness probe parameters
+
 ### 0.1.25
 - Upgrade prometheus to v2.6.0
 

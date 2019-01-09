@@ -75,6 +75,24 @@ variable "livenessprobe_timeout_seconds" {
   default     = "5"
 }
 
+variable "livenessprobe_period_seconds" {
+  description = "Interval of seconds that the probe will use"
+  type        = "string"
+  default     = "3"
+}
+
+variable "readinessprobe_timeout_seconds" {
+  description = "Number of seconds after which the probe times out"
+  type        = "string"
+  default     = "5"
+}
+
+variable "readinessprobe_period_seconds" {
+  description = "Interval of seconds that the probe will use"
+  type        = "string"
+  default     = "5"
+}
+
 variable "external_url" {
   description = "External URL. Read about web.external-url in prometheus config"
   type        = "string"
