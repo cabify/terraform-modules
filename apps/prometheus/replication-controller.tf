@@ -95,7 +95,7 @@ resource "kubernetes_replication_controller" "prometheus" {
       }
 
       container {
-        image = "prom/prometheus:v2.5.0"
+        image = "prom/prometheus:v2.6.0"
         name  = "prometheus"
 
         resources {
