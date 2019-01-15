@@ -1,7 +1,7 @@
 resource "kubernetes_service" "prometheus" {
   metadata {
     annotations {
-      prometheus_io_scrape = "true"
+      prometheus_io_scrape = "${var.prometheus_io_scrape}"
     }
 
     name      = "${kubernetes_replication_controller.prometheus.metadata.0.name}"

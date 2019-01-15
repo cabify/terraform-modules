@@ -95,8 +95,20 @@ resource "kubernetes_replication_controller" "prometheus" {
       }
 
       container {
-        image = "prom/prometheus:v2.3.2"
+        image = "prom/prometheus:v2.6.0"
         name  = "prometheus"
+
+        resources {
+          requests {
+            memory = "${var.prometheus_memory_request}"
+            cpu    = "${var.prometheus_cpu_request}"
+          }
+
+          limits {
+            memory = "${var.prometheus_memory_limit}"
+            cpu    = "${var.prometheus_cpu_limit}"
+          }
+        }
 
         port {
           container_port = "${var.prometheus-port}"
@@ -127,17 +139,32 @@ resource "kubernetes_replication_controller" "prometheus" {
           mount_path = "/prometheus/"
         }
 
-        args = ["--config.file=/etc/prometheus/config/prometheus.yml", "--storage.tsdb.path=/prometheus/", "--web.enable-lifecycle"]
+        args = [
+          "--config.file=/etc/prometheus/config/prometheus.yml",
+          "--storage.tsdb.path=/prometheus/",
+          "--web.enable-lifecycle",
+          "--web.external-url=${var.external_url}",
+          "--log.level=${var.log_level}",
+        ]
 
         liveness_probe {
           http_get {
-            path = "/"
+            path = "/-/healthy"
             port = "${var.prometheus-port}"
           }
 
-          initial_delay_seconds = 30
-          period_seconds        = 3
+          initial_delay_seconds = "${var.livenessprobe_delay}"
+          period_seconds        = "${var.livenessprobe_period_seconds}"
+          timeout_seconds       = "${var.livenessprobe_timeout_seconds}"
         }
+        readiness_probe {
+          http_get {
+            path = "/-/ready"
+            port = "${var.prometheus-port}"
+          }
+          period_seconds        = "${var.readinessprobe_period_seconds}"
+          timeout_seconds       = "${var.readinessprobe_timeout_seconds}"
+         }
       }
     }
   }
