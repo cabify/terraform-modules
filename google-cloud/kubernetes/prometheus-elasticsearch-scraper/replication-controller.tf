@@ -28,7 +28,7 @@ resource "kubernetes_replication_controller" "elasticsearch" {
         }
 
         env {
-          name = "URI"
+          name = "ES_URI"
 
           value_from {
             secret_key_ref {
@@ -37,8 +37,6 @@ resource "kubernetes_replication_controller" "elasticsearch" {
             }
           }
         }
-
-        args = ["-es.uri=$URI"]
 
         liveness_probe {
           http_get {
