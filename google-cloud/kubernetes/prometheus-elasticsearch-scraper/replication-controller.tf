@@ -20,7 +20,7 @@ resource "kubernetes_replication_controller" "elasticsearch" {
       restart_policy = "Always"
 
       container {
-        image = "justwatch/elasticsearch_exporter"
+        image = "justwatch/elasticsearch_exporter:latest"
         name  = "elasticsearch-exporter"
 
         port {
