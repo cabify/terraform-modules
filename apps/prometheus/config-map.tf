@@ -50,6 +50,6 @@ resource "kubernetes_config_map" "trickster" {
   }
 
   data {
-    trickster.yml = "${var.trickster_config}"
+    trickster.conf = "${var.trickster_config}"
   }
 }
