@@ -109,3 +109,31 @@ variable "prometheus_io_scrape" {
   type        = "string"
   default     = "true"
 }
+
+################################################################################
+## Trickster
+################################################################################
+
+variable "trickster_memory_limit" {
+  description = "Memory limit for the kubernetes trickster pod"
+  type        = "string"
+  default     = "6Gi"
+}
+
+variable "trickster_memory_request" {
+  description = "Memory request (minimum) for the kubernetes trickster pod"
+  type        = "string"
+  default     = "1Gi"
+}
+
+variable "trickster_cpu_limit" {
+  description = "CPU limit for the trickster kubernetes pod"
+  type        = "string"
+  default     = "2"
+}
+
+variable "trickster_cpu_request" {
+  description = "CPU request for the trickster kubernetes pod"
+  type        = "string"
+  default     = "1"
+}
