@@ -180,6 +180,38 @@ resource "kubernetes_replication_controller" "prometheus" {
           timeout_seconds       = "${var.readinessprobe_timeout_seconds}"
          }
       }
+
+      container {
+        image = "tricksterio/trickster:0.1.7"
+        name  = "trickster"
+
+        resources {
+          requests {
+            memory = "${var.trickster_memory_request}"
+            cpu    = "${var.trickster_cpu_request}"
+          }
+
+          limits {
+            memory = "${var.trickster_memory_limit}"
+            cpu    = "${var.trickster_cpu_limit}"
+          }
+        }
+
+        port {
+          container_port = "${var.prometheus-port}" // Uses the same port as prometheus.
+        }
+
+        volume_mount {
+          name       = "trickster-config"
+          mount_path = "/etc/trickster/"
+        }
+
+        volume_mount {
+          name       = "trickster-boltdb-cache"
+          mount_path = "/tmp/trickster/"
+        }
+
+      }
     }
   }
 }
