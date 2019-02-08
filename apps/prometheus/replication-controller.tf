@@ -72,6 +72,20 @@ resource "kubernetes_replication_controller" "prometheus" {
         }
       }
 
+      volume {
+        name = "trickster-config"
+
+        config_map {
+          name         = "trickster-config"
+          default_mode = 420
+        }
+      }
+
+      volume {
+        name = "trickster-boltdb-cache"
+        empty_dir {}
+      }
+
       container {
         image = "weaveworks/watch:master-5b2a6e5"
         name  = "config-watcher"
