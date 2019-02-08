@@ -114,6 +114,11 @@ variable "prometheus_io_scrape" {
 ## Trickster
 ################################################################################
 
+variable "trickster_config" {
+  description = "Valid rendered trickster.yaml config"
+  type        = "string"
+}
+
 variable "trickster_memory_limit" {
   description = "Memory limit for the kubernetes trickster pod"
   type        = "string"

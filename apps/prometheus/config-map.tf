@@ -1,3 +1,7 @@
+################################################################################
+## Prometheus
+################################################################################
+
 resource "kubernetes_config_map" "prometheus" {
   metadata {
     name      = "prometheus-configuration"
@@ -33,4 +37,19 @@ data "template_file" "recordingrules" {
 resource "k8s_manifest" "recordingrules" {
   content    = "${data.template_file.recordingrules.rendered}"
   depends_on = ["kubernetes_config_map.prometheus"]
+}
+
+################################################################################
+## Trickster
+################################################################################
+
+resource "kubernetes_config_map" "trickster" {
+  metadata {
+    name      = "trickster-config"
+    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
+  }
+
+  data {
+    trickster.yml = "${var.trickster_config}"
+  }
 }
