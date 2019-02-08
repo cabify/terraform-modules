@@ -198,7 +198,7 @@ resource "kubernetes_replication_controller" "prometheus" {
         }
 
         port {
-          container_port = "${var.prometheus-port}" // Uses the same port as prometheus.
+          container_port = "${var.trickster_port}"
         }
 
         volume_mount {

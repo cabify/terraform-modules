@@ -114,6 +114,12 @@ variable "prometheus_io_scrape" {
 ## Trickster
 ################################################################################
 
+variable "trickster_port" {
+  description = "Port where trickster is going to listen. We're using the 9092 to avoid collisions with prometheus port. This port is unallocated by the community to avoid conflicts with kafka but we're not going to have this problem inside our replication controller."
+  type        = "string"
+  default     = "9092"
+}
+
 variable "trickster_config" {
   description = "Valid rendered trickster.yaml config"
   type        = "string"
