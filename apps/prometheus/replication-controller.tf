@@ -201,6 +201,11 @@ resource "kubernetes_replication_controller" "prometheus" {
           container_port = "${var.trickster_port}"
         }
 
+        args = [
+          "--config=/etc/trickster/trickster.conf",
+          "--proxy-port=9092",
+        ]
+
         volume_mount {
           name       = "trickster-config"
           mount_path = "/etc/trickster/"
