@@ -41,11 +41,13 @@ resource "kubernetes_service" "trickster" {
     session_affinity = "ClientIP"
 
     port {
+      name        = "trickster-port"
       port        = "${var.trickster_port}"
       target_port = "${var.trickster_port}"
     }
 
     port {
+      name        = "trickster-metrics-port"
       port        = "${var.trickster_metrics_port}"
       target_port = "${var.trickster_metrics_port}"
     }
