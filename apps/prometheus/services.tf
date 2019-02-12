@@ -44,5 +44,10 @@ resource "kubernetes_service" "trickster" {
       port        = "${var.trickster_port}"
       target_port = "${var.trickster_port}"
     }
+
+    port {
+      port        = "${var.trickster_metrics_port}"
+      target_port = "${var.trickster_metrics_port}"
+    }
   }
 }
