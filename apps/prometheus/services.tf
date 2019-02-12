@@ -26,6 +26,7 @@ resource "kubernetes_service" "trickster" {
   metadata {
     annotations {
       prometheus_io_scrape = "${var.prometheus_io_scrape}"
+      prometheus_io_port   = "${var.trickster_metrics_port}"
     }
 
     name      = "trickster-${kubernetes_replication_controller.prometheus.metadata.0.name}"

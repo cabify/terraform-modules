@@ -120,6 +120,12 @@ variable "trickster_port" {
   default     = "9092"
 }
 
+variable "trickster_metrics_port" {
+  description = "Port where trickster exposes its metrics."
+  type        = "string"
+  default     = "8082"
+}
+
 variable "trickster_config" {
   description = "Valid rendered trickster.yaml config"
   type        = "string"
