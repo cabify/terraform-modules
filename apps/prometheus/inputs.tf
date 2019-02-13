@@ -109,3 +109,48 @@ variable "prometheus_io_scrape" {
   type        = "string"
   default     = "true"
 }
+
+################################################################################
+## Trickster
+################################################################################
+
+variable "trickster_port" {
+  description = "Port where trickster is going to listen. We're using the 9092 to avoid collisions with prometheus port. This port is unallocated by the community to avoid conflicts with kafka but we're not going to have this problem inside our replication controller."
+  type        = "string"
+  default     = "9092"
+}
+
+variable "trickster_metrics_port" {
+  description = "Port where trickster exposes its metrics."
+  type        = "string"
+  default     = "8082"
+}
+
+variable "trickster_config" {
+  description = "Valid rendered trickster.yaml config"
+  type        = "string"
+}
+
+variable "trickster_memory_limit" {
+  description = "Memory limit for the kubernetes trickster pod"
+  type        = "string"
+  default     = "6Gi"
+}
+
+variable "trickster_memory_request" {
+  description = "Memory request (minimum) for the kubernetes trickster pod"
+  type        = "string"
+  default     = "1Gi"
+}
+
+variable "trickster_cpu_limit" {
+  description = "CPU limit for the trickster kubernetes pod"
+  type        = "string"
+  default     = "2"
+}
+
+variable "trickster_cpu_request" {
+  description = "CPU request for the trickster kubernetes pod"
+  type        = "string"
+  default     = "1"
+}
