@@ -72,6 +72,20 @@ resource "kubernetes_replication_controller" "prometheus" {
         }
       }
 
+      volume {
+        name = "trickster-config"
+
+        config_map {
+          name         = "trickster-config"
+          default_mode = 420
+        }
+      }
+
+      volume {
+        name = "trickster-boltdb-cache"
+        empty_dir {}
+      }
+
       container {
         image = "weaveworks/watch:master-5b2a6e5"
         name  = "config-watcher"
@@ -165,6 +179,48 @@ resource "kubernetes_replication_controller" "prometheus" {
           period_seconds        = "${var.readinessprobe_period_seconds}"
           timeout_seconds       = "${var.readinessprobe_timeout_seconds}"
          }
+      }
+
+      container {
+        image = "tricksterio/trickster:0.1.7"
+        name  = "trickster"
+
+        resources {
+          requests {
+            memory = "${var.trickster_memory_request}"
+            cpu    = "${var.trickster_cpu_request}"
+          }
+
+          limits {
+            memory = "${var.trickster_memory_limit}"
+            cpu    = "${var.trickster_cpu_limit}"
+          }
+        }
+
+        port {
+          container_port = "${var.trickster_port}"
+        }
+
+        port {
+          container_port = "${var.trickster_metrics_port}"
+        }
+
+
+        args = [
+          "--config=/etc/trickster/trickster.conf",
+          "--proxy-port=9092",
+        ]
+
+        volume_mount {
+          name       = "trickster-config"
+          mount_path = "/etc/trickster/"
+        }
+
+        volume_mount {
+          name       = "trickster-boltdb-cache"
+          mount_path = "/tmp/trickster/"
+        }
+
       }
     }
   }
