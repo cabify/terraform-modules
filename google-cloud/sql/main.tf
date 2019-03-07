@@ -15,6 +15,21 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
       enabled            = "${var.instance_failover_members > 0 ? 1 : 0}"
     }
 
+    database_flags {
+      name  = "log_bin_trust_function_creators"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_queries_not_using_indexes"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "query_cache_size"
+      value = "0"
+    }
+
     maintenance_window {
       day          = "${var.instance_maintenance_day}"
       hour         = "${var.instance_maintenance_hour}"
@@ -32,6 +47,21 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-fai
 
   settings {
     tier = "${var.instance_tier}"
+
+    database_flags {
+      name  = "log_bin_trust_function_creators"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_queries_not_using_indexes"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "query_cache_size"
+      value = "0"
+    }
   }
 
   replica_configuration {
@@ -51,6 +81,21 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
 
   settings {
     tier = "${var.instance_tier}"
+
+    database_flags {
+      name  = "log_bin_trust_function_creators"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_queries_not_using_indexes"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "query_cache_size"
+      value = "0"
+    }
   }
 
   count      = "${var.instance_read_only_replica_count}"
