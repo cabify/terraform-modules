@@ -11,6 +11,7 @@ module "cabify_prometheus_mysql_scraper" {
   user_password   = "${var.user_password}"
   instance_region = "${var.instance_region}"
   project         = "${var.project}"
+  namespace       = "${var.namespace}"
 }
 ```
 **NOTE:** We start a [cloudsql proxy](https://github.com/GoogleCloudPlatform/cloudsql-proxy) as part of the deployment and connect the scraper to it. This proxy needs its own service account so it has `connect` privileges to the db. It connects via a string such as: `cabify-staging:us-central1:corporate-master`. This translates to to following with the variables:
@@ -36,4 +37,7 @@ module "cabify_prometheus_mysql_scraper" {
 
 ### project
 **Description:** "Name of the gcp project"
+
+### namespace
+**Description:** "Name of the kubernetes namespace"
 

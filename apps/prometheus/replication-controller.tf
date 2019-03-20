@@ -82,8 +82,8 @@ resource "kubernetes_replication_controller" "prometheus" {
       }
 
       volume {
-        name = "trickster-boltdb-cache"
-        empty_dir {}
+        name      = "trickster-boltdb-cache"
+        empty_dir = {}
       }
 
       container {
@@ -171,14 +171,16 @@ resource "kubernetes_replication_controller" "prometheus" {
           period_seconds        = "${var.livenessprobe_period_seconds}"
           timeout_seconds       = "${var.livenessprobe_timeout_seconds}"
         }
+
         readiness_probe {
           http_get {
             path = "/-/ready"
             port = "${var.prometheus-port}"
           }
-          period_seconds        = "${var.readinessprobe_period_seconds}"
-          timeout_seconds       = "${var.readinessprobe_timeout_seconds}"
-         }
+
+          period_seconds  = "${var.readinessprobe_period_seconds}"
+          timeout_seconds = "${var.readinessprobe_timeout_seconds}"
+        }
       }
 
       container {
@@ -205,7 +207,6 @@ resource "kubernetes_replication_controller" "prometheus" {
           container_port = "${var.trickster_metrics_port}"
         }
 
-
         args = [
           "--config=/etc/trickster/trickster.conf",
           "--proxy-port=9092",
@@ -220,7 +221,6 @@ resource "kubernetes_replication_controller" "prometheus" {
           name       = "trickster-boltdb-cache"
           mount_path = "/tmp/trickster/"
         }
-
       }
     }
   }
