@@ -87,3 +87,9 @@ variable "project" {
   description = "Name of gcp project"
   type        = "string"
 }
+
+variable "namespace" {
+  description = "Name of kubernetes namespace"
+  type        = "string"
+}
+

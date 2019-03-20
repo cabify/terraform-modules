@@ -109,4 +109,5 @@ module "cabify_prometheus_mysql_scraper" {
   user_password   = "${var.user_password}"
   instance_region = "${var.instance_region}"
   project         = "${var.project}"
+  namespace       = "${var.namespace}"
 }
