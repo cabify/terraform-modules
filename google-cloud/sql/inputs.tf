@@ -92,4 +92,3 @@ variable "namespace" {
   description = "Name of kubernetes namespace"
   type        = "string"
 }
-
