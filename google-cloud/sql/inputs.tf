@@ -91,4 +91,5 @@ variable "project" {
 variable "namespace" {
   description = "Name of kubernetes namespace"
   type        = "string"
+  default     = "prometheus"
 }
