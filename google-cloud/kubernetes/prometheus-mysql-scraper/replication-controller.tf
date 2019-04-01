@@ -3,7 +3,7 @@ resource "kubernetes_replication_controller" "cloudsql" {
     name = "${var.service_name}-${replace(var.project,"cabify-","")}-mysql-scraper"
 
     labels {
-      app = "${var.service_name}-${replace(var.project,"cabify-","")}-mysql-scraper"
+      app = "${format("%.60s", md5("${var.service_name}${var.project}"))}"
     }
 
     namespace = "${var.namespace}"
@@ -11,7 +11,7 @@ resource "kubernetes_replication_controller" "cloudsql" {
 
   spec {
     selector {
-      app = "${var.service_name}-${replace(var.project,"cabify-","")}-mysql-scraper"
+      app = "${format("%.60s", md5("${var.service_name}${var.project}"))}"
     }
 
     template {
