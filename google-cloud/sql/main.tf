@@ -110,4 +110,6 @@ module "cabify_prometheus_mysql_scraper" {
   instance_region = "${var.instance_region}"
   project         = "${var.project}"
   namespace       = "${var.namespace}"
+  owner           = "${var.owner}"
+  tier            = "${var.tier}"
 }
