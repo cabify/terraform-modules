@@ -26,5 +26,15 @@ variable "project" {
 variable "namespace" {
   description = "Namespace to use"
   type        = "string"
-  default     = "prometheus"
 }
+
+variable "owner" {
+  description = "Name of team who owns the service"
+  type        = "string"
+}
+
+variable "tier" {
+  description = "Name of tier (1.2.3)"
+  type        = "string"
+}
+
