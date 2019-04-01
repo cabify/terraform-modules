@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "stackdriver" {
   metadata {
-    name      = "${var.service}-stackdriver-application-credentials"
+    name      = "${var.service}-${replace(var.project,"cabify-","")}-stackdriver-application-credentials"
     namespace = "${var.namespace}"
   }
 

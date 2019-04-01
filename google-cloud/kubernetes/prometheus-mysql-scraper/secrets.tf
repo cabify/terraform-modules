@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "cloudsql" {
   metadata {
-    name      = "${var.service_name}-secrets"
+    name      = "${var.service_name}-${replace(var.project,"cabify-","")}-secrets"
     namespace = "${var.namespace}"
   }
 

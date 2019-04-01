@@ -2,10 +2,10 @@
 
 resource "kubernetes_replication_controller" "stackdriver" {
   metadata {
-    name = "${var.service}-stackdriver-scraper"
+    name = "${var.service}-${replace(var.project,"cabify-","")}-stackdriver-scraper"
 
     labels {
-      app = "${var.service}-stackdriver-scraper"
+      app = "${var.service}-${replace(var.project,"cabify-","")}-stackdriver-scraper"
     }
 
     namespace = "${var.namespace}"
@@ -13,7 +13,7 @@ resource "kubernetes_replication_controller" "stackdriver" {
 
   spec {
     selector {
-      app = "${var.service}-stackdriver-scraper"
+      app = "${var.service}-${replace(var.project,"cabify-","")}-stackdriver-scraper"
     }
 
     template {
@@ -29,7 +29,7 @@ resource "kubernetes_replication_controller" "stackdriver" {
 
       container {
         image = "frodenas/stackdriver-exporter:${var.image-tag}"
-        name  = "${var.service}-stackdriver-exporter"
+        name  = "${var.service}-${replace(var.project,"cabify-","")}-stackdriver-exporter"
 
         port {
           container_port = 9255

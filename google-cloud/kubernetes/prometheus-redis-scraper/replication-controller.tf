@@ -2,10 +2,10 @@
 
 resource "kubernetes_replication_controller" "redis" {
   metadata {
-    name = "${var.service}-redis-scraper"
+    name = "${var.service}-${replace(var.project,"cabify-","")}-redis-scraper"
 
     labels {
-      app = "${var.service}-redis-scraper"
+      app = "${var.service}-${replace(var.project,"cabify-","")}-redis-scraper"
     }
 
     namespace = "${var.namespace}"
@@ -13,7 +13,7 @@ resource "kubernetes_replication_controller" "redis" {
 
   spec {
     selector {
-      app = "${var.service}-redis-scraper"
+      app = "${var.service}-${replace(var.project,"cabify-","")}-redis-scraper"
     }
 
     template {
