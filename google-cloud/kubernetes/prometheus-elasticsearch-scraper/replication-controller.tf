@@ -2,10 +2,10 @@
 
 resource "kubernetes_replication_controller" "elasticsearch" {
   metadata {
-    name = "elasticsearch-scraper"
+    name = "${replace(var.project,"cabify-","")}-elasticsearch-scraper"
 
     labels {
-      app = "elasticsearch-scraper"
+      app = "${replace(var.project,"cabify-","")}-elasticsearch-scraper"
     }
 
     namespace = "${var.namespace}"
@@ -13,7 +13,7 @@ resource "kubernetes_replication_controller" "elasticsearch" {
 
   spec {
     selector {
-      app = "elasticsearch-scraper"
+      app = "${replace(var.project,"cabify-","")}-elasticsearch-scraper"
     }
 
     template {
@@ -21,7 +21,7 @@ resource "kubernetes_replication_controller" "elasticsearch" {
 
       container {
         image = "justwatch/elasticsearch_exporter:latest"
-        name  = "elasticsearch-exporter"
+        name  = "${replace(var.project,"cabify-","")}-elasticsearch-exporter"
 
         port {
           container_port = "${var.container_port}"

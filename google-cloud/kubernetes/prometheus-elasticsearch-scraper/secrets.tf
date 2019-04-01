@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "elasticsearch" {
   metadata {
-    name      = "elasticsearch-credentials"
+    name      = "${replace(var.project,"cabify-","")}-elasticsearch-credentials"
     namespace = "${var.namespace}"
   }
 
