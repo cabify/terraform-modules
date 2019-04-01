@@ -1,7 +1,7 @@
 resource "kubernetes_service" "cloudsql" {
   metadata {
     annotations {
-      prometheus_io_scrape = "true"
+      prometheus_io_scrape = "persistence"
     }
 
     name      = "${kubernetes_replication_controller.cloudsql.metadata.0.name}"
