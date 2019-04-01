@@ -37,3 +37,14 @@ variable "container_port" {
   type        = "string"
   default     = "9108"
 }
+
+variable "owner" {
+  description = "Name of team who owns the service"
+  type        = "string"
+}
+
+variable "tier" {
+  description = "Name of tier (1.2.3)"
+  type        = "string"
+}
+

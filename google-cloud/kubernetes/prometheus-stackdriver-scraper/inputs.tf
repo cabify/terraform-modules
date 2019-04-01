@@ -24,3 +24,8 @@ variable "image-tag" {
   type        = "string"
   default     = "latest"
 }
+
+variable "environment" {
+  description = "Name of the environment"
+  type        = "string"
+}
