@@ -1,7 +1,8 @@
 resource "kubernetes_service" "elasticsearch" {
   metadata {
     annotations {
-      prometheus_io_scrape = "true"
+      prometheus_io_scrape = "persistence"
+      prometheus_io_environment = "${var.environment}"
     }
 
     name      = "${kubernetes_replication_controller.elasticsearch.metadata.0.name}"
