@@ -93,3 +93,15 @@ variable "namespace" {
   type        = "string"
   default     = "prometheus"
 }
+
+variable "owner" {
+  description = "Name of team who owns the service"
+  type        = "string"
+  default     = "unset"
+}
+
+variable "tier" {
+  description = "Name of tier (1.2.3)"
+  type        = "string"
+  default     = "unset"
+}
