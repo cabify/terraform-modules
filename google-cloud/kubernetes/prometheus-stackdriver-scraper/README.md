@@ -33,3 +33,15 @@ module "cabify_google_cloud_sql_stackdriver_scraper" {
 
 ### project
 **Description:** "Name of the gcp project"
+
+### namespace
+**Description:** "Name of the Kubernetes namespace where the scrapper will run"
+
+### image-name
+**Description:** "Name for the stackdriver container image to run"
+
+### image-tag
+**Description:** "Tag for the stackdriver container image to run"
+
+### environment
+**Description:** "Name of the environment - will be used to annotate the resource"

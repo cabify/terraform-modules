@@ -47,4 +47,3 @@ variable "tier" {
   description = "Name of tier (1.2.3)"
   type        = "string"
 }
-
