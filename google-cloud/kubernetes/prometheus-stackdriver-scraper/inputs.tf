@@ -19,6 +19,12 @@ variable "namespace" {
   default     = "prometheus"
 }
 
+variable "image-name" {
+  description = "Name for the stackdriver container image"
+  type        = "string"
+  default     = "frodenas/stackdriver-exporter"
+}
+
 variable "image-tag" {
   description = "Tag for the stackdriver container image"
   type        = "string"
