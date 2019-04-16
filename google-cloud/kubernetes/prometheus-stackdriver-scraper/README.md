@@ -45,3 +45,6 @@ module "cabify_google_cloud_sql_stackdriver_scraper" {
 
 ### environment
 **Description:** "Name of the environment - will be used to annotate the resource"
+
+### prometheus-scrape-flag
+**Description:** "Annotation for the service to be used so prometheus will scrape the service"

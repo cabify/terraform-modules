@@ -1,7 +1,7 @@
 resource "kubernetes_service" "stackdriver" {
   metadata {
     annotations {
-      prometheus_io_scrape      = "persistence"
+      prometheus_io_scrape      = "${var.prometheus-scrape-flag}"
       prometheus_io_environment = "${var.environment}"
     }
 

@@ -31,6 +31,12 @@ variable "image-tag" {
   default     = "latest"
 }
 
+variable "prometheus-scrape-flag" {
+  description = "Annotation for prometheus to scrape the service by"
+  type        = "string"
+  default     = "persistence"
+}
+
 variable "environment" {
   description = "Name of the environment"
   type        = "string"
