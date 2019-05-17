@@ -48,6 +48,9 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-fai
   settings {
     tier = "${var.instance_tier}"
 
+    disk_autoresize = "${var.instance_disk_autoresize}"
+    disk_type       = "${var.instance_disk_type_failover == "UNSET" ? var.instance_disk_type : var.instance_disk_type_failover}"
+
     database_flags {
       name  = "log_bin_trust_function_creators"
       value = "on"
