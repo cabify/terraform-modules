@@ -69,6 +69,12 @@ variable "instance_disk_type_failover" {
   default     = "UNSET"
 }
 
+variable "instance_disk_type_read_only_replica" {
+  description = "Disk backend to use for failover - PD_HDD or PD_SSD"
+  type        = "string"
+  default     = "UNSET"
+}
+
 variable "instance_failover_members" {
   description = "Number of failover instances to start"
   default     = 1
