@@ -89,6 +89,18 @@ variable "instance_tier" {
   type        = "string"
 }
 
+variable "instance_tier_failover" {
+  description = "Type of instance to use - see https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing"
+  type        = "string"
+  default     = "UNSET"
+}
+
+variable "instance_tier_read_only_replica" {
+  description = "Type of instance to use - see https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing"
+  type        = "string"
+  default     = "UNSET"
+}
+
 variable "project" {
   description = "Name of gcp project"
   type        = "string"

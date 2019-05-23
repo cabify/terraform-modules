@@ -46,7 +46,7 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-fai
   region = "${var.instance_region}"
 
   settings {
-    tier = "${var.instance_tier}"
+    tier = "${var.instance_tier_failover == "UNSET" ? var.instance_tier : var.instance_tier_failover}"
 
     disk_autoresize = "${var.instance_disk_autoresize}"
     disk_type       = "${var.instance_disk_type_failover == "UNSET" ? var.instance_disk_type : var.instance_disk_type_failover}"
@@ -83,7 +83,10 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
   region = "${var.instance_region}"
 
   settings {
-    tier = "${var.instance_tier}"
+    tier = "${var.instance_tier_read_only_replica == "UNSET" ? var.instance_tier : var.instance_tier_read_only_replica}"
+
+    disk_autoresize = "${var.instance_disk_autoresize}"
+    disk_type       = "${var.instance_disk_type_read_only_replica == "UNSET" ? var.instance_disk_type : var.instance_disk_type_read_only_replica}"
 
     database_flags {
       name  = "log_bin_trust_function_creators"
