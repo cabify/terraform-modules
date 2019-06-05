@@ -33,7 +33,7 @@ resource "kubernetes_replication_controller" "prometheus" {
 
         secret {
           secret_name  = "${kubernetes_service_account.prometheus.default_secret_name}"
-          default_mode = 420
+          default_mode = 0420
         }
       }
 
@@ -42,7 +42,7 @@ resource "kubernetes_replication_controller" "prometheus" {
 
         config_map {
           name         = "${kubernetes_config_map.prometheus.metadata.0.name}"
-          default_mode = 420
+          default_mode = 0420
         }
       }
 
@@ -51,7 +51,7 @@ resource "kubernetes_replication_controller" "prometheus" {
 
         config_map {
           name         = "alertrules"
-          default_mode = 420
+          default_mode = 0420
         }
       }
 
@@ -60,7 +60,7 @@ resource "kubernetes_replication_controller" "prometheus" {
 
         config_map {
           name         = "recordingrules"
-          default_mode = 420
+          default_mode = 0420
         }
       }
 
@@ -157,14 +157,16 @@ resource "kubernetes_replication_controller" "prometheus" {
           period_seconds        = "${var.livenessprobe_period_seconds}"
           timeout_seconds       = "${var.livenessprobe_timeout_seconds}"
         }
+
         readiness_probe {
           http_get {
             path = "/-/ready"
             port = "${var.prometheus-port}"
           }
-          period_seconds        = "${var.readinessprobe_period_seconds}"
-          timeout_seconds       = "${var.readinessprobe_timeout_seconds}"
-         }
+
+          period_seconds  = "${var.readinessprobe_period_seconds}"
+          timeout_seconds = "${var.readinessprobe_timeout_seconds}"
+        }
       }
     }
   }
