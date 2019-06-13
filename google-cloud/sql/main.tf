@@ -75,7 +75,6 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-fai
       name  = "character_set_server"
       value = "${var.character_set_server}"
     }
-
   }
 
   replica_configuration {
