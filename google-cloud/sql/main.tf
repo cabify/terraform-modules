@@ -30,6 +30,11 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
       value = "0"
     }
 
+    database_flags {
+      name  = "character_set_server"
+      value = "${var.character_set_server}"
+    }
+
     maintenance_window {
       day          = "${var.instance_maintenance_day}"
       hour         = "${var.instance_maintenance_hour}"
@@ -65,6 +70,12 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-fai
       name  = "query_cache_size"
       value = "0"
     }
+
+    database_flags {
+      name  = "character_set_server"
+      value = "${var.character_set_server}"
+    }
+
   }
 
   replica_configuration {

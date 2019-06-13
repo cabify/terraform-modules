@@ -129,3 +129,9 @@ variable "tier" {
   type        = "string"
   default     = "unset"
 }
+
+variable "character_set_server" {
+  description = "Server character string variable"
+  type        = "string"
+  default     = "latin1"
+}
