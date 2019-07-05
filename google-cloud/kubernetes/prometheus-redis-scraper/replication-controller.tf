@@ -19,19 +19,19 @@ resource "kubernetes_replication_controller" "redis" {
     template {
       restart_policy = "Always"
 
-      resources {
-        limits {
-          cpu    = "250m"
-          memory = "50Mi"
-        }
-
-        requests {
-          cpu    = "100m"
-          memory = "25Mi"
-        }
-      }
-
       container {
+        resources {
+          limits {
+            cpu    = "250m"
+            memory = "50Mi"
+          }
+
+          requests {
+            cpu    = "100m"
+            memory = "25Mi"
+          }
+        }
+
         image = "oliver006/redis_exporter"
         name  = "redis-exporter"
 

@@ -25,19 +25,19 @@ resource "kubernetes_replication_controller" "cloudsql" {
         }
       }
 
-      resources {
-        limits {
-          cpu    = "250m"
-          memory = "50Mi"
-        }
-
-        requests {
-          cpu    = "100m"
-          memory = "25Mi"
-        }
-      }
-
       container {
+        resources {
+          limits {
+            cpu    = "250m"
+            memory = "50Mi"
+          }
+
+          requests {
+            cpu    = "100m"
+            memory = "25Mi"
+          }
+        }
+
         image = "gcr.io/cloudsql-docker/gce-proxy"
         name  = "${var.service_name}-${replace(var.project,"cabify-","")}-mysql-scraper-cloudsql"
 
@@ -60,6 +60,18 @@ resource "kubernetes_replication_controller" "cloudsql" {
       }
 
       container {
+        resources {
+          limits {
+            cpu    = "250m"
+            memory = "50Mi"
+          }
+
+          requests {
+            cpu    = "100m"
+            memory = "25Mi"
+          }
+        }
+
         image = "prom/mysqld-exporter"
         name  = "${var.service_name}-${replace(var.project,"cabify-","")}-mysql-scraper-scraper"
 
