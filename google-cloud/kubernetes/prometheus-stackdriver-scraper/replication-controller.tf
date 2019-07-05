@@ -27,6 +27,18 @@ resource "kubernetes_replication_controller" "stackdriver" {
         }
       }
 
+      resources {
+        limits {
+          cpu    = "250m"
+          memory = "50Mi"
+        }
+
+        requests {
+          cpu    = "100m"
+          memory = "25Mi"
+        }
+      }
+
       container {
         image = "${var.image-name}:${var.image-tag}"
         name  = "${var.service}-${replace(var.project,"cabify-","")}-stackdriver-exporter"

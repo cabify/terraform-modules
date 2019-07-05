@@ -19,6 +19,18 @@ resource "kubernetes_replication_controller" "elasticsearch" {
     template {
       restart_policy = "Always"
 
+      resources {
+        limits {
+          cpu    = "250m"
+          memory = "50Mi"
+        }
+
+        requests {
+          cpu    = "100m"
+          memory = "25Mi"
+        }
+      }
+
       container {
         image = "justwatch/elasticsearch_exporter:latest"
         name  = "${replace(var.project,"cabify-","")}-elasticsearch-exporter"

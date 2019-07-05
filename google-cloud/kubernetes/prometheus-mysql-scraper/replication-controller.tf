@@ -25,6 +25,18 @@ resource "kubernetes_replication_controller" "cloudsql" {
         }
       }
 
+      resources {
+        limits {
+          cpu    = "250m"
+          memory = "50Mi"
+        }
+
+        requests {
+          cpu    = "100m"
+          memory = "25Mi"
+        }
+      }
+
       container {
         image = "gcr.io/cloudsql-docker/gce-proxy"
         name  = "${var.service_name}-${replace(var.project,"cabify-","")}-mysql-scraper-cloudsql"
