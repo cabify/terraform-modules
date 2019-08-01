@@ -72,7 +72,7 @@ http://grafana.otters.xyz/auth/login/google/authorize
 
 ### oauth2_proxy_deployment_image
 **Description:** "The docker image for the oauth2-proxy. Format should be like
-`cabify/oauth2_proxy:latest`"
+`quay.io/pusher/oauth2_proxy:v3.2.0`"
 
 ### oauth2_proxy_deployment_email_domain
 **Description:** "The allowed email domain used for oauth. E.g. `cabify.com`"
