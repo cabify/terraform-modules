@@ -2,7 +2,7 @@
 
 ## Introduction
 
-[Official Cert-Manager documentation](https://github.com/jetstack/cert-manager)
+[Official Cert-Manager documentation](https://docs.cert-manager.io/en/latest/index.html)
 
 > cert-manager is a Kubernetes add-on to automate the management and issuance of TLS certificates from various issuing sources.
 
@@ -10,7 +10,7 @@
 
 > It is loosely based upon the work of kube-lego and has borrowed some wisdom from other similar projects e.g. kube-cert-manager.
 
-![cert-manager](https://github.com/jetstack/cert-manager/blob/master/docs/images/high-level-overview.png)
+![cert-manager](https://docs.cert-manager.io/en/latest/_images/high-level-overview.svg)
 
 ## Cert-Manager at cabify
 

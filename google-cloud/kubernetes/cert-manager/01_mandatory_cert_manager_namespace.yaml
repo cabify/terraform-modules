@@ -1,0 +1,9 @@
+---
+# Source: https://github.com/jetstack/cert-manager/releases/download/v0.9.1/cert-manager.yaml
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+  labels:
+    certmanager.k8s.io/disable-validation: "true"

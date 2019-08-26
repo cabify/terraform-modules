@@ -1,0 +1,25 @@
+---
+# Source: https://github.com/jetstack/cert-manager/releases/download/v0.9.1/cert-manager.yaml
+# Source: cert-manager/charts/webhook/templates/rbac.yaml
+# apiserver gets the auth-delegator role to delegate auth decisions to
+# the core apiserver
+
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-webhook:auth-delegator
+  labels:
+    app: webhook
+    app.kubernetes.io/name: webhook
+    app.kubernetes.io/instance:  cert-manager
+    app.kubernetes.io/managed-by: Tiller
+    helm.sh/chart: webhook-v0.9.1
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+- apiGroup: ""
+  kind: ServiceAccount
+  name: cert-manager-webhook
+  namespace: cert-manager
