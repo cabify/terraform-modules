@@ -13,7 +13,7 @@ data "template_file" "02_mandatory_custom_resource_definition_certificates" {
 }
 
 resource "k8s_manifest" "02_mandatory_custom_resource_definition_certificates" {
-  content = "${data.template_file.02_mandatory_custom_resource_definition_certificates.rendered}"
+  content    = "${data.template_file.02_mandatory_custom_resource_definition_certificates.rendered}"
   depends_on = ["k8s_manifest.01_mandatory_cert_manager_namespace"]
 }
 
@@ -22,7 +22,7 @@ data "template_file" "03_mandatory_custom_resource_definition_certificaterequest
 }
 
 resource "k8s_manifest" "03_mandatory_custom_resource_definition_certificaterequests" {
-  content = "${data.template_file.03_mandatory_custom_resource_definition_certificaterequests.rendered}"
+  content    = "${data.template_file.03_mandatory_custom_resource_definition_certificaterequests.rendered}"
   depends_on = ["k8s_manifest.02_mandatory_custom_resource_definition_certificates"]
 }
 
@@ -31,7 +31,7 @@ data "template_file" "04_mandatory_custom_resource_definition_challenges" {
 }
 
 resource "k8s_manifest" "04_mandatory_custom_resource_definition_challenges" {
-  content = "${data.template_file.04_mandatory_custom_resource_definition_challenges.rendered}"
+  content    = "${data.template_file.04_mandatory_custom_resource_definition_challenges.rendered}"
   depends_on = ["k8s_manifest.03_mandatory_custom_resource_definition_certificaterequests"]
 }
 
@@ -40,7 +40,7 @@ data "template_file" "05_mandatory_custom_resource_definition_clusterissuers" {
 }
 
 resource "k8s_manifest" "05_mandatory_custom_resource_definition_clusterissuers" {
-  content = "${data.template_file.05_mandatory_custom_resource_definition_clusterissuers.rendered}"
+  content    = "${data.template_file.05_mandatory_custom_resource_definition_clusterissuers.rendered}"
   depends_on = ["k8s_manifest.04_mandatory_custom_resource_definition_challenges"]
 }
 
@@ -49,7 +49,7 @@ data "template_file" "06_mandatory_custom_resource_definition_issuers" {
 }
 
 resource "k8s_manifest" "06_mandatory_custom_resource_definition_issuers" {
-  content = "${data.template_file.06_mandatory_custom_resource_definition_issuers.rendered}"
+  content    = "${data.template_file.06_mandatory_custom_resource_definition_issuers.rendered}"
   depends_on = ["k8s_manifest.05_mandatory_custom_resource_definition_clusterissuers"]
 }
 
@@ -58,7 +58,7 @@ data "template_file" "07_mandatory_custom_resource_definition_orders" {
 }
 
 resource "k8s_manifest" "07_mandatory_custom_resource_definition_orders" {
-  content = "${data.template_file.07_mandatory_custom_resource_definition_orders.rendered}"
+  content    = "${data.template_file.07_mandatory_custom_resource_definition_orders.rendered}"
   depends_on = ["k8s_manifest.06_mandatory_custom_resource_definition_issuers"]
 }
 
@@ -67,7 +67,7 @@ data "template_file" "08_mandatory_service_account_cainjector" {
 }
 
 resource "k8s_manifest" "08_mandatory_service_account_cainjector" {
-  content = "${data.template_file.08_mandatory_service_account_cainjector.rendered}"
+  content    = "${data.template_file.08_mandatory_service_account_cainjector.rendered}"
   depends_on = ["k8s_manifest.07_mandatory_custom_resource_definition_orders"]
 }
 
@@ -76,7 +76,7 @@ data "template_file" "09_mandatory_service_account_webhook" {
 }
 
 resource "k8s_manifest" "09_mandatory_service_account_webhook" {
-  content = "${data.template_file.09_mandatory_service_account_webhook.rendered}"
+  content    = "${data.template_file.09_mandatory_service_account_webhook.rendered}"
   depends_on = ["k8s_manifest.08_mandatory_service_account_cainjector"]
 }
 
@@ -85,7 +85,7 @@ data "template_file" "10_mandatory_service_account_cert_manager" {
 }
 
 resource "k8s_manifest" "10_mandatory_service_account_cert_manager" {
-  content = "${data.template_file.10_mandatory_service_account_cert_manager.rendered}"
+  content    = "${data.template_file.10_mandatory_service_account_cert_manager.rendered}"
   depends_on = ["k8s_manifest.09_mandatory_service_account_webhook"]
 }
 
@@ -94,7 +94,7 @@ data "template_file" "11_mandatory_cluster_role_cainjector" {
 }
 
 resource "k8s_manifest" "11_mandatory_cluster_role_cainjector" {
-  content = "${data.template_file.11_mandatory_cluster_role_cainjector.rendered}"
+  content    = "${data.template_file.11_mandatory_cluster_role_cainjector.rendered}"
   depends_on = ["k8s_manifest.10_mandatory_service_account_cert_manager"]
 }
 
@@ -103,7 +103,7 @@ data "template_file" "12_mandatory_cluster_role_binding_cainjector" {
 }
 
 resource "k8s_manifest" "12_mandatory_cluster_role_binding_cainjector" {
-  content = "${data.template_file.12_mandatory_cluster_role_binding_cainjector.rendered}"
+  content    = "${data.template_file.12_mandatory_cluster_role_binding_cainjector.rendered}"
   depends_on = ["k8s_manifest.11_mandatory_cluster_role_cainjector"]
 }
 
@@ -112,7 +112,7 @@ data "template_file" "13_mandatory_cluster_role_leaderelection" {
 }
 
 resource "k8s_manifest" "13_mandatory_cluster_role_leaderelection" {
-  content = "${data.template_file.13_mandatory_cluster_role_leaderelection.rendered}"
+  content    = "${data.template_file.13_mandatory_cluster_role_leaderelection.rendered}"
   depends_on = ["k8s_manifest.12_mandatory_cluster_role_binding_cainjector"]
 }
 
@@ -121,7 +121,7 @@ data "template_file" "14_mandatory_cluster_role_controller_issuers" {
 }
 
 resource "k8s_manifest" "14_mandatory_cluster_role_controller_issuers" {
-  content = "${data.template_file.14_mandatory_cluster_role_controller_issuers.rendered}"
+  content    = "${data.template_file.14_mandatory_cluster_role_controller_issuers.rendered}"
   depends_on = ["k8s_manifest.13_mandatory_cluster_role_leaderelection"]
 }
 
@@ -130,7 +130,7 @@ data "template_file" "15_mandatory_cluster_role_controller_clusterissuers" {
 }
 
 resource "k8s_manifest" "15_mandatory_cluster_role_controller_clusterissuers" {
-  content = "${data.template_file.15_mandatory_cluster_role_controller_clusterissuers.rendered}"
+  content    = "${data.template_file.15_mandatory_cluster_role_controller_clusterissuers.rendered}"
   depends_on = ["k8s_manifest.14_mandatory_cluster_role_controller_issuers"]
 }
 
@@ -139,7 +139,7 @@ data "template_file" "16_mandatory_cluster_role_controller_certificates" {
 }
 
 resource "k8s_manifest" "16_mandatory_cluster_role_controller_certificates" {
-  content = "${data.template_file.16_mandatory_cluster_role_controller_certificates.rendered}"
+  content    = "${data.template_file.16_mandatory_cluster_role_controller_certificates.rendered}"
   depends_on = ["k8s_manifest.15_mandatory_cluster_role_controller_clusterissuers"]
 }
 
@@ -148,7 +148,7 @@ data "template_file" "17_mandatory_cluster_role_controller_orders" {
 }
 
 resource "k8s_manifest" "17_mandatory_cluster_role_controller_orders" {
-  content = "${data.template_file.17_mandatory_cluster_role_controller_orders.rendered}"
+  content    = "${data.template_file.17_mandatory_cluster_role_controller_orders.rendered}"
   depends_on = ["k8s_manifest.16_mandatory_cluster_role_controller_certificates"]
 }
 
@@ -157,7 +157,7 @@ data "template_file" "18_mandatory_cluster_role_controller_challenges" {
 }
 
 resource "k8s_manifest" "18_mandatory_cluster_role_controller_challenges" {
-  content = "${data.template_file.18_mandatory_cluster_role_controller_challenges.rendered}"
+  content    = "${data.template_file.18_mandatory_cluster_role_controller_challenges.rendered}"
   depends_on = ["k8s_manifest.17_mandatory_cluster_role_controller_orders"]
 }
 
@@ -166,7 +166,7 @@ data "template_file" "19_mandatory_cluster_role_controller_ingress_shim" {
 }
 
 resource "k8s_manifest" "19_mandatory_cluster_role_controller_ingress_shim" {
-  content = "${data.template_file.19_mandatory_cluster_role_controller_ingress_shim.rendered}"
+  content    = "${data.template_file.19_mandatory_cluster_role_controller_ingress_shim.rendered}"
   depends_on = ["k8s_manifest.18_mandatory_cluster_role_controller_challenges"]
 }
 
@@ -175,7 +175,7 @@ data "template_file" "20_mandatory_cluster_role_binding_leaderelection" {
 }
 
 resource "k8s_manifest" "20_mandatory_cluster_role_binding_leaderelection" {
-  content = "${data.template_file.20_mandatory_cluster_role_binding_leaderelection.rendered}"
+  content    = "${data.template_file.20_mandatory_cluster_role_binding_leaderelection.rendered}"
   depends_on = ["k8s_manifest.19_mandatory_cluster_role_controller_ingress_shim"]
 }
 
@@ -184,7 +184,7 @@ data "template_file" "21_mandatory_cluster_role_binding_controller_issuers" {
 }
 
 resource "k8s_manifest" "21_mandatory_cluster_role_binding_controller_issuers" {
-  content = "${data.template_file.21_mandatory_cluster_role_binding_controller_issuers.rendered}"
+  content    = "${data.template_file.21_mandatory_cluster_role_binding_controller_issuers.rendered}"
   depends_on = ["k8s_manifest.20_mandatory_cluster_role_binding_leaderelection"]
 }
 
@@ -193,7 +193,7 @@ data "template_file" "22_mandatory_cluster_role_binding_controller_clusterissuer
 }
 
 resource "k8s_manifest" "22_mandatory_cluster_role_binding_controller_clusterissuers" {
-  content = "${data.template_file.22_mandatory_cluster_role_binding_controller_clusterissuers.rendered}"
+  content    = "${data.template_file.22_mandatory_cluster_role_binding_controller_clusterissuers.rendered}"
   depends_on = ["k8s_manifest.21_mandatory_cluster_role_binding_controller_issuers"]
 }
 
@@ -202,7 +202,7 @@ data "template_file" "23_mandatory_cluster_role_binding_controller_certificates"
 }
 
 resource "k8s_manifest" "23_mandatory_cluster_role_binding_controller_certificates" {
-  content = "${data.template_file.23_mandatory_cluster_role_binding_controller_certificates.rendered}"
+  content    = "${data.template_file.23_mandatory_cluster_role_binding_controller_certificates.rendered}"
   depends_on = ["k8s_manifest.22_mandatory_cluster_role_binding_controller_clusterissuers"]
 }
 
@@ -211,7 +211,7 @@ data "template_file" "24_mandatory_cluster_role_binding_controller_orders" {
 }
 
 resource "k8s_manifest" "24_mandatory_cluster_role_binding_controller_orders" {
-  content = "${data.template_file.24_mandatory_cluster_role_binding_controller_orders.rendered}"
+  content    = "${data.template_file.24_mandatory_cluster_role_binding_controller_orders.rendered}"
   depends_on = ["k8s_manifest.23_mandatory_cluster_role_binding_controller_certificates"]
 }
 
@@ -220,7 +220,7 @@ data "template_file" "25_mandatory_cluster_role_binding_controller_challenges" {
 }
 
 resource "k8s_manifest" "25_mandatory_cluster_role_binding_controller_challenges" {
-  content = "${data.template_file.25_mandatory_cluster_role_binding_controller_challenges.rendered}"
+  content    = "${data.template_file.25_mandatory_cluster_role_binding_controller_challenges.rendered}"
   depends_on = ["k8s_manifest.24_mandatory_cluster_role_binding_controller_orders"]
 }
 
@@ -229,7 +229,7 @@ data "template_file" "26_mandatory_cluster_role_binding_controller_ingress_shim"
 }
 
 resource "k8s_manifest" "26_mandatory_cluster_role_binding_controller_ingress_shim" {
-  content = "${data.template_file.26_mandatory_cluster_role_binding_controller_ingress_shim.rendered}"
+  content    = "${data.template_file.26_mandatory_cluster_role_binding_controller_ingress_shim.rendered}"
   depends_on = ["k8s_manifest.25_mandatory_cluster_role_binding_controller_challenges"]
 }
 
@@ -238,7 +238,7 @@ data "template_file" "27_mandatory_cluster_role_view" {
 }
 
 resource "k8s_manifest" "27_mandatory_cluster_role_view" {
-  content = "${data.template_file.27_mandatory_cluster_role_view.rendered}"
+  content    = "${data.template_file.27_mandatory_cluster_role_view.rendered}"
   depends_on = ["k8s_manifest.26_mandatory_cluster_role_binding_controller_ingress_shim"]
 }
 
@@ -247,7 +247,7 @@ data "template_file" "28_mandatory_cluster_role_edit" {
 }
 
 resource "k8s_manifest" "28_mandatory_cluster_role_edit" {
-  content = "${data.template_file.28_mandatory_cluster_role_edit.rendered}"
+  content    = "${data.template_file.28_mandatory_cluster_role_edit.rendered}"
   depends_on = ["k8s_manifest.27_mandatory_cluster_role_view"]
 }
 
@@ -256,7 +256,7 @@ data "template_file" "29_mandatory_cluster_role_binding_webhook" {
 }
 
 resource "k8s_manifest" "29_mandatory_cluster_role_binding_webhook" {
-  content = "${data.template_file.29_mandatory_cluster_role_binding_webhook.rendered}"
+  content    = "${data.template_file.29_mandatory_cluster_role_binding_webhook.rendered}"
   depends_on = ["k8s_manifest.28_mandatory_cluster_role_edit"]
 }
 
@@ -265,7 +265,7 @@ data "template_file" "30_mandatory_role_binding_webhook" {
 }
 
 resource "k8s_manifest" "30_mandatory_role_binding_webhook" {
-  content = "${data.template_file.30_mandatory_role_binding_webhook.rendered}"
+  content    = "${data.template_file.30_mandatory_role_binding_webhook.rendered}"
   depends_on = ["k8s_manifest.29_mandatory_cluster_role_binding_webhook"]
 }
 
@@ -274,7 +274,7 @@ data "template_file" "31_mandatory_cluster_role_webhook" {
 }
 
 resource "k8s_manifest" "31_mandatory_cluster_role_webhook" {
-  content = "${data.template_file.31_mandatory_cluster_role_webhook.rendered}"
+  content    = "${data.template_file.31_mandatory_cluster_role_webhook.rendered}"
   depends_on = ["k8s_manifest.30_mandatory_role_binding_webhook"]
 }
 
@@ -283,7 +283,7 @@ data "template_file" "32_mandatory_service_cert_manager" {
 }
 
 resource "k8s_manifest" "32_mandatory_service_cert_manager" {
-  content = "${data.template_file.32_mandatory_service_cert_manager.rendered}"
+  content    = "${data.template_file.32_mandatory_service_cert_manager.rendered}"
   depends_on = ["k8s_manifest.31_mandatory_cluster_role_webhook"]
 }
 
@@ -292,7 +292,7 @@ data "template_file" "33_mandatory_deployment_cainjector" {
 }
 
 resource "k8s_manifest" "33_mandatory_deployment_cainjector" {
-  content = "${data.template_file.33_mandatory_deployment_cainjector.rendered}"
+  content    = "${data.template_file.33_mandatory_deployment_cainjector.rendered}"
   depends_on = ["k8s_manifest.32_mandatory_service_cert_manager"]
 }
 
@@ -301,7 +301,7 @@ data "template_file" "34_mandatory_deployment_webhook" {
 }
 
 resource "k8s_manifest" "34_mandatory_deployment_webhook" {
-  content = "${data.template_file.34_mandatory_deployment_webhook.rendered}"
+  content    = "${data.template_file.34_mandatory_deployment_webhook.rendered}"
   depends_on = ["k8s_manifest.33_mandatory_deployment_cainjector"]
 }
 
@@ -310,7 +310,7 @@ data "template_file" "35_mandatory_deployment_cert_manager" {
 }
 
 resource "k8s_manifest" "35_mandatory_deployment_cert_manager" {
-  content = "${data.template_file.35_mandatory_deployment_cert_manager.rendered}"
+  content    = "${data.template_file.35_mandatory_deployment_cert_manager.rendered}"
   depends_on = ["k8s_manifest.34_mandatory_deployment_webhook"]
 }
 
@@ -319,7 +319,7 @@ data "template_file" "36_mandatory_apiservice" {
 }
 
 resource "k8s_manifest" "36_mandatory_apiservice" {
-  content = "${data.template_file.36_mandatory_apiservice.rendered}"
+  content    = "${data.template_file.36_mandatory_apiservice.rendered}"
   depends_on = ["k8s_manifest.35_mandatory_deployment_cert_manager"]
 }
 
@@ -328,7 +328,7 @@ data "template_file" "37_mandatory_issuer_webhook_selfsign" {
 }
 
 resource "k8s_manifest" "37_mandatory_issuer_webhook_selfsign" {
-  content = "${data.template_file.37_mandatory_issuer_webhook_selfsign.rendered}"
+  content    = "${data.template_file.37_mandatory_issuer_webhook_selfsign.rendered}"
   depends_on = ["k8s_manifest.36_mandatory_apiservice"]
 }
 
@@ -337,7 +337,7 @@ data "template_file" "38_mandatory_certificate_webhook_ca" {
 }
 
 resource "k8s_manifest" "38_mandatory_certificate_webhook_ca" {
-  content = "${data.template_file.38_mandatory_certificate_webhook_ca.rendered}"
+  content    = "${data.template_file.38_mandatory_certificate_webhook_ca.rendered}"
   depends_on = ["k8s_manifest.37_mandatory_issuer_webhook_selfsign"]
 }
 
@@ -346,7 +346,7 @@ data "template_file" "39_mandatory_issuer_webhook_ca" {
 }
 
 resource "k8s_manifest" "39_mandatory_issuer_webhook_ca" {
-  content = "${data.template_file.39_mandatory_issuer_webhook_ca.rendered}"
+  content    = "${data.template_file.39_mandatory_issuer_webhook_ca.rendered}"
   depends_on = ["k8s_manifest.38_mandatory_certificate_webhook_ca"]
 }
 
@@ -355,7 +355,7 @@ data "template_file" "40_mandatory_certificate_webhook_tls" {
 }
 
 resource "k8s_manifest" "40_mandatory_certificate_webhook_tls" {
-  content = "${data.template_file.40_mandatory_certificate_webhook_tls.rendered}"
+  content    = "${data.template_file.40_mandatory_certificate_webhook_tls.rendered}"
   depends_on = ["k8s_manifest.39_mandatory_issuer_webhook_ca"]
 }
 
@@ -364,6 +364,6 @@ data "template_file" "41_mandatory_validating_webhook_configuration" {
 }
 
 resource "k8s_manifest" "41_mandatory_validating_webhook_configuration" {
-  content = "${data.template_file.41_mandatory_validating_webhook_configuration.rendered}"
+  content    = "${data.template_file.41_mandatory_validating_webhook_configuration.rendered}"
   depends_on = ["k8s_manifest.40_mandatory_certificate_webhook_tls"]
 }
