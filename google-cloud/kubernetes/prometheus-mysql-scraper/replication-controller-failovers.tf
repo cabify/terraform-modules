@@ -1,4 +1,4 @@
-resource "kubernetes_replication_controller" "cloudsql" {
+resource "kubernetes_replication_controller" "cloudsql-failover" {
   count = "${var.instance_read_only_replica_count}"
 
   metadata {
