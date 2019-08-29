@@ -40,13 +40,13 @@ resource "kubernetes_service" "cloudsql-failover" {
       prometheus_io_tier        = "${var.tier}"
     }
 
-    name      = "${element(kubernetes_replication_controller.cloudsql-failover.metadata.0.name, count.index)}"
+    name      = "${element(kubernetes_replication_controller.cloudsql-failover.*.metadata.0.name, count.index)}"
     namespace = "${var.namespace}"
   }
 
   spec {
     selector {
-      app = "${element(kubernetes_replication_controller.cloudsql-failover.metadata.0.labels.app, count.index)}"
+      app = "${element(kubernetes_replication_controller.cloudsql-failover.*.metadata.0.labels.app, count.index)}"
     }
 
     session_affinity = "ClientIP"
