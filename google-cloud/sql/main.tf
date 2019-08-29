@@ -109,18 +109,6 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
 }
 
 module "cabify_prometheus_mysql_scraper" {
-  source          = "git@github.com:cabify/terraform-modules.git//google-cloud/kubernetes/prometheus-mysql-scraper?ref=google-cloud_kubernetes-prometheus-mysql-scraper-v0.1.14"
-  service_name    = "${var.service_name}"
-  user_name       = "${var.user_name}"
-  user_password   = "${var.user_password}"
-  instance_region = "${var.instance_region}"
-  project         = "${var.project}"
-  namespace       = "${var.namespace}"
-  owner           = "${var.owner}"
-  tier            = "${var.tier}"
-}
-
-module "cabify_prometheus_mysql_scraper_failover" {
   source                           = "git@github.com:cabify/terraform-modules.git//google-cloud/kubernetes/prometheus-mysql-scraper?ref=google-cloud_kubernetes-prometheus-mysql-scraper-v0.1.14"
   service_name                     = "${var.service_name}"
   user_name                        = "${var.user_name}"
