@@ -37,3 +37,8 @@ variable "tier" {
   description = "Name of tier (1.2.3)"
   type        = "string"
 }
+
+variable "instance_read_only_replica_count" {
+  description = "Number of read only replicas to create"
+  default     = 0
+}
