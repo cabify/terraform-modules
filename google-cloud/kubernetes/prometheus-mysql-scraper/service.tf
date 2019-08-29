@@ -35,7 +35,7 @@ resource "kubernetes_service" "cloudsql-failover" {
     annotations {
       prometheus_io_scrape      = "persistence"
       prometheus_io_environment = "${replace(var.project,"cabify-","")}"
-      prometheus_io_service     = "${var.service_name}-read-replica-${count.index + 1}"
+      prometheus_io_service     = "${var.service_name}"
       prometheus_io_ownder      = "${var.owner}"
       prometheus_io_tier        = "${var.tier}"
     }
