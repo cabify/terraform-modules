@@ -102,12 +102,6 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
       name  = "query_cache_size"
       value = "0"
     }
-
-    maintenance_window {
-      day          = "${var.instance_maintenance_day}"
-      hour         = "${var.instance_maintenance_hour}"
-      update_track = "${var.instance_maintenance_update_track}"
-    }
   }
 
   count      = "${var.instance_read_only_replica_count}"
