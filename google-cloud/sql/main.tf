@@ -65,6 +65,12 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-fai
       name  = "query_cache_size"
       value = "0"
     }
+
+    maintenance_window {
+      day          = "${var.instance_maintenance_day}"
+      hour         = "${var.instance_maintenance_hour}"
+      update_track = "${var.instance_maintenance_update_track}"
+    }
   }
 
   replica_configuration {
@@ -101,6 +107,12 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
     database_flags {
       name  = "query_cache_size"
       value = "0"
+    }
+
+    maintenance_window {
+      day          = "${var.instance_maintenance_day}"
+      hour         = "${var.instance_maintenance_hour}"
+      update_track = "${var.instance_maintenance_update_track}"
     }
   }
 
