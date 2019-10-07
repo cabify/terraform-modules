@@ -36,7 +36,7 @@ variable "namespace" {
 variable "container_port" {
   description = "Port the container will use"
   type        = "string"
-  default     = "9108"
+  default     = "9114"
 }
 
 variable "environment" {
