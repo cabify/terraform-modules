@@ -32,7 +32,7 @@ resource "kubernetes_replication_controller" "elasticsearch" {
           }
         }
 
-        image = "justwatch/elasticsearch_exporter:1.0.2"
+        image = "justwatch/elasticsearch_exporter:1.1.0"
         name  = "${replace(var.project,"cabify-","")}-elasticsearch-exporter"
 
         port {
