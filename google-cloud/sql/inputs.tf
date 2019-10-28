@@ -50,7 +50,7 @@ variable "instance_maintenance_hour" {
 variable "instance_maintenance_update_track" {
   description = "Receive updates earlier (canary) or later (stable)"
   type        = "string"
-  default     = "canary"
+  default     = "stable"
 }
 
 variable "instance_disk_autoresize" {
