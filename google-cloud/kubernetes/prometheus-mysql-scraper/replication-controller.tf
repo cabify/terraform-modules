@@ -1,6 +1,6 @@
 resource "kubernetes_replication_controller" "cloudsql" {
   metadata {
-    name = "${var.service_name}-${replace(${replace(var.project,"cabify-","")},"-cloudsql-1","")}-mysql-scraper"
+    name = "${var.service_name}-${replace("${replace(var.project,"cabify-","")}","-cloudsql-1","")}-mysql-scraper"
 
     labels {
       app = "${format("%.60s", md5("${var.service_name}${var.project}"))}"
@@ -39,7 +39,7 @@ resource "kubernetes_replication_controller" "cloudsql" {
         }
 
         image = "gcr.io/cloudsql-docker/gce-proxy"
-        name  = "${var.service_name}-${replace(${replace(var.project,"cabify-","")},"-cloudsql-1","")}-mysql-scraper-cloudsql"
+        name  = "${var.service_name}-${replace("${replace(var.project,"cabify-","")}","-cloudsql-1","")}-mysql-scraper-cloudsql"
 
         port {
           container_port = 3306
@@ -73,7 +73,7 @@ resource "kubernetes_replication_controller" "cloudsql" {
         }
 
         image = "prom/mysqld-exporter"
-        name  = "${var.service_name}-${replace(${replace(var.project,"cabify-","")},"-cloudsql-1","")}-mysql-scraper-scraper"
+        name  = "${var.service_name}-${replace("${replace(var.project,"cabify-","")}","-cloudsql-1","")}-mysql-scraper-scraper"
 
         port {
           container_port = 9104
