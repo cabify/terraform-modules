@@ -6,6 +6,9 @@ resource "kubernetes_service" "redis" {
       prometheus_io_service     = "${var.service}"
       prometheus_io_ownder      = "${var.owner}"
       prometheus_io_tier        = "${var.tier}"
+      prometheus_io_placement   = "redislabs"
+      prometheus_io_size        = "${var.size}"
+      prometheus_io_evictions   = "${var.eviction}"
     }
 
     name      = "${kubernetes_replication_controller.redis.metadata.0.name}"
