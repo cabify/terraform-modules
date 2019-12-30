@@ -47,3 +47,13 @@ variable "tier" {
   description = "Name of tier (1.2.3)"
   type        = "string"
 }
+
+variable "size" {
+  description = "size in gb"
+  type        = "string"
+}
+
+variable "eviction" {
+  description = "eviction policy"
+  type        = "string"
+}
