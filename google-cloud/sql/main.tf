@@ -10,6 +10,9 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
     disk_autoresize = "${var.instance_disk_autoresize}"
     disk_type       = "${var.instance_disk_type}"
 
+    availability_type = "${var.instance_failover_members > 0 ? "REGIONAL" : "ZONAL"}"
+    replication_type  = "SYNCHRONOUS"
+
     backup_configuration {
       binary_log_enabled = "${var.instance_failover_members > 0 ? 1 : 0}"
       enabled            = "${var.instance_failover_members > 0 ? 1 : 0}"
@@ -36,43 +39,6 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
       update_track = "${var.instance_maintenance_update_track}"
     }
   }
-}
-
-resource "google_sql_database_instance" "google_sql_database_instance-module-failover" {
-  name                 = "${var.service_name}-failover-${count.index + 1}"
-  database_version     = "${var.database_engine_version}"
-  master_instance_name = "${google_sql_database_instance.google_sql_database_instance-module-master.name}"
-
-  region = "${var.instance_region}"
-
-  settings {
-    tier = "${var.instance_tier_failover == "UNSET" ? var.instance_tier : var.instance_tier_failover}"
-
-    disk_autoresize = "${var.instance_disk_autoresize}"
-    disk_type       = "${var.instance_disk_type_failover == "UNSET" ? var.instance_disk_type : var.instance_disk_type_failover}"
-
-    database_flags {
-      name  = "log_bin_trust_function_creators"
-      value = "on"
-    }
-
-    database_flags {
-      name  = "log_queries_not_using_indexes"
-      value = "on"
-    }
-
-    database_flags {
-      name  = "query_cache_size"
-      value = "0"
-    }
-  }
-
-  replica_configuration {
-    failover_target = true
-  }
-
-  count      = "${var.instance_failover_members}"
-  depends_on = ["google_sql_database_instance.google_sql_database_instance-module-master"]
 }
 
 resource "google_sql_database_instance" "google_sql_database_instance-module-read-replica" {
