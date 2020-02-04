@@ -42,3 +42,14 @@ variable "instance_read_only_replica_count" {
   description = "Number of read only replicas to create"
   default     = 0
 }
+
+variable "instance_tier" {
+  description = "Tier to be passed on to prometheus"
+  type        = "string"
+}
+
+variable "instance_tier_read_only_replica" {
+  description = "Tier to be passed on to prometheus"
+  type        = "string"
+  default     = "UNSET"
+}
