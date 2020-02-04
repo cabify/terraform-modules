@@ -85,4 +85,6 @@ module "cabify_prometheus_mysql_scraper" {
   owner                            = "${var.owner}"
   tier                             = "${var.tier}"
   instance_read_only_replica_count = "${var.instance_read_only_replica_count}"
+  instance_tier                    = "${var.instance_tier}"
+  instance_tier_read_only_replica  = "${var.instance_tier_read_only_replica}"
 }
