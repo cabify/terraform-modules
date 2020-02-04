@@ -48,7 +48,7 @@ variable "instance_tier" {
   type        = "string"
 }
 
-variable "instance_tier_failover" {
+variable "instance_tier_read_only_replica" {
   description = "Tier to be passed on to prometheus"
   type        = "string"
   default     = "UNSET"
