@@ -36,17 +36,17 @@ variable "user_password" {
   type        = "string"
 }
 
-variable "zone_1" {
+variable "zone_first" {
   description = "GCP Zone in which the instance 1 should be created."
   type        = "string"
 }
 
-variable "zone_2" {
+variable "zone_second" {
   description = "GCP Zone in which the instance 2 should be created."
   type        = "string"
 }
 
-variable "zone_3" {
+variable "zone_third" {
   description = "GCP Zone in which the instance 3 should be created."
   type        = "string"
 }
@@ -56,12 +56,11 @@ variable "zone_3" {
 ###############################################################################
 variable "deletion_protection" {
   description = "Bool if the instance deletetion_protection is enabled or not."
-  type        = "bool"
-  default     = true
+  type        = "string"
+  default     = false
 }
 
 variable "disk_size" {
   description = "Instances disk size (GB)."
-  type        = "number"
   default     = 100
 }

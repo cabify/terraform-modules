@@ -1,6 +1,6 @@
 # MASTER INSTANCE #
 resource "google_compute_address" "mysqlcluster-module_first" {
-  name  = "mysqlcluster-${var.service_name}-first"
+  name = "mysqlcluster-${var.service_name}-first"
 }
 
 resource "google_compute_instance" "mysqlcluster-module_first" {
@@ -9,7 +9,7 @@ resource "google_compute_instance" "mysqlcluster-module_first" {
 
   # TODO: Improve zone definition to have each node in a different zone, at least for read replicas.
   zone                = "${var.zone_first}"
-  deletion_protection = ${var.deletion_protection}
+  deletion_protection = "${var.deletion_protection}"
 
   # TODO: Improve with persistent disk (SSD?) for data.
   boot_disk {
@@ -20,7 +20,6 @@ resource "google_compute_instance" "mysqlcluster-module_first" {
   }
 
   network_interface {
-    # ${google_compute_subnetwork.chaos_refugees.self_link}
     subnetwork = "${var.subnetwork}"
 
     access_config {
@@ -37,7 +36,7 @@ resource "google_compute_instance" "mysqlcluster-module_first" {
   }
 
   # not in metadata to _force_ recreation
-  metadata_startup_script = "${data.template_file.mysqlha_startup_script.rendered}"
+  metadata_startup_script = "${data.template_file.startup_script.rendered}"
 
   tags = [
     "${var.service_name}",
@@ -69,7 +68,7 @@ resource "google_compute_instance" "mysqlcluster-module_first" {
 # REPLICAS (instances number 2 and 3)
 # Replica A
 resource "google_compute_address" "mysqlcluster-module_second" {
-  name  = "mysqlcluster-${var.service_name}-second"
+  name = "mysqlcluster-${var.service_name}-second"
 }
 
 resource "google_compute_instance" "mysqlcluster-module_second" {
@@ -78,8 +77,9 @@ resource "google_compute_instance" "mysqlcluster-module_second" {
 
   # TODO: Improve zone definition to have each node in a different zone, at least for read replicas.
   #TODO
-  zone                = "${var.zone_second}"
-  deletion_protection = ${var.deletion_protection}
+  zone = "${var.zone_second}"
+
+  deletion_protection = "${var.deletion_protection}"
 
   # TODO: Improve with persistent disk (SSD?) for data.
   boot_disk {
@@ -90,7 +90,6 @@ resource "google_compute_instance" "mysqlcluster-module_second" {
   }
 
   network_interface {
-    # ${google_compute_subnetwork.chaos_refugees.self_link}
     subnetwork = "${var.subnetwork}"
 
     access_config {
@@ -107,7 +106,7 @@ resource "google_compute_instance" "mysqlcluster-module_second" {
   }
 
   # not in metadata to _force_ recreation
-  metadata_startup_script = "${data.template_file.mysqlha_startup_script.rendered}"
+  metadata_startup_script = "${data.template_file.startup_script.rendered}"
 
   tags = [
     "${var.service_name}",
@@ -138,7 +137,7 @@ resource "google_compute_instance" "mysqlcluster-module_second" {
 
 # Replica B
 resource "google_compute_address" "mysqlcluster-module_third" {
-  name  = "mysqlcluster-${var.service_name}-third"
+  name = "mysqlcluster-${var.service_name}-third"
 }
 
 resource "google_compute_instance" "mysqlcluster-module_third" {
@@ -147,8 +146,9 @@ resource "google_compute_instance" "mysqlcluster-module_third" {
 
   # TODO: Improve zone definition to have each node in a different zone, at least for read replicas.
   #TODO
-  zone                = "${var.zone_third}"
-  deletion_protection = ${var.deletion_protection}
+  zone = "${var.zone_third}"
+
+  deletion_protection = "${var.deletion_protection}"
 
   # TODO: Improve with persistent disk (SSD?) for data.
   boot_disk {
@@ -159,7 +159,6 @@ resource "google_compute_instance" "mysqlcluster-module_third" {
   }
 
   network_interface {
-    # ${google_compute_subnetwork.chaos_refugees.self_link}
     subnetwork = "${var.subnetwork}"
 
     access_config {
@@ -176,7 +175,7 @@ resource "google_compute_instance" "mysqlcluster-module_third" {
   }
 
   # not in metadata to _force_ recreation
-  metadata_startup_script = "${data.template_file.mysqlha_startup_script.rendered}"
+  metadata_startup_script = "${data.template_file.startup_script.rendered}"
 
   tags = [
     "${var.service_name}",
