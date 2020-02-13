@@ -21,6 +21,11 @@ variable "replica_instance_size" {
   type        = "string"
 }
 
+variable "network" {
+  description = "Network to be used for the cluster"
+  type        = "string"
+}
+
 variable "subnetwork" {
   description = "Subnetwork to be used for the instances"
   type        = "string"
