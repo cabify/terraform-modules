@@ -44,6 +44,24 @@ resource "google_compute_address" "mysqlcluster_module_first" {
   name = "mysqlcluster-${var.service_name}-first"
 }
 
+resource "google_dns_record_set" "mysql_first" {
+  name         = "mysqlcluster-${var.service_name}-first.chaos-refugees.minks.xyz"
+  type         = "A"
+  ttl          = 5
+  project      = "cabify-mr-meeseeks-box"
+  managed_zone = "minks-xyz"
+  rrdatas      = ["${google_compute_instance.mysqlcluster_module_first.network_interface.0.access_config.0.nat_ip}"]
+}
+
+resource "google_dns_record_set" "mysql_first_internal" {
+  name         = "mysqlcluster-${var.service_name}-first.chaos-blah.minks.xyz"
+  type         = "A"
+  ttl          = 5
+  project      = "cabify-mr-meeseeks-box"
+  managed_zone = "minks-xyz"
+  rrdatas      = ["${google_compute_instance.mysqlcluster_module_first.network_interface.0.network_ip}"]
+}
+
 resource "google_compute_instance" "mysqlcluster_module_first" {
   name         = "mysqlcluster-${var.service_name}-first"
   machine_type = "${var.first_instance_size}"
@@ -106,26 +124,6 @@ resource "google_compute_instance" "mysqlcluster_module_first" {
       "https://www.googleapis.com/auth/devstorage.read_write",
     ]
   }
-}
-
-resource "google_dns_record_set" "mysql_first" {
-  name         = "mysqlcluster-${var.service_name}-first.chaos-refugees.minks.xyz"
-  type         = "A"
-  ttl          = 5
-  project      = "cabify-mr-meeseeks-box"
-  managed_zone = "minks-xyz"
-  rrdatas      = ["${google_compute_instance.mysqlcluster_module_first.network_interface.0.access_config.0.nat_ip}"]
-  depends_on   = ["google_compute_instance.mysqlcluster_module_first"]
-}
-
-resource "google_dns_record_set" "mysql_first_internal" {
-  name         = "mysqlcluster-${var.service_name}-first.chaos-blah.minks.xyz"
-  type         = "A"
-  ttl          = 5
-  project      = "cabify-mr-meeseeks-box"
-  managed_zone = "minks-xyz"
-  rrdatas      = ["${google_compute_instance.mysqlcluster_module_first.network_interface.0.network_ip}"]
-  depends_on   = ["google_compute_instance.mysqlcluster_module_first"]
 }
 
 # REPLICAS (instances number 2 and 3)

@@ -54,6 +54,13 @@ systemctl start process-exporter
 systemctl start node-exporter
 systemctl start consul
 
+# shellcheck disable=SC2155
+export SERVICE="$(curl -s 'http://metadata.google.internal/computeMetadata/v1/instance/attributes/service' -H 'Metadata-Flavor: Google')"
+echo "Service: $SERVICE"
+# shellcheck disable=SC2155
+export NODE_ID="$(curl -s 'http://metadata.google.internal/computeMetadata/v1/instance/attributes/node_id' -H 'Metadata-Flavor: Google')"
+echo "Node_ID: $NODE_ID"
+
 systemctl enable mysql
 
 # Configure MySQL (both config file and instance setup)
