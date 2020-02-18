@@ -31,6 +31,16 @@ variable "subnetwork" {
   type        = "string"
 }
 
+variable "internal_domain" {
+  description = "Internal domain to be used."
+  type        = "string"
+}
+
+variable "external_domain" {
+  description = "External public domain to be used."
+  type        = "string"
+}
+
 variable "user_name" {
   description = "Username for the db (16 char max length)"
   type        = "string"

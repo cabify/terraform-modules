@@ -18,12 +18,21 @@ systemctl start coredns
 # Role agnostic variables
 export NODE_DATACENTER="sl-dal06"
 export NODE_REGION="global"
-export INTERNAL_DOMAIN="c.cabify-mr-meeseeks-box.internal"
-export EXTERNAL_DOMAIN="chaos-refugees.minks.xyz"
+#export INTERNAL_DOMAIN="c.cabify-mr-meeseeks-box.internal"
+# shellcheck disable=SC2155
+export INTERNAL_DOMAIN="$(curl -sf 'http://metadata.google.internal/computeMetadata/v1/instance/attributes/internal_domain' -H 'Metadata-Flavor: Google')"
+#export EXTERNAL_DOMAIN="chaos-refugees.minks.xyz"
+# shellcheck disable=SC2155
+export EXTERNAL_DOMAIN="$(curl -sf 'http://metadata.google.internal/computeMetadata/v1/instance/attributes/external_domain' -H 'Metadata-Flavor: Google')"
+# shellcheck disable=SC2155
+export SERVICE="$(curl -sf 'http://metadata.google.internal/computeMetadata/v1/instance/attributes/service' -H 'Metadata-Flavor: Google')"
+# shellcheck disable=SC2155
+export NODE_ID="$(curl -sf 'http://metadata.google.internal/computeMetadata/v1/instance/attributes/node_id' -H 'Metadata-Flavor: Google')"
 
 #######################
 # Secrets handling
 # Import and setup GKMS
+# shellcheck disable=SC1091
 source /usr/local/lib/functionarium/gkms_secret_to_stdout.sh
 export GKMS_KEYNAME="gitlab-ci-secrets-key"
 export GKMS_KEYRING="gitlab-keyring"
@@ -43,6 +52,9 @@ export CONSUL_RETRY_JOIN="$(seq 1 $CONSUL_BOOTSTRAP_EXPECT | xargs printf ",\"co
 
 ###################
 # Config generation
+bash /usr/local/sbin/gen_consul_config.sh >|/etc/consul/consul.hcl
+chmod 0400 /etc/consul/consul.hcl
+chown consul:consul /etc/consul/consul.hcl
 
 # Enable services
 systemctl enable process-exporter
@@ -53,15 +65,6 @@ systemctl enable consul
 systemctl start process-exporter
 systemctl start node-exporter
 systemctl start consul
-
-# shellcheck disable=SC2155
-export SERVICE="$(curl -s 'http://metadata.google.internal/computeMetadata/v1/instance/attributes/service' -H 'Metadata-Flavor: Google')"
-echo "Service: $SERVICE"
-# shellcheck disable=SC2155
-export NODE_ID="$(curl -s 'http://metadata.google.internal/computeMetadata/v1/instance/attributes/node_id' -H 'Metadata-Flavor: Google')"
-echo "Node_ID: $NODE_ID"
-
-systemctl enable mysql
 
 # Configure MySQL (both config file and instance setup)
 bash /usr/local/sbin/instance_startup_script.sh
