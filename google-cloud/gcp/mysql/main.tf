@@ -70,6 +70,8 @@ resource "google_compute_instance" "mysqlcluster_module_first" {
 
   # lets start w/o google account daemon bs from the start
   metadata = {
+    service                = "${var.service_name}"
+    node_id                = "1"
     host-group             = "mysqlcluster-${var.service_name}"
     block-project-ssh-keys = "TRUE"
     enable-oslogin         = "FALSE"
@@ -160,6 +162,8 @@ resource "google_compute_instance" "mysqlcluster_module_second" {
 
   # lets start w/o google account daemon bs from the start
   metadata = {
+    service                = "${var.service_name}"
+    node_id                = "2"
     host-group             = "mysqlcluster-${var.service_name}"
     block-project-ssh-keys = "TRUE"
     enable-oslogin         = "FALSE"
@@ -251,6 +255,8 @@ resource "google_compute_instance" "mysqlcluster_module_third" {
 
   # lets start w/o google account daemon bs from the start
   metadata = {
+    service                = "${var.service_name}"
+    node_id                = "3"
     host-group             = "mysqlcluster-${var.service_name}"
     block-project-ssh-keys = "TRUE"
     enable-oslogin         = "FALSE"
