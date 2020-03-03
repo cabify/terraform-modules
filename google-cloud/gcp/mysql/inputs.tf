@@ -1,13 +1,13 @@
 ###############################################################################
 # Variables without default value
 ###############################################################################
-variable "gcp_image" {
-  description = "Which image should be used for the VMs."
-  type        = "string"
+variable "bastions" {
+  description = "IP address of bastion hosts to access the instance."
+  type        = "list"
 }
 
-variable "service_name" {
-  description = "Name of the service to which the cluster will serve."
+variable "external_domain" {
+  description = "External public domain to be used."
   type        = "string"
 }
 
@@ -16,18 +16,8 @@ variable "first_instance_size" {
   type        = "string"
 }
 
-variable "replica_instance_size" {
-  description = "Machine type of the other instances"
-  type        = "string"
-}
-
-variable "network" {
-  description = "Network to be used for the cluster"
-  type        = "string"
-}
-
-variable "subnetwork" {
-  description = "Subnetwork to be used for the instances"
+variable "gcp_image" {
+  description = "Which image should be used for the VMs."
   type        = "string"
 }
 
@@ -36,8 +26,33 @@ variable "internal_domain" {
   type        = "string"
 }
 
-variable "external_domain" {
-  description = "External public domain to be used."
+variable "managed_zone" {
+  description = "The managed zone should be used."
+  type        = "string"
+}
+
+variable "network" {
+  description = "Network to be used for the cluster"
+  type        = "string"
+}
+
+variable "project" {
+  description = "Name of the google project."
+  type        = "string"
+}
+
+variable "replica_instance_size" {
+  description = "Machine type of the other instances"
+  type        = "string"
+}
+
+variable "service_name" {
+  description = "Name of the service to which the cluster will serve."
+  type        = "string"
+}
+
+variable "subnetwork" {
+  description = "Subnetwork to be used for the instances"
   type        = "string"
 }
 
@@ -48,6 +63,11 @@ variable "user_name" {
 
 variable "user_password" {
   description = "Clear text password for db user"
+  type        = "string"
+}
+
+variable "vpc_domain" {
+  description = "The public domain to be used that has access only from within the VPC."
   type        = "string"
 }
 
