@@ -9,27 +9,6 @@ resource "google_compute_firewall" "mysql_cluster_replication" {
   }
 
   target_tags = ["mysqlcluster-${var.service_name}"]
-
-  # Bastions!
-  source_ranges = "${var.bastions}"
-
-  source_tags = ["mysqlcluster-${var.service_name}"]
-}
-
-resource "google_compute_firewall" "mysql_cluster" {
-  name    = "mysql-cluster-replication-${var.service_name}"
-  network = "${var.network}"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["3306"] # MySQL Group Replication port
-  }
-
-  target_tags = ["mysqlcluster-${var.service_name}"]
-
-  # Bastions!
-  source_ranges = "${var.bastions}"
-
   source_tags = ["mysqlcluster-${var.service_name}"]
 }
 
