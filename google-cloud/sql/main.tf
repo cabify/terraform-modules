@@ -15,7 +15,7 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
 
     backup_configuration {
       binary_log_enabled = "${var.instance_failover_members > 0 ? 1 : 0}"
-      enabled            = "${var.instance_failover_members > 0 ? 1 : 0}"
+      enabled            = "1"
     }
 
     database_flags {
