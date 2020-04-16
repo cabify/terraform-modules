@@ -11,8 +11,8 @@ module "cabify_google_cloud_sql_mysql_awesome_service" {
   user_password      = "mYsup3Rpassverd"
   instance_tier      = "db-n1-standard-2"
   instance_disk_type = "PD_HDD"
-  instance_region    = "${data.terraform_remote_state.path.to.gc_region}"
-  project            = "${data.terraform_remote_state.path.to.gc_project}"
+  instance_region    = data.terraform_remote_state.path.to.gc_region
+  project            = data.terraform_remote_state.path.to.gc_project
 }
 ```
 
