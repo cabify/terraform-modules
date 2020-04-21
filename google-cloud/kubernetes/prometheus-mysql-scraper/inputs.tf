@@ -1,41 +1,41 @@
 variable "service_name" {
   description = "Name of the service - will be used for instance names"
-  type        = "string"
+  type        = string
 }
 
 variable "user_name" {
   description = "Username for the db (16 char max length)"
-  type        = "string"
+  type        = string
 }
 
 variable "user_password" {
   description = "Clear text password for db user"
-  type        = "string"
+  type        = string
 }
 
 variable "instance_region" {
   description = "Where to start the instances"
-  type        = "string"
+  type        = string
 }
 
 variable "project" {
   description = "Name of the gcp project"
-  type        = "string"
+  type        = string
 }
 
 variable "namespace" {
   description = "Namespace to use"
-  type        = "string"
+  type        = string
 }
 
 variable "owner" {
   description = "Name of team who owns the service"
-  type        = "string"
+  type        = string
 }
 
 variable "tier" {
   description = "Name of tier (1.2.3)"
-  type        = "string"
+  type        = string
 }
 
 variable "instance_read_only_replica_count" {
@@ -45,11 +45,11 @@ variable "instance_read_only_replica_count" {
 
 variable "instance_tier" {
   description = "Tier to be passed on to prometheus"
-  type        = "string"
+  type        = string
 }
 
 variable "instance_tier_read_only_replica" {
   description = "Tier to be passed on to prometheus"
-  type        = "string"
+  type        = string
   default     = "UNSET"
 }

@@ -1,17 +1,17 @@
 resource "kubernetes_replication_controller" "cloudsql" {
   metadata {
-    name = "${var.service_name}-${replace("${replace(var.project,"cabify-","")}","-cloudsql-1","")}-mysql-scraper"
+    name = "${var.service_name}-${replace(replace(var.project, "cabify-", ""), "-cloudsql-1", "")}-mysql-scraper"
 
-    labels {
-      app = "${format("%.60s", md5("${var.service_name}${var.project}"))}"
+    labels = {
+      app = format("%.60s", md5("${var.service_name}${var.project}"))
     }
 
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
   spec {
-    selector {
-      app = "${format("%.60s", md5("${var.service_name}${var.project}"))}"
+    selector = {
+      app = format("%.60s", md5("${var.service_name}${var.project}"))
     }
 
     template {
@@ -21,7 +21,7 @@ resource "kubernetes_replication_controller" "cloudsql" {
         name = "secret-volume"
 
         secret {
-          secret_name = "${kubernetes_secret.cloudsql.metadata.0.name}"
+          secret_name = kubernetes_secret.cloudsql.metadata[0].name
         }
       }
 
@@ -39,7 +39,7 @@ resource "kubernetes_replication_controller" "cloudsql" {
         }
 
         image = "gcr.io/cloudsql-docker/gce-proxy"
-        name  = "${var.service_name}-${replace("${replace(var.project,"cabify-","")}","-cloudsql-1","")}-mysql-scraper-cloudsql"
+        name  = "${var.service_name}-${replace(replace(var.project, "cabify-", ""), "-cloudsql-1", "")}-mysql-scraper-cloudsql"
 
         port {
           container_port = 3306
@@ -73,7 +73,7 @@ resource "kubernetes_replication_controller" "cloudsql" {
         }
 
         image = "prom/mysqld-exporter"
-        name  = "${var.service_name}-${replace("${replace(var.project,"cabify-","")}","-cloudsql-1","")}-mysql-scraper-scraper"
+        name  = "${var.service_name}-${replace(replace(var.project, "cabify-", ""), "-cloudsql-1", "")}-mysql-scraper-scraper"
 
         port {
           container_port = 9104
@@ -84,7 +84,7 @@ resource "kubernetes_replication_controller" "cloudsql" {
 
           value_from {
             secret_key_ref {
-              name = "${kubernetes_secret.cloudsql.metadata.0.name}"
+              name = kubernetes_secret.cloudsql.metadata[0].name
               key  = "connection_string"
             }
           }

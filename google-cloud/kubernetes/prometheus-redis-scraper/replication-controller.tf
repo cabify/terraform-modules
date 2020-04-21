@@ -2,18 +2,18 @@
 
 resource "kubernetes_replication_controller" "redis" {
   metadata {
-    name = "${var.service}-${replace(var.project,"cabify-","")}-redis-scraper"
+    name = "${var.service}-${replace(var.project, "cabify-", "")}-redis-scraper"
 
-    labels {
-      app = "${var.service}-${replace(var.project,"cabify-","")}-redis-scraper"
+    labels = {
+      app = "${var.service}-${replace(var.project, "cabify-", "")}-redis-scraper"
     }
 
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
   spec {
-    selector {
-      app = "${var.service}-${replace(var.project,"cabify-","")}-redis-scraper"
+    selector = {
+      app = "${var.service}-${replace(var.project, "cabify-", "")}-redis-scraper"
     }
 
     template {
@@ -36,7 +36,7 @@ resource "kubernetes_replication_controller" "redis" {
         name  = "redis-exporter"
 
         port {
-          container_port = "${var.container_port}"
+          container_port = var.container_port
         }
 
         env {
@@ -44,7 +44,7 @@ resource "kubernetes_replication_controller" "redis" {
 
           value_from {
             secret_key_ref {
-              name = "${kubernetes_secret.redis.metadata.0.name}"
+              name = kubernetes_secret.redis.metadata[0].name
               key  = "password"
             }
           }
@@ -60,7 +60,7 @@ resource "kubernetes_replication_controller" "redis" {
         liveness_probe {
           http_get {
             path = "/"
-            port = "${var.container_port}"
+            port = var.container_port
           }
 
           initial_delay_seconds = 5
@@ -70,3 +70,4 @@ resource "kubernetes_replication_controller" "redis" {
     }
   }
 }
+

@@ -2,18 +2,18 @@
 
 resource "kubernetes_replication_controller" "stackdriver" {
   metadata {
-    name = "${var.service}-${replace(var.project,"cabify-","")}-stackdriver-scraper"
+    name = "${var.service}-${replace(var.project, "cabify-", "")}-stackdriver-scraper"
 
-    labels {
-      app = "${var.service}-${replace(var.project,"cabify-","")}-stackdriver-scraper"
+    labels = {
+      app = "${var.service}-${replace(var.project, "cabify-", "")}-stackdriver-scraper"
     }
 
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
   spec {
-    selector {
-      app = "${var.service}-${replace(var.project,"cabify-","")}-stackdriver-scraper"
+    selector = {
+      app = "${var.service}-${replace(var.project, "cabify-", "")}-stackdriver-scraper"
     }
 
     template {
@@ -23,7 +23,7 @@ resource "kubernetes_replication_controller" "stackdriver" {
         name = "secret-volume"
 
         secret {
-          secret_name = "${kubernetes_secret.stackdriver.metadata.0.name}"
+          secret_name = kubernetes_secret.stackdriver.metadata[0].name
         }
       }
 
@@ -41,7 +41,7 @@ resource "kubernetes_replication_controller" "stackdriver" {
         }
 
         image = "${var.image-name}:${var.image-tag}"
-        name  = "${var.service}-${replace(var.project,"cabify-","")}-stackdriver-exporter"
+        name  = "${var.service}-${replace(var.project, "cabify-", "")}-stackdriver-exporter"
 
         port {
           container_port = 9255
@@ -59,10 +59,10 @@ resource "kubernetes_replication_controller" "stackdriver" {
 
         env {
           name  = "STACKDRIVER_EXPORTER_GOOGLE_PROJECT_ID"
-          value = "${var.project}"
+          value = var.project
         }
 
-        args = "${var.args}"
+        args = var.args
 
         liveness_probe {
           http_get {
@@ -77,3 +77,4 @@ resource "kubernetes_replication_controller" "stackdriver" {
     }
   }
 }
+

@@ -2,15 +2,16 @@ resource "google_service_account" "stackdriver" {
   // 30 char limit - md5 so we dont have collisions
   account_id   = "prom-sa-${format("%.19s", md5(var.service))}"
   display_name = "${var.service} Service Account for Prometheus"
-  project      = "${var.project}"
+  project      = var.project
 }
 
 resource "google_service_account_key" "stackdriver" {
-  service_account_id = "${google_service_account.stackdriver.name}"
+  service_account_id = google_service_account.stackdriver.name
 }
 
 resource "google_project_iam_member" "stackdriver" {
-  project = "${var.project}"
+  project = var.project
   role    = "projects/${var.project}/roles/stackdriverreadaccess"
   member  = "serviceAccount:${google_service_account.stackdriver.email}"
 }
+
