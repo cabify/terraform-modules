@@ -9,13 +9,13 @@ resource "kubernetes_service" "cloudsql" {
       prometheus_io_instance_tier = var.instance_tier
     }
 
-    name      = kubernetes_replication_controller.cloudsql.metadata[0].name
+    name      = kubernetes_deployment.cloudsql.metadata[0].name
     namespace = var.namespace
   }
 
   spec {
     selector = {
-      app = kubernetes_replication_controller.cloudsql.metadata[0].labels.app
+      app = kubernetes_deployment.cloudsql.metadata[0].labels.app
     }
 
     session_affinity = "ClientIP"
@@ -43,7 +43,7 @@ resource "kubernetes_service" "cloudsql-failover" {
     }
 
     name = element(
-      kubernetes_replication_controller.cloudsql-failover.*.metadata.0.name,
+      kubernetes_deployment.cloudsql-failover.*.metadata.0.name,
       count.index,
     )
     namespace = var.namespace
@@ -52,7 +52,7 @@ resource "kubernetes_service" "cloudsql-failover" {
   spec {
     selector = {
       app = element(
-        kubernetes_replication_controller.cloudsql-failover.*.metadata.0.labels.app,
+        kubernetes_deployment.cloudsql-failover.*.metadata.0.labels.app,
         count.index,
       )
     }

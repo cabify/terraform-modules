@@ -5,7 +5,8 @@ resource "kubernetes_secret" "cloudsql" {
   }
 
   data = {
+    "credentials.json" = base64decode(google_service_account_key.cloudsql.private_key)
+
     connection_string = "${var.user_name}:${var.user_password}@tcp(localhost)/"
-    credentials.json  = base64decode(google_service_account_key.cloudsql.private_key)
   }
 }

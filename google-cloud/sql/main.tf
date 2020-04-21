@@ -1,6 +1,6 @@
 resource "google_sql_database_instance" "google_sql_database_instance-module-master" {
   name             = "${var.service_name}-master"
-  database_version = "${var.database_engine_version}"
+  database_version = var.database_engine_version
 
   region = var.instance_region
 
@@ -42,7 +42,7 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
 }
 
 resource "google_sql_database_instance" "google_sql_database_instance-module-read-replica" {
-  name                 = var.service_name}-read-replica-${count.index + 1
+  name                 = "${var.service_name}-read-replica-${count.index + 1}"
   database_version     = var.database_engine_version
   master_instance_name = google_sql_database_instance.google_sql_database_instance-module-master.name
 
@@ -71,7 +71,7 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
   }
 
   count      = var.instance_read_only_replica_count
-  depends_on = ["google_sql_database_instance.google_sql_database_instance-module-master"]
+  depends_on = [google_sql_database_instance.google_sql_database_instance-module-master]
 }
 
 module "cabify_prometheus_mysql_scraper" {
