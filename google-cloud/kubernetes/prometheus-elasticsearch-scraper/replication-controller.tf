@@ -2,18 +2,18 @@
 
 resource "kubernetes_replication_controller" "elasticsearch" {
   metadata {
-    name = "${replace(var.project,"cabify-","")}-elasticsearch-scraper"
+    name = "${replace(var.project, "cabify-", "")}-elasticsearch-scraper"
 
-    labels {
-      app = "${replace(var.project,"cabify-","")}-elasticsearch-scraper"
+    labels = {
+      app = "${replace(var.project, "cabify-", "")}-elasticsearch-scraper"
     }
 
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
   spec {
-    selector {
-      app = "${replace(var.project,"cabify-","")}-elasticsearch-scraper"
+    selector = {
+      app = "${replace(var.project, "cabify-", "")}-elasticsearch-scraper"
     }
 
     template {
@@ -33,10 +33,10 @@ resource "kubernetes_replication_controller" "elasticsearch" {
         }
 
         image = "justwatch/elasticsearch_exporter:1.1.0"
-        name  = "${replace(var.project,"cabify-","")}-elasticsearch-exporter"
+        name  = "${replace(var.project, "cabify-", "")}-elasticsearch-exporter"
 
         port {
-          container_port = "${var.container_port}"
+          container_port = var.container_port
         }
 
         env {
@@ -44,7 +44,7 @@ resource "kubernetes_replication_controller" "elasticsearch" {
 
           value_from {
             secret_key_ref {
-              name = "${kubernetes_secret.elasticsearch.metadata.0.name}"
+              name = kubernetes_secret.elasticsearch.metadata[0].name
               key  = "uri"
             }
           }
@@ -53,7 +53,7 @@ resource "kubernetes_replication_controller" "elasticsearch" {
         liveness_probe {
           http_get {
             path = "/"
-            port = "${var.container_port}"
+            port = var.container_port
           }
 
           initial_delay_seconds = 5
@@ -63,3 +63,4 @@ resource "kubernetes_replication_controller" "elasticsearch" {
     }
   }
 }
+
