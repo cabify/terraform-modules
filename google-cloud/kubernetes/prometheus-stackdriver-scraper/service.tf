@@ -1,17 +1,17 @@
 resource "kubernetes_service" "stackdriver" {
   metadata {
-    annotations {
-      prometheus_io_scrape      = "${var.prometheus-scrape-flag}"
-      prometheus_io_environment = "${var.environment}"
+    annotations = {
+      prometheus_io_scrape      = var.prometheus-scrape-flag
+      prometheus_io_environment = var.environment
     }
 
-    name      = "${kubernetes_replication_controller.stackdriver.metadata.0.name}"
-    namespace = "${var.namespace}"
+    name      = kubernetes_replication_controller.stackdriver.metadata[0].name
+    namespace = var.namespace
   }
 
   spec {
-    selector {
-      app = "${kubernetes_replication_controller.stackdriver.metadata.0.labels.app}"
+    selector = {
+      app = kubernetes_replication_controller.stackdriver.metadata[0].labels.app
     }
 
     session_affinity = "ClientIP"
@@ -24,3 +24,4 @@ resource "kubernetes_service" "stackdriver" {
     type = "ClusterIP"
   }
 }
+
