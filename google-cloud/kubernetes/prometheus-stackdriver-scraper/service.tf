@@ -5,13 +5,13 @@ resource "kubernetes_service" "stackdriver" {
       prometheus_io_environment = var.environment
     }
 
-    name      = kubernetes_replication_controller.stackdriver.metadata[0].name
+    name      = kubernetes_deployment.stackdriver.metadata[0].name
     namespace = var.namespace
   }
 
   spec {
     selector = {
-      app = kubernetes_replication_controller.stackdriver.metadata[0].labels.app
+      app = kubernetes_deployment.stackdriver.metadata[0].labels.app
     }
 
     session_affinity = "ClientIP"

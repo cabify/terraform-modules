@@ -1,6 +1,6 @@
 //We need this until https://github.com/terraform-providers/terraform-provider-kubernetes/pull/101 can be merged
 
-resource "kubernetes_replication_controller" "stackdriver" {
+resource "kubernetes_deployment" "stackdriver" {
   metadata {
     name = "${var.service}-${replace(var.project, "cabify-", "")}-stackdriver-scraper"
 
@@ -19,7 +19,6 @@ resource "kubernetes_replication_controller" "stackdriver" {
     }
 
     template {
-
       metadata {
         name = "${var.service}-${replace(var.project, "cabify-", "")}-stackdriver-scraper"
 
