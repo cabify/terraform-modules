@@ -5,7 +5,7 @@ resource "kubernetes_secret" "stackdriver" {
   }
 
   data = {
-    credentials.json = base64decode(google_service_account_key.stackdriver.private_key)
+    "credentials.json" = base64decode(google_service_account_key.stackdriver.private_key)
   }
 }
 
