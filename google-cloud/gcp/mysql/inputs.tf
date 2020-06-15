@@ -3,87 +3,87 @@
 ###############################################################################
 variable "bastions" {
   description = "IP address of bastion hosts to access the instance."
-  type        = "list"
+  type        = list(string)
 }
 
 variable "external_domain" {
   description = "External public domain to be used."
-  type        = "string"
+  type        = string
 }
 
 variable "first_instance_size" {
   description = "Machine type of the first instance."
-  type        = "string"
+  type        = string
 }
 
 variable "gcp_image" {
   description = "Which image should be used for the VMs."
-  type        = "string"
+  type        = string
 }
 
 variable "internal_domain" {
   description = "Internal domain to be used."
-  type        = "string"
+  type        = string
 }
 
 variable "managed_zone" {
   description = "The managed zone should be used."
-  type        = "string"
+  type        = string
 }
 
 variable "network" {
   description = "Network to be used for the cluster"
-  type        = "string"
+  type        = string
 }
 
 variable "project" {
   description = "Name of the google project."
-  type        = "string"
+  type        = string
 }
 
 variable "replica_instance_size" {
   description = "Machine type of the other instances"
-  type        = "string"
+  type        = string
 }
 
 variable "service_name" {
   description = "Name of the service to which the cluster will serve."
-  type        = "string"
+  type        = string
 }
 
 variable "subnetwork" {
   description = "Subnetwork to be used for the instances"
-  type        = "string"
+  type        = string
 }
 
 variable "user_name" {
   description = "Username for the db (16 char max length)"
-  type        = "string"
+  type        = string
 }
 
 variable "user_password" {
   description = "Clear text password for db user"
-  type        = "string"
+  type        = string
 }
 
 variable "vpc_domain" {
   description = "The public domain to be used that has access only from within the VPC."
-  type        = "string"
+  type        = string
 }
 
 variable "zone_first" {
   description = "GCP Zone in which the instance 1 should be created."
-  type        = "string"
+  type        = string
 }
 
 variable "zone_second" {
   description = "GCP Zone in which the instance 2 should be created."
-  type        = "string"
+  type        = string
 }
 
 variable "zone_third" {
   description = "GCP Zone in which the instance 3 should be created."
-  type        = "string"
+  type        = string
 }
 
 ###############################################################################
@@ -91,7 +91,7 @@ variable "zone_third" {
 ###############################################################################
 variable "deletion_protection" {
   description = "Bool if the instance deletetion_protection is enabled or not."
-  type        = "string"
+  type        = string
   default     = false
 }
 
