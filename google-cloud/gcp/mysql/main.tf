@@ -43,11 +43,11 @@ resource "google_compute_instance" "mysqlcluster_module_first" {
   zone                = var.zone_first
   deletion_protection = var.deletion_protection
 
-  # TODO: Improve with persistent disk (SSD?) for data.
   boot_disk {
     initialize_params {
-      size  = 100
       image = var.gcp_image
+      size  = var.gcp_disk_size
+      type  = var.gcp_disk_type
     }
   }
 
@@ -111,11 +111,11 @@ resource "google_compute_instance" "mysqlcluster_module_second" {
 
   deletion_protection = var.deletion_protection
 
-  # TODO: Improve with persistent disk (SSD?) for data.
   boot_disk {
     initialize_params {
-      size  = 100
       image = var.gcp_image
+      size  = var.gcp_disk_size
+      type  = var.gcp_disk_type
     }
   }
 
@@ -204,11 +204,11 @@ resource "google_compute_instance" "mysqlcluster_module_third" {
 
   deletion_protection = var.deletion_protection
 
-  # TODO: Improve with persistent disk (SSD?) for data.
   boot_disk {
     initialize_params {
-      size  = 100
       image = var.gcp_image
+      size  = var.gcp_disk_size
+      type  = var.gcp_disk_type
     }
   }
 

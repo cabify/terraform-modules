@@ -16,6 +16,18 @@ variable "first_instance_size" {
   type        = string
 }
 
+variable "gcp_disk_size" {
+  description = "Instances disk size (in GB)"
+  type        = number
+  default     = 400
+}
+
+variable "gcp_disk_type" {
+  description = "Instances disk type (either pd-ssd or pd-standard)"
+  type        = string
+  default     = "pd-ssd"
+}
+
 variable "gcp_image" {
   description = "Which image should be used for the VMs."
   type        = string
