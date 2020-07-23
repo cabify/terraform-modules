@@ -75,6 +75,9 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
 }
 
 module "cabify_prometheus_mysql_scraper" {
+  // This is for movo only - until they get a monitoring cluster
+  count = 0
+
   source                           = "git@github.com:cabify/terraform-modules.git//google-cloud/kubernetes/prometheus-mysql-scraper?ref=google-cloud_kubernetes-prometheus-mysql-scraper-v0.1.18"
   service_name                     = var.service_name
   user_name                        = var.user_name
