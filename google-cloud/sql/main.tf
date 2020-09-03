@@ -74,20 +74,18 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
   depends_on = [google_sql_database_instance.google_sql_database_instance-module-master]
 }
 
-module "cabify_prometheus_mysql_scraper" {
-  // This is for movo only - until they get a monitoring cluster
-  count = 0
-
-  source                           = "git@github.com:cabify/terraform-modules.git//google-cloud/kubernetes/prometheus-mysql-scraper?ref=google-cloud_kubernetes-prometheus-mysql-scraper-v0.1.18"
-  service_name                     = var.service_name
-  user_name                        = var.user_name
-  user_password                    = var.user_password
-  instance_region                  = var.instance_region
-  project                          = var.project
-  namespace                        = var.namespace
-  owner                            = var.owner
-  tier                             = var.tier
-  instance_read_only_replica_count = var.instance_read_only_replica_count
-  instance_tier                    = var.instance_tier
-  instance_tier_read_only_replica  = var.instance_tier_read_only_replica
-}
+// This is for movo/bive only - until they get a monitoring cluster
+// module "cabify_prometheus_mysql_scraper" {
+//  source                           = "git@github.com:cabify/terraform-modules.git//google-cloud/kubernetes/prometheus-mysql-scraper?ref=google-cloud_kubernetes-prometheus-mysql-scraper-v0.1.18"
+//  service_name                     = var.service_name
+//  user_name                        = var.user_name
+//  user_password                    = var.user_password
+//  instance_region                  = var.instance_region
+//  project                          = var.project
+//  namespace                        = var.namespace
+//  owner                            = var.owner
+//  tier                             = var.tier
+//  instance_read_only_replica_count = var.instance_read_only_replica_count
+//  instance_tier                    = var.instance_tier
+//  instance_tier_read_only_replica  = var.instance_tier_read_only_replica
+//}
