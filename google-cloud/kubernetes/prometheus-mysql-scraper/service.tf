@@ -1,7 +1,7 @@
 resource "kubernetes_service" "cloudsql" {
   metadata {
     annotations = {
-      prometheus_io_scrape        = "persistence"
+      prometheus_io_scrape        = var.prometheus-scrape-flag
       prometheus_io_environment   = replace(replace(var.project, "cabify-", ""), "-cloudsql-1", "")
       prometheus_io_service       = var.service_name
       prometheus_io_owner         = var.owner
