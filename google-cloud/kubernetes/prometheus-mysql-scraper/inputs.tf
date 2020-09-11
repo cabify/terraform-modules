@@ -53,3 +53,10 @@ variable "instance_tier_read_only_replica" {
   type        = string
   default     = "UNSET"
 }
+
+variable "prometheus-scrape-flag" {
+  description = "Annotation for prometheus to scrape the service by"
+  type        = string
+  default     = "persistence"
+}
+

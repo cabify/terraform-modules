@@ -129,3 +129,10 @@ variable "tier" {
   type        = string
   default     = "unset"
 }
+
+variable "prometheus-scrape-flag" {
+  description = "Annotation for prometheus to scrape the service by"
+  type        = string
+  default     = "persistence"
+}
+
