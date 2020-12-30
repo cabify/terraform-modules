@@ -11,7 +11,6 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
     disk_type       = var.instance_disk_type
 
     availability_type = var.instance_failover_members > 0 ? "REGIONAL" : "ZONAL"
-    replication_type  = "SYNCHRONOUS"
 
     backup_configuration {
       binary_log_enabled = "1"
