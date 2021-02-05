@@ -44,10 +44,10 @@ resource "aws_db_instance" "primary" {
   multi_az              = var.tier == "3" ? false : true
 
   // monitoring
-  monitoring_interval                   = 60
-  monitoring_role_arn                   = "arn:aws:iam::${var.aws_account_nr}:role/rds-monitoring-role"
-  performance_insights_enabled          = var.tier == "3" ? false : true
-  performance_insights_retention_period = 7
+  monitoring_interval          = 60
+  monitoring_role_arn          = "arn:aws:iam::${var.aws_account_nr}:role/rds-monitoring-role"
+  performance_insights_enabled = var.tier == "3" ? false : true
+  // performance_insights_retention_period = 7
 }
 
 resource "aws_db_instance" "read-replica" {
