@@ -5,7 +5,8 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
-    exporter_username = mysql_user.exporter.user
+    //exporter_username = mysql_user.exporter.user
+    exporter_username = "exporter"
     exporter_password = var.exporter_password
     exporter_hostname = aws_db_instance.primary.address
   }
