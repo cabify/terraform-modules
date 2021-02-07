@@ -30,12 +30,12 @@ resource "kubernetes_deployment" "rds" {
 
         container {
           resources {
-            limits = {
+            limits {
               cpu    = "250m"
               memory = "50Mi"
             }
 
-            requests = {
+            requests {
               cpu    = "100m"
               memory = "25Mi"
             }
@@ -142,12 +142,12 @@ resource "kubernetes_deployment" "rds-read-only" {
 
         container {
           resources {
-            limits = {
+            limits {
               cpu    = "250m"
               memory = "50Mi"
             }
 
-            requests = {
+            requests {
               cpu    = "100m"
               memory = "25Mi"
             }
