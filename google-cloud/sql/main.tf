@@ -5,6 +5,14 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
   region = var.instance_region
 
   settings {
+
+    ip_configuration {
+      authorized_networks {
+        name  = "dms"
+        value = "${var.dms_instances[0][0]}/32"
+      }
+    }
+
     tier = var.instance_tier
 
     disk_autoresize = var.instance_disk_autoresize

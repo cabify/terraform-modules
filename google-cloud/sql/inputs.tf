@@ -136,3 +136,7 @@ variable "prometheus-scrape-flag" {
   default     = "persistence"
 }
 
+variable "dms_instances" {
+  type    = list
+  default = []
+}
