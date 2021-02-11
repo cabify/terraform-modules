@@ -4,5 +4,5 @@ output "aws_dms_replication_instance_public_ip" {
 }
 
 output "aws_db_instance_public_ip" {
-  value = aws_db_instance.primary.address
+  value = aws_db_instance.primary.endpoint
 }
