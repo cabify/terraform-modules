@@ -228,7 +228,7 @@ variable "storage_type" {
 variable "allocated_storage" {
   description = "Disk space to be allocated to the DB instance"
   type        = number
-  default     = 5
+  default     = 10
 }
 
 variable "max_allocated_storage" {
