@@ -1,6 +1,6 @@
 resource "kubernetes_deployment" "rds" {
   metadata {
-    name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-mysql-rds-scraper"
+    name = "${format("%.23s", var.instance_name)}-${replace(var.aws_account, "cabify-", "")}-mysql-rds-scraper"
 
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}"))
