@@ -1,6 +1,6 @@
 resource "kubernetes_deployment" "rds" {
   metadata {
-    name = "${format("%.23s", var.instance_name)}-${replace(var.aws_account, "cabify-", "")}-mysql-rds-scraper"
+    name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-mysql-scraper"
 
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}"))
@@ -19,7 +19,7 @@ resource "kubernetes_deployment" "rds" {
 
     template {
       metadata {
-        name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-mysql-rds-scraper"
+        name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-mysql-rds-exporter"
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}${var.aws_account}"))
@@ -42,7 +42,7 @@ resource "kubernetes_deployment" "rds" {
           }
 
           image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/dockerfiles/mysqld-exporter-rds-ssl/mysqld-exporter-rds-ssl"
-          name  = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-mysql-rds-scraper-scraper"
+          name  = "exporter"
 
           port {
             container_port = 9104
@@ -107,7 +107,7 @@ resource "kubernetes_deployment" "rds-read-only" {
   count = var.read_only_replicas
 
   metadata {
-    name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-mysql-rds-scraper"
+    name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-mysql-rds-exporter"
 
     labels = {
       app = format(
@@ -154,7 +154,7 @@ resource "kubernetes_deployment" "rds-read-only" {
           }
 
           image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/dockerfiles/mysqld-exporter-rds-ssl/mysqld-exporter-rds-ssl"
-          name  = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-mysql-rds-scraper"
+          name  = "exporter"
 
           port {
             container_port = 9104
