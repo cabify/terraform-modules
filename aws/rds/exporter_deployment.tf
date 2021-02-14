@@ -71,14 +71,8 @@ resource "kubernetes_deployment" "rds" {
           }
 
           env {
-            name = "EXPORTER_HOSTNAME"
-
-            value_from {
-              secret_key_ref {
-                name = kubernetes_secret.rds.metadata[0].name
-                key  = "exporter_hostname"
-              }
-            }
+            name  = "EXPORTER_HOSTNAME"
+            value = aws_db_instance.primary.address
           }
 
           args = [
@@ -183,14 +177,9 @@ resource "kubernetes_deployment" "rds-read-only" {
           }
 
           env {
-            name = "EXPORTER_HOSTNAME"
+            name  = "EXPORTER_HOSTNAME"
+            value = aws_db_instance.read-replica[count.index].address
 
-            value_from {
-              secret_key_ref {
-                name = kubernetes_secret.rds.metadata[0].name
-                key  = "exporter_hostname"
-              }
-            }
           }
 
           args = [

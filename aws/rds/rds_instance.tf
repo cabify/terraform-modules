@@ -69,7 +69,6 @@ resource "aws_db_instance" "read-replica" {
 
   // network
   port                   = var.port
-  db_subnet_group_name   = var.db_subnet_group_name
   vpc_security_group_ids = var.vpc_security_group_ids
   publicly_accessible    = var.public_access
 
