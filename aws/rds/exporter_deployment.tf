@@ -1,4 +1,5 @@
 resource "kubernetes_deployment" "rds" {
+  wait_for_rollout = true
   metadata {
     name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-mysql-scraper"
 
@@ -100,6 +101,7 @@ resource "kubernetes_deployment" "rds" {
 resource "kubernetes_deployment" "rds-read-only" {
   count = var.read_only_replicas
 
+  wait_for_rollout = true
   metadata {
     name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-mysql-rds-exporter"
 
