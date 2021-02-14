@@ -2,30 +2,13 @@
 // https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dms_replication_instance
 //
 
-
-# subnet group
-resource "aws_dms_replication_subnet_group" "replication-subnet-group" {
-  replication_subnet_group_description = "Replication subnet group for ${var.instance_name}"
-  replication_subnet_group_id          = "dms-subnet-group-${var.instance_name}"
-
-  subnet_ids = var.db_subnet_group_subnet_ids
-
-  tags = {
-    Name    = var.instance_name
-    Service = var.service_name == "UNSET" ? var.instance_name : var.service_name
-    Owner   = var.owner
-    Tier    = var.tier
-  }
-
-}
-
 # instance
 resource "aws_dms_replication_instance" "replicate" {
   count                      = var.replication_enabled == true ? 1 : 0
   replication_instance_id    = "${var.instance_name}-replication-instance"
   replication_instance_class = lookup(local.dms_instance_map, var.instance_class, "instance-not-found")
 
-  replication_subnet_group_id = aws_dms_replication_subnet_group.replication-subnet-group.id
+  replication_subnet_group_id = var.dms_subnet_group_id
   vpc_security_group_ids      = var.vpc_security_group_ids
 
   allocated_storage          = var.allocated_storage

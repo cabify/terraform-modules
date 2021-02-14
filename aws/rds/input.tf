@@ -59,14 +59,13 @@ variable "aws_account_nr" {
   description = "account number to be used"
 }
 
-
 variable "db_subnet_group_name" {
   type        = string
   description = "pass in from data source"
 }
 
-variable "db_subnet_group_subnet_ids" {
-  type        = list(string)
+variable "dms_subnet_group_id" {
+  type        = string
   description = "pass in from data source"
 }
 
