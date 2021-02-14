@@ -51,19 +51,14 @@ resource "aws_db_instance" "primary" {
 }
 
 resource "aws_db_instance" "read-replica" {
-  count      = var.read_only_replicas
-  depends_on = [aws_db_instance.primary]
+  count = var.read_only_replicas
 
-  name                    = "${var.instance_name}-read-replica-${count.index + 1}"
-  identifier              = "${var.instance_name}-read-replica-${count.index + 1}"
-  username                = var.dbadmin_username
-  password                = var.dbadmin_password
-  apply_immediately       = var.apply_immediately
-  maintenance_window      = var.maintenance_window
-  backup_retention_period = var.backup_retention_period
-  backup_window           = var.backup_window
-  skip_final_snapshot     = true
-  license_model           = var.license_model
+  name                = "${var.instance_name}-read-replica-${count.index + 1}"
+  identifier          = "${var.instance_name}-read-replica-${count.index + 1}"
+  apply_immediately   = var.apply_immediately
+  maintenance_window  = var.maintenance_window
+  skip_final_snapshot = true
+  license_model       = var.license_model
   // general 
   tags = {
     Name    = "${var.instance_name}-read-replica-${count.index + 1}"
@@ -87,15 +82,17 @@ resource "aws_db_instance" "read-replica" {
   option_group_name           = aws_db_option_group.rds.id
 
   // instance configs
-  instance_class        = var.read_only_replica_instance_class == "unset" ? var.instance_class : var.read_only_replica_instance_class
-  allocated_storage     = var.allocated_storage
+  instance_class = var.read_only_replica_instance_class == "unset" ? var.instance_class : var.read_only_replica_instance_class
+  // allocated_storage     = var.allocated_storage
   max_allocated_storage = var.max_allocated_storage
   storage_encrypted     = true
   storage_type          = var.storage_type
 
   // monitoring
-  monitoring_interval                   = 60
-  monitoring_role_arn                   = "arn:aws:iam::${var.aws_account}:role/rds-monitoring-role"
-  performance_insights_enabled          = var.tier == "3" ? false : true
-  performance_insights_retention_period = 7
+  monitoring_interval          = 60
+  monitoring_role_arn          = "arn:aws:iam::${var.aws_account_nr}:role/rds-monitoring-role"
+  performance_insights_enabled = var.tier == "3" ? false : true
+
+  // Replica
+  replicate_source_db = aws_db_instance.primary.id
 }
