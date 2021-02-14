@@ -4,7 +4,6 @@
 
 resource "aws_db_instance" "primary" {
   // general 
-  name                    = replace(var.instance_name, "-", "") // DBName must begin with a letter and contain only alphanumeric characters.
   identifier              = var.instance_name
   username                = var.dbadmin_username
   password                = var.dbadmin_password
@@ -53,7 +52,6 @@ resource "aws_db_instance" "primary" {
 resource "aws_db_instance" "read-replica" {
   count = var.read_only_replicas
 
-  name                = "${var.instance_name}-read-replica-${count.index + 1}"
   identifier          = "${var.instance_name}-read-replica-${count.index + 1}"
   apply_immediately   = var.apply_immediately
   maintenance_window  = var.maintenance_window
