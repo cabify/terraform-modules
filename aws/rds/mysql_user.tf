@@ -6,7 +6,6 @@ resource "mysql_user" "appuser" {
   tls_option         = "SSL"
 }
 
-
 resource "mysql_user" "exporter" {
   user               = "exporter"
   plaintext_password = var.exporter_password
