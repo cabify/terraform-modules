@@ -10,5 +10,5 @@ provider "mysql" {
   bastion_user = var.bastion_user
 
   tls      = "cert"
-  tls_cert = "/root/.config/rds-combined-ca-bundled.pem"
+  tls_cert = "/root/terraform.d/rds-combined-ca-bundled.pem"
 }
