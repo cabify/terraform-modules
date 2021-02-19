@@ -52,7 +52,6 @@ variable "bastion_user" {
 variable "tls_cert" {
   description = "TLS cert file to use on the bastion jump into to connect to the RDS instance"
   type        = string
-  default     = "/root/.terraform.d/rds-combined-ca-bundled.pem"
 }
 
 variable "owner" {
