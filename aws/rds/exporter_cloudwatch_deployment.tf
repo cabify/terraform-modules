@@ -200,7 +200,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
             value_from {
               secret_key_ref {
-                name = kubernetes_secret.rds.metadata[0].name
+                name = "rds-exporter"
                 key  = "aws_access_key"
               }
             }
@@ -211,7 +211,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
             value_from {
               secret_key_ref {
-                name = kubernetes_secret.rds.metadata[0].name
+                name = "rds-exporter"
                 key  = "aws_secret_key"
               }
             }
