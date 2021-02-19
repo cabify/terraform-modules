@@ -8,7 +8,6 @@ resource "mysql_grant" "appgrant" {
   tls_option = "SSL"
 }
 
-
 resource "mysql_grant" "exporter" {
   user       = mysql_user.exporter.user
   host       = mysql_user.exporter.host
