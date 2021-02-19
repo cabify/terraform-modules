@@ -1,7 +1,7 @@
 resource "kubernetes_deployment" "cloudwatch" {
   wait_for_rollout = true
   metadata {
-    name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch-exporter"
+    name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
 
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch"))
@@ -20,7 +20,7 @@ resource "kubernetes_deployment" "cloudwatch" {
 
     template {
       metadata {
-        name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch-exporter"
+        name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch"))
@@ -116,7 +116,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
   wait_for_rollout = true
 
   metadata {
-    name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-cloudwatch-exporter"
+    name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
 
     labels = {
       app = format(
@@ -139,7 +139,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
     template {
       metadata {
-        name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-cloudwatch-exporter"
+        name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch"))
