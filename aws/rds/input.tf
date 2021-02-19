@@ -191,6 +191,12 @@ variable "prometheus-scrape-flag" {
   default     = "persistence"
 }
 
+variable "region" {
+  description = "Region name for the rds_exporter"
+  type        = string
+  default     = "us-east-1"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS: MySQL Instance Variables
 # These parameters have reasonable defaults.
