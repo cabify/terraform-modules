@@ -219,12 +219,12 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
           liveness_probe {
             http_get {
-              path = "/"
+              path = "/basic"
               port = 9042
             }
 
             initial_delay_seconds = 5
-            period_seconds        = 3
+            period_seconds        = 60
           }
         }
       }
