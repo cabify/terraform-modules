@@ -40,6 +40,7 @@ resource "aws_db_instance" "primary" {
   max_allocated_storage = var.max_allocated_storage
   storage_encrypted     = true
   storage_type          = var.storage_type
+  iops                  = var.storage_type == "io1" ? var.iops : null
   multi_az              = var.tier == "3" ? false : true
 
   // monitoring

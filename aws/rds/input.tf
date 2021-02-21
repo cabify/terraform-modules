@@ -250,6 +250,12 @@ variable "storage_type" {
   default     = "gp2"
 }
 
+variable "iops" {
+  type        = number
+  description = "IOPS to be provisioned if using type io1. Disk must be larger than 100G"
+  default     = null
+}
+
 variable "allocated_storage" {
   description = "Disk space to be allocated to the DB instance"
   type        = number
