@@ -33,12 +33,12 @@ resource "kubernetes_deployment" "cloudwatch" {
           resources {
             limits {
               cpu    = "250m"
-              memory = "50Mi"
+              memory = "64Mi"
             }
 
             requests {
               cpu    = "100m"
-              memory = "25Mi"
+              memory = "48Mi"
             }
           }
 
@@ -153,12 +153,12 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
           resources {
             limits {
               cpu    = "250m"
-              memory = "50Mi"
+              memory = "64Mi"
             }
 
             requests {
               cpu    = "100m"
-              memory = "25Mi"
+              memory = "48Mi"
             }
           }
 
