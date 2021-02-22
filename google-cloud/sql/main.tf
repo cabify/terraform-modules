@@ -40,6 +40,21 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
       value = "0"
     }
 
+    database_flags {
+      name  = "max_allowed_packet"
+      value = "1073741824"
+    }
+
+    database_flags {
+      name  = "net_read_timeout"
+      value = "7200"
+    }
+
+    database_flags {
+      name  = "net_write_timeout"
+      value = "7200"
+    }
+
     maintenance_window {
       day          = var.instance_maintenance_day
       hour         = var.instance_maintenance_hour
