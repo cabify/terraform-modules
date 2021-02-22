@@ -85,6 +85,7 @@ resource "aws_db_instance" "read-replica" {
   max_allocated_storage = var.max_allocated_storage
   storage_encrypted     = true
   storage_type          = var.storage_type
+  iops                  = var.storage_type == "io1" ? var.iops : null
 
   // monitoring
   monitoring_interval          = 60
