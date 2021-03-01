@@ -34,25 +34,25 @@ variable "instance_name" {
   type        = string
 }
 
-//variable "bastion_host" {
-//  description = "Bastion host to jump into to connect to the RDS instance"
-//  type        = string
-//}
-//
-//variable "bastion_port" {
-//  description = "Bastion port to jump into to connect to the RDS instance"
-//  type        = number
-//}
-//
-//variable "bastion_user" {
-//  description = "Bastion user to jump into to connect to the RDS instance"
-//  type        = string
-//}
-//
-//variable "tls_cert" {
-//  description = "TLS cert file to use on the bastion jump into to connect to the RDS instance"
-//  type        = string
-//}
+variable "bastion_host" {
+  description = "Bastion host to jump into to connect to the RDS instance"
+  type        = string
+}
+
+variable "bastion_port" {
+  description = "Bastion port to jump into to connect to the RDS instance"
+  type        = number
+}
+
+variable "bastion_user" {
+  description = "Bastion user to jump into to connect to the RDS instance"
+  type        = string
+}
+
+variable "tls_cert" {
+  description = "TLS cert file to use on the bastion jump into to connect to the RDS instance"
+  type        = string
+}
 
 variable "owner" {
   description = "Name of team who owns the service"
