@@ -1,4 +1,5 @@
 resource "kubernetes_deployment" "cloudwatch" {
+  count = var.cloudwatch_enabled ? 1 : 0
   wait_for_rollout = true
   metadata {
     name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
@@ -112,7 +113,7 @@ resource "kubernetes_deployment" "cloudwatch" {
 }
 
 resource "kubernetes_deployment" "cloudwatch-read-only" {
-  count            = var.read_only_replicas
+  count = var.cloudwatch_enabled ? var.read_only_replicas : 0
   wait_for_rollout = true
 
   metadata {

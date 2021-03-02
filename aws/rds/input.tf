@@ -197,6 +197,18 @@ variable "region" {
   default     = "us-east-1"
 }
 
+variable "cloudwatch_enabled" {
+  description = "Cloudwatch deployment and service enabled"
+  type        = bool
+  default     = false
+}
+
+variable "cloudwatch_enhanced_enabled" {
+  description = "Cloudwatch enhanced deployment and service enabled"
+  type        = bool
+  default     = false
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS: MySQL Instance Variables
 # These parameters have reasonable defaults.

@@ -1,4 +1,5 @@
 resource "kubernetes_service" "cloudwatch-primary-basic" {
+  count = var.cloudwatch_enabled ? 1 : 0
   metadata {
     annotations = {
       prometheus_io_scrape        = var.prometheus-scrape-flag
@@ -10,13 +11,13 @@ resource "kubernetes_service" "cloudwatch-primary-basic" {
       prometheus_io_path          = "/basic"
     }
 
-    name      = "${kubernetes_deployment.cloudwatch.metadata[0].name}-basic"
+    name      = "${kubernetes_deployment.cloudwatch[0].metadata[0].name}-basic"
     namespace = var.namespace
   }
 
   spec {
     selector = {
-      app = kubernetes_deployment.cloudwatch.metadata[0].labels.app
+      app = kubernetes_deployment.cloudwatch[0].metadata[0].labels.app
     }
 
     session_affinity = "ClientIP"
@@ -31,6 +32,7 @@ resource "kubernetes_service" "cloudwatch-primary-basic" {
 }
 
 resource "kubernetes_service" "cloudwatch-primary-enhanced" {
+  count = var.cloudwatch_enhanced_enabled ? 1 : 0
   metadata {
     annotations = {
       prometheus_io_scrape        = var.prometheus-scrape-flag
@@ -42,13 +44,13 @@ resource "kubernetes_service" "cloudwatch-primary-enhanced" {
       prometheus_io_path          = "/enhanced"
     }
 
-    name      = "${kubernetes_deployment.cloudwatch.metadata[0].name}-enhanced"
+    name      = "${kubernetes_deployment.cloudwatch[0].metadata[0].name}-enhanced"
     namespace = var.namespace
   }
 
   spec {
     selector = {
-      app = kubernetes_deployment.cloudwatch.metadata[0].labels.app
+      app = kubernetes_deployment.cloudwatch[0].metadata[0].labels.app
     }
 
     session_affinity = "ClientIP"
@@ -63,7 +65,7 @@ resource "kubernetes_service" "cloudwatch-primary-enhanced" {
 }
 
 resource "kubernetes_service" "cloudwatch-read-replica-basic" {
-  count = var.read_only_replicas
+  count = var.cloudwatch_enabled ? var.read_only_replicas : 0
   metadata {
     annotations = {
       prometheus_io_scrape        = var.prometheus-scrape-flag
@@ -96,7 +98,7 @@ resource "kubernetes_service" "cloudwatch-read-replica-basic" {
 }
 
 resource "kubernetes_service" "cloudwatch-read-replica-enhanced" {
-  count = var.read_only_replicas
+  count = var.cloudwatch_enhanced_enabled ? var.read_only_replicas : 0
   metadata {
     annotations = {
       prometheus_io_scrape        = var.prometheus-scrape-flag
