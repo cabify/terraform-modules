@@ -43,7 +43,7 @@ resource "kubernetes_deployment" "cloudwatch" {
             }
           }
 
-          image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/dockerfiles/rds-cloudwatch-exporter/rds-cloudwatch-exporter"
+          image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/dockerfiles/rds-cloudwatch-exporter/rds-cloudwatch-exporter:assume-role-20210304T080518Z-201a61"
           name  = "cloudwatch-exporter"
 
           port {
@@ -163,7 +163,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
             }
           }
 
-          image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/dockerfiles/rds-cloudwatch-exporter/rds-cloudwatch-exporter"
+          image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/dockerfiles/rds-cloudwatch-exporter/rds-cloudwatch-exporter:assume-role-20210304T080518Z-201a61"
           name  = "cloudwatch-exporter"
 
           port {
