@@ -235,7 +235,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
             value_from {
               secret_key_ref {
                 name = "rds-exporter-tf"
-                key  = "aws_assume_role"
+                key  = "aws_role_arn"
               }
             }
           }
