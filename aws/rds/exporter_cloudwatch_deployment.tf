@@ -43,7 +43,7 @@ resource "kubernetes_deployment" "cloudwatch" {
             }
           }
 
-          image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/dockerfiles/rds-cloudwatch-exporter/rds-cloudwatch-exporter:assume-role-20210304T080518Z-201a61"
+          image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/dockerfiles/rds-cloudwatch-exporter/rds-cloudwatch-exporter"
           name  = "cloudwatch-exporter"
 
           port {
@@ -80,7 +80,7 @@ resource "kubernetes_deployment" "cloudwatch" {
 
             value_from {
               secret_key_ref {
-                name = "rds-exporter"
+                name = "rds-exporter-assume-role"
                 key  = "aws_access_key"
               }
             }
@@ -91,8 +91,19 @@ resource "kubernetes_deployment" "cloudwatch" {
 
             value_from {
               secret_key_ref {
-                name = "rds-exporter"
+                name = "rds-exporter-assume-role"
                 key  = "aws_secret_key"
+              }
+            }
+          }
+
+          env {
+            name = "ROLE_ARN"
+
+            value_from {
+              secret_key_ref {
+                name = "rds-exporter-assume-role"
+                key  = "aws_role_arn"
               }
             }
           }
@@ -163,7 +174,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
             }
           }
 
-          image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/dockerfiles/rds-cloudwatch-exporter/rds-cloudwatch-exporter:assume-role-20210304T080518Z-201a61"
+          image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/dockerfiles/rds-cloudwatch-exporter/rds-cloudwatch-exporter"
           name  = "cloudwatch-exporter"
 
           port {
@@ -201,7 +212,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
             value_from {
               secret_key_ref {
-                name = "rds-exporter"
+                name = "rds-exporter-assume-role"
                 key  = "aws_access_key"
               }
             }
@@ -212,8 +223,19 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
             value_from {
               secret_key_ref {
-                name = "rds-exporter"
+                name = "rds-exporter-assume-role"
                 key  = "aws_secret_key"
+              }
+            }
+          }
+
+          env {
+            name = "ROLE_ARN"
+
+            value_from {
+              secret_key_ref {
+                name = "rds-exporter-assume-role"
+                key  = "aws_assume_role"
               }
             }
           }
