@@ -80,7 +80,7 @@ resource "kubernetes_deployment" "cloudwatch" {
 
             value_from {
               secret_key_ref {
-                name = "rds-exporter-assume-role"
+                name = "rds-exporter-tf"
                 key  = "aws_access_key"
               }
             }
@@ -91,7 +91,7 @@ resource "kubernetes_deployment" "cloudwatch" {
 
             value_from {
               secret_key_ref {
-                name = "rds-exporter-assume-role"
+                name = "rds-exporter-tf"
                 key  = "aws_secret_key"
               }
             }
@@ -102,7 +102,7 @@ resource "kubernetes_deployment" "cloudwatch" {
 
             value_from {
               secret_key_ref {
-                name = "rds-exporter-assume-role"
+                name = "rds-exporter-tf"
                 key  = "aws_role_arn"
               }
             }
@@ -212,7 +212,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
             value_from {
               secret_key_ref {
-                name = "rds-exporter-assume-role"
+                name = "rds-exporter-tf"
                 key  = "aws_access_key"
               }
             }
@@ -223,7 +223,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
             value_from {
               secret_key_ref {
-                name = "rds-exporter-assume-role"
+                name = "rds-exporter-tf"
                 key  = "aws_secret_key"
               }
             }
@@ -234,7 +234,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
             value_from {
               secret_key_ref {
-                name = "rds-exporter-assume-role"
+                name = "rds-exporter-tf"
                 key  = "aws_assume_role"
               }
             }
