@@ -1,5 +1,7 @@
-resource "kubernetes_deployment" "cloudwatch" {
-  count = var.cloudwatch_enabled ? 1 : 0
+# Only difference with "cloudwatch" is on how we start the metrics containers
+
+resource "kubernetes_deployment" "cloudwatch-enhanced" {
+  count = var.cloudwatch_enhanced_enabled ? 1 : 0
   wait_for_rollout = true
   metadata {
     name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
@@ -51,7 +53,7 @@ resource "kubernetes_deployment" "cloudwatch" {
           }
 
           env {
-            name  = "DISABLE_ENHANCED"
+            name  = "DISABLE_BASIC"
             value = "true"
           }
 
@@ -128,8 +130,8 @@ resource "kubernetes_deployment" "cloudwatch" {
   }
 }
 
-resource "kubernetes_deployment" "cloudwatch-read-only" {
-  count = var.cloudwatch_enabled ? var.read_only_replicas : 0
+resource "kubernetes_deployment" "cloudwatch-read-only-enhanced" {
+  count = var.cloudwatch_enhanced_enabled ? var.read_only_replicas : 0
   wait_for_rollout = true
 
   metadata {
@@ -187,7 +189,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
           }
 
           env {
-            name  = "DISABLE_ENHANCED"
+            name  = "DISABLE_BASIC"
             value = "true"
           }
 
