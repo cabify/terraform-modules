@@ -209,6 +209,13 @@ variable "cloudwatch_enhanced_enabled" {
   default     = false
 }
 
+# This is a variable as `/health` is only available through Cabify fork
+variable "rds_exporter_health_path" {
+  description = "Path to setup liveness probe against RDS exporter"
+  type        = string
+  default     = "/basic"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS: MySQL Instance Variables
 # These parameters have reasonable defaults.

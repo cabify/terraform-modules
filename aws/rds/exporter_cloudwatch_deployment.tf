@@ -110,7 +110,7 @@ resource "kubernetes_deployment" "cloudwatch" {
 
           liveness_probe {
             http_get {
-              path = "/basic"
+              path = var.rds_exporter_health_path
               port = 9042
             }
 
@@ -242,7 +242,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
           liveness_probe {
             http_get {
-              path = "/basic"
+              path = var.rds_exporter_health_path
               port = 9042
             }
 
