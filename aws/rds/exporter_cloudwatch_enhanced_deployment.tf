@@ -4,10 +4,10 @@ resource "kubernetes_deployment" "cloudwatch-enhanced" {
   count = var.cloudwatch_enhanced_enabled ? 1 : 0
   wait_for_rollout = true
   metadata {
-    name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
+    name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch-enhanced"
 
     labels = {
-      app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch"))
+      app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch-enhanced"))
     }
 
     namespace = var.namespace
@@ -17,16 +17,16 @@ resource "kubernetes_deployment" "cloudwatch-enhanced" {
 
     selector {
       match_labels = {
-        app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch"))
+        app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch-enhanced"))
       }
     }
 
     template {
       metadata {
-        name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
+        name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch-enhanced"
 
         labels = {
-          app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch"))
+          app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch-enhanced"))
         }
       }
       spec {
@@ -135,13 +135,13 @@ resource "kubernetes_deployment" "cloudwatch-read-only-enhanced" {
   wait_for_rollout = true
 
   metadata {
-    name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
+    name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-cloudwatch-enhanced"
 
     labels = {
       app = format(
         "%.60s",
         md5(
-          "${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch",
+          "${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch-enhanced",
         ),
       )
     }
@@ -152,16 +152,16 @@ resource "kubernetes_deployment" "cloudwatch-read-only-enhanced" {
   spec {
     selector {
       match_labels = {
-        app = format("%.60s", md5("${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch"))
+        app = format("%.60s", md5("${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch-enhanced"))
       }
     }
 
     template {
       metadata {
-        name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
+        name = "${var.instance_name}-read-replica-${count.index + 1}-${replace(var.aws_account, "cabify-", "")}-cloudwatch-enhanced"
 
         labels = {
-          app = format("%.60s", md5("${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch"))
+          app = format("%.60s", md5("${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch-enhanced"))
         }
       }
 
