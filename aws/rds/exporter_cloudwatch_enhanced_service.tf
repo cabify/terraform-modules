@@ -11,7 +11,7 @@ resource "kubernetes_service" "cloudwatch-primary-enhanced" {
       prometheus_io_path          = "/enhanced"
     }
 
-    name      = "${kubernetes_deployment.cloudwatch-enhanced[0].metadata[0].name}-enhanced"
+    name      = "${kubernetes_deployment.cloudwatch-enhanced[0].metadata[0].name}"
     namespace = var.namespace
   }
 
@@ -44,7 +44,7 @@ resource "kubernetes_service" "cloudwatch-read-replica-enhanced" {
       prometheus_io_path          = "/enhanced"
     }
 
-    name      = "${element(kubernetes_deployment.cloudwatch-read-only-enhanced.*.metadata.0.name, count.index)}-enhanced"
+    name      = "${element(kubernetes_deployment.cloudwatch-read-only-enhanced.*.metadata.0.name, count.index)}"
     namespace = var.namespace
   }
 
