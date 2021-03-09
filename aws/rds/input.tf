@@ -209,11 +209,11 @@ variable "cloudwatch_enhanced_enabled" {
   default     = false
 }
 
-# This is a variable as `/health` is only available through Cabify fork
+# This is a variable as `/health` is only available through Cabify fork upstream is `/basic`
 variable "rds_exporter_health_path" {
   description = "Path to setup liveness probe against RDS exporter"
   type        = string
-  default     = "/basic"
+  default     = "/health"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
