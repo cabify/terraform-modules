@@ -50,7 +50,7 @@ resource "kubernetes_service" "cloudwatch-read-replica-basic" {
 
   spec {
     selector = {
-      app = kubernetes_deployment.rds.metadata[0].labels.app
+      app = element(kubernetes_deployment.cloudwatch-read-only.*.metadata.0.labels.app, count.index)
     }
 
     session_affinity = "ClientIP"
