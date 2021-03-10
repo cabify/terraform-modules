@@ -11,7 +11,7 @@ resource "kubernetes_service" "cloudwatch-primary-enhanced" {
       prometheus_io_path          = "/enhanced"
     }
 
-    name      = "${kubernetes_deployment.cloudwatch-enhanced[0].metadata[0].name}"
+    name      = kubernetes_deployment.cloudwatch-enhanced[0].metadata[0].name
     namespace = var.namespace
   }
 
@@ -44,13 +44,13 @@ resource "kubernetes_service" "cloudwatch-read-replica-enhanced" {
       prometheus_io_path          = "/enhanced"
     }
 
-    name      = "${element(kubernetes_deployment.cloudwatch-read-only-enhanced.*.metadata.0.name, count.index)}"
+    name      = element(kubernetes_deployment.cloudwatch-read-only-enhanced.*.metadata.0.name, count.index)
     namespace = var.namespace
   }
 
   spec {
     selector = {
-      app = kubernetes_deployment.rds.metadata[0].labels.app
+      app = element(kubernetes_deployment.cloudwatch-read-only-enhanced.*.metadata.0.labels.app, count.index)
     }
 
     session_affinity = "ClientIP"
