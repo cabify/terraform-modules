@@ -11,7 +11,7 @@ resource "kubernetes_service" "cloudwatch-primary-enhanced" {
       prometheus_io_path          = "/enhanced"
     }
 
-    name      = "${kubernetes_deployment.cloudwatch-enhanced[0].metadata[0].name}"
+    name      = kubernetes_deployment.cloudwatch-enhanced[0].metadata[0].name
     namespace = var.namespace
   }
 
