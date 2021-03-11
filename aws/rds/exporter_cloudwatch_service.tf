@@ -11,13 +11,13 @@ resource "kubernetes_service" "cloudwatch-primary-basic" {
       prometheus_io_path          = "/basic"
     }
 
-    name      = "${kubernetes_deployment.cloudwatch[0].metadata[0].name}-basic"
+    name      = "${kubernetes_deployment.cloudwatch.0.metadata.0.name}-basic"
     namespace = var.namespace
   }
 
   spec {
     selector = {
-      app = kubernetes_deployment.cloudwatch[0].metadata[0].labels.app
+      app = kubernetes_deployment.cloudwatch.0.metadata.0.labels.app
     }
 
     session_affinity = "ClientIP"
