@@ -17,7 +17,7 @@ resource "kubernetes_service" "cloudwatch-primary-enhanced" {
 
   spec {
     selector = {
-      app = kubernetes_deployment.cloudwatch[0].metadata[0].labels.app
+      app = kubernetes_deployment.cloudwatch-enhanced[0].metadata[0].labels.app
     }
 
     session_affinity = "ClientIP"
