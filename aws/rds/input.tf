@@ -171,7 +171,7 @@ variable "read_only_replicas" {
 variable "read_only_replica_instance_class" {
   type        = string
   description = "class of readonly replicas to create"
-  default     = "unset"
+  default     = "UNSET"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

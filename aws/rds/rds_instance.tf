@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_db_instance" "primary" {
-  // general 
+  // general
   identifier              = var.instance_name
   username                = var.dbadmin_username
   password                = var.dbadmin_password
@@ -26,7 +26,7 @@ resource "aws_db_instance" "primary" {
   vpc_security_group_ids = var.vpc_security_group_ids
   publicly_accessible    = var.public_access
 
-  // mysql specific 
+  // mysql specific
   engine                      = var.engine_name
   engine_version              = var.engine_version
   allow_major_version_upgrade = false
@@ -58,7 +58,7 @@ resource "aws_db_instance" "read-replica" {
   maintenance_window  = var.maintenance_window
   skip_final_snapshot = true
   license_model       = var.license_model
-  // general 
+  // general
   tags = {
     Name    = "${var.instance_name}-read-replica-${count.index + 1}"
     Service = var.service_name == "UNSET" ? var.instance_name : var.service_name
@@ -71,7 +71,7 @@ resource "aws_db_instance" "read-replica" {
   vpc_security_group_ids = var.vpc_security_group_ids
   publicly_accessible    = var.public_access
 
-  // mysql specific 
+  // mysql specific
   engine                      = var.engine_name
   engine_version              = var.engine_version
   allow_major_version_upgrade = false
@@ -80,7 +80,7 @@ resource "aws_db_instance" "read-replica" {
   option_group_name           = aws_db_option_group.rds.id
 
   // instance configs
-  instance_class        = var.read_only_replica_instance_class == "unset" ? var.instance_class : var.read_only_replica_instance_class
+  instance_class        = var.read_only_replica_instance_class == "UNSET" ? var.instance_class : var.read_only_replica_instance_class
   allocated_storage     = var.allocated_storage
   max_allocated_storage = var.max_allocated_storage
   storage_encrypted     = true

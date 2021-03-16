@@ -40,7 +40,7 @@ resource "kubernetes_service" "cloudwatch-read-replica-basic" {
       prometheus_io_service       = var.service_name == "UNSET" ? var.instance_name : var.service_name
       prometheus_io_owner         = var.owner
       prometheus_io_tier          = var.tier
-      prometheus_io_instance_tier = var.read_only_replica_instance_class == "unset" ? var.instance_class : var.read_only_replica_instance_class
+      prometheus_io_instance_tier = var.read_only_replica_instance_class == "UNSET" ? var.instance_class : var.read_only_replica_instance_class
       prometheus_io_path          = "/basic"
     }
 
