@@ -16,11 +16,11 @@ resource "mysql_grant" "exporter" {
   tls_option = "SSL"
 }
 
-resource "mysql_grant" "replication" {
-  count      = var.replication_enabled == true ? 1 : 0
-  user       = var.replication_gcp_username
-  database   = mysql_database.appdb.name
-  host       = mysql_user.replication[0].host
-  privileges = ["ALL PRIVILEGES"]
-  // tls_option = "SSL" // we will not force the old user to connect via ssl, since some apps might have issues
-}
+# resource "mysql_grant" "replication" {
+#   count      = var.replication_enabled == true ? 1 : 0
+#   user       = var.replication_gcp_username
+#   database   = mysql_database.appdb.name
+#   host       = mysql_user.replication[0].host
+#   privileges = ["ALL PRIVILEGES"]
+#   // tls_option = "SSL" // we will not force the old user to connect via ssl, since some apps might have issues
+# }
