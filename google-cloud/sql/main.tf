@@ -40,6 +40,21 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
       value = "0"
     }
 
+    database_flags {
+      name  = "max_allowed_packet"
+      value = "1073741824"
+    }
+
+    database_flags {
+      name  = "net_read_timeout"
+      value = "7200"
+    }
+
+    database_flags {
+      name  = "net_write_timeout"
+      value = "7200"
+    }
+
     maintenance_window {
       day          = var.instance_maintenance_day
       hour         = var.instance_maintenance_hour
@@ -79,20 +94,4 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
 
   count      = var.instance_read_only_replica_count
   depends_on = [google_sql_database_instance.google_sql_database_instance-module-master]
-}
-
-module "cabify_prometheus_mysql_scraper" {
-  source                           = "github.com/cabify/terraform-modules.git//google-cloud/kubernetes/prometheus-mysql-scraper?ref=google-cloud_kubernetes-prometheus-mysql-scraper-v0.1.19"
-  service_name                     = var.service_name
-  user_name                        = var.user_name
-  user_password                    = var.user_password
-  instance_region                  = var.instance_region
-  project                          = var.project
-  namespace                        = var.namespace
-  owner                            = var.owner
-  tier                             = var.tier
-  instance_read_only_replica_count = var.instance_read_only_replica_count
-  instance_tier                    = var.instance_tier
-  instance_tier_read_only_replica  = var.instance_tier_read_only_replica
-  prometheus-scrape-flag           = var.prometheus-scrape-flag
 }
