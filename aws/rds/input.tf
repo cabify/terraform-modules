@@ -24,6 +24,12 @@ variable "application_password" {
   type        = string
 }
 
+variable "exporter_username" {
+  description = "exporter password of the DB (username: exporter)"
+  type        = string
+  default     = "exporter"
+}
+
 variable "exporter_password" {
   description = "exporter password of the DB (username: exporter)"
   type        = string
@@ -214,6 +220,12 @@ variable "rds_exporter_health_path" {
   description = "Path to setup liveness probe against RDS exporter"
   type        = string
   default     = "/health"
+}
+
+variable "sql_exporter_enabled" {
+  description = "Set up a SQL exporter side care to export metrics base on SQL queries"
+  type        = bool
+  default     = false
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
