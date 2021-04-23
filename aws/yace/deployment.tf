@@ -55,6 +55,11 @@ resource "kubernetes_deployment" "exporter" {
           }
 
           env {
+            name  = "${upper(var.name)}_DELAY"
+            value = var.exporter_delay
+          }
+
+          env {
             name  = "REGION"
             value = var.region
           }

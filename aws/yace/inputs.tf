@@ -51,3 +51,9 @@ variable "exporter-data" {
   description = "data passed on to the yace exporter"
   type        = string
 }
+
+variable "exporter-delay" {
+  description = "delay passed on to the yace exporter to setup metrics"
+  type        = number
+  default     = 0
+}
