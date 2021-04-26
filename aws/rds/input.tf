@@ -228,6 +228,30 @@ variable "sql_exporter_enabled" {
   default     = false
 }
 
+variable "exporter_collector_flags" {
+  type = list(string)
+  default = [
+    "--collect.info_schema.clientstats",
+    "--collect.info_schema.processlist",
+    "--collect.engine_innodb_status",
+    "--collect.info_schema.innodb_metrics"
+  ]
+  description = "A list of configuration collectors flags for the exporter. https://github.com/prometheus/mysqld_exporter/blob/master/README.md#collector-flags"
+}
+
+variable "exporter_collector_perf_flags" {
+  type = list(string)
+  default = [
+    "--collect.perf_schema.eventsstatements",
+    "--collect.perf_schema.eventswaits",
+    "--collect.perf_schema.file_events",
+    "--collect.perf_schema.indexiowaits",
+    "--collect.perf_schema.tableiowaits",
+    "--collect.perf_schema.tablelocks"
+  ]
+  description = "A list of configuration collectors flags for the exporter performance wise. https://github.com/prometheus/mysqld_exporter/blob/master/README.md#collector-flags"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS: MySQL Instance Variables
 # These parameters have reasonable defaults.

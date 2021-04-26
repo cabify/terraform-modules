@@ -76,12 +76,7 @@ resource "kubernetes_deployment" "rds" {
             value = aws_db_instance.primary.address
           }
 
-          args = [
-            "--collect.info_schema.clientstats",
-            "--collect.info_schema.processlist",
-            "--collect.engine_innodb_status",
-            "--collect.info_schema.innodb_metrics",
-          ]
+          args = concat(var.exporter_collector_flags, aws_db_instance.primary.performance_insights_enabled ? var.exporter_collector_perf_flags : [])
 
           liveness_probe {
             http_get {
@@ -184,12 +179,7 @@ resource "kubernetes_deployment" "rds-read-only" {
 
           }
 
-          args = [
-            "--collect.info_schema.clientstats",
-            "--collect.info_schema.processlist",
-            "--collect.engine_innodb_status",
-            "--collect.info_schema.innodb_metrics",
-          ]
+          args = concat(var.exporter_collector_flags, aws_db_instance.primary.performance_insights_enabled ? var.exporter_collector_perf_flags : [])
 
           liveness_probe {
             http_get {
