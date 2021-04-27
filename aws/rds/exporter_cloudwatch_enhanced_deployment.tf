@@ -63,11 +63,6 @@ resource "kubernetes_deployment" "cloudwatch-enhanced" {
           }
 
           env {
-            name  = "SERVICE"
-            value = var.service_name == "UNSET" ? var.instance_name : var.service_name
-          }
-
-          env {
             name  = "TIER"
             value = var.tier
           }
@@ -196,11 +191,6 @@ resource "kubernetes_deployment" "cloudwatch-read-only-enhanced" {
           env {
             name  = "OWNER"
             value = var.owner
-          }
-
-          env {
-            name  = "SERVICE"
-            value = var.service_name == "UNSET" ? var.instance_name : var.service_name
           }
 
           env {
