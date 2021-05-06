@@ -38,12 +38,12 @@ resource "kubernetes_deployment" "cloudsql" {
 
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "50Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "25Mi"
             }
@@ -72,12 +72,12 @@ resource "kubernetes_deployment" "cloudsql" {
 
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "50Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "25Mi"
             }
