@@ -27,6 +27,8 @@ resource "kubernetes_deployment" "cloudsql" {
       }
       spec {
         restart_policy = "Always"
+        automount_service_account_token = false
+        enable_service_links = true
 
         volume {
           name = "secret-volume"
