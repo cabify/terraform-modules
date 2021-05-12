@@ -17,6 +17,10 @@ resource "kubernetes_replication_controller" "elasticsearch" {
     }
 
     template {
+      metadata {
+        labels = {}
+        annotations = {}
+      }
       spec {
         container {
           resources {
