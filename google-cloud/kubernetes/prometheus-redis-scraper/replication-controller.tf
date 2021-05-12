@@ -18,7 +18,9 @@ resource "kubernetes_replication_controller" "redis" {
 
     template {
       metadata {
-        labels      = {}
+        labels = {
+          app = "${var.service}-${replace(var.project, "cabify-", "")}-redis-scraper"
+        }
         annotations = {}
       }
       spec {
