@@ -17,50 +17,49 @@ resource "kubernetes_replication_controller" "elasticsearch" {
     }
 
     template {
-      restart_policy = "Always"
+      spec {
+        container {
+          resources {
+            limits {
+              cpu    = "250m"
+              memory = "50Mi"
+            }
 
-      container {
-        resources {
-          limits {
-            cpu    = "250m"
-            memory = "50Mi"
-          }
-
-          requests {
-            cpu    = "100m"
-            memory = "25Mi"
-          }
-        }
-
-        image = "justwatch/elasticsearch_exporter:1.1.0"
-        name  = "${replace(var.project, "cabify-", "")}-elasticsearch-exporter"
-
-        port {
-          container_port = var.container_port
-        }
-
-        env {
-          name = "ES_URI"
-
-          value_from {
-            secret_key_ref {
-              name = kubernetes_secret.elasticsearch.metadata[0].name
-              key  = "uri"
+            requests {
+              cpu    = "100m"
+              memory = "25Mi"
             }
           }
-        }
 
-        liveness_probe {
-          http_get {
-            path = "/"
-            port = var.container_port
+          image = "justwatch/elasticsearch_exporter:1.1.0"
+          name  = "${replace(var.project, "cabify-", "")}-elasticsearch-exporter"
+
+          port {
+            container_port = var.container_port
           }
 
-          initial_delay_seconds = 5
-          period_seconds        = 3
+          env {
+            name = "ES_URI"
+
+            value_from {
+              secret_key_ref {
+                name = kubernetes_secret.elasticsearch.metadata[0].name
+                key  = "uri"
+              }
+            }
+          }
+
+          liveness_probe {
+            http_get {
+              path = "/"
+              port = var.container_port
+            }
+
+            initial_delay_seconds = 5
+            period_seconds        = 3
+          }
         }
       }
     }
   }
 }
-
