@@ -18,10 +18,14 @@ resource "kubernetes_replication_controller" "elasticsearch" {
 
     template {
       metadata {
-        labels = {}
+        labels = {
+          app = "${replace(var.project, "cabify-", "")}-elasticsearch-scraper"
+        }
         annotations = {}
       }
       spec {
+        automount_service_account_token = false
+        enable_service_links            = false
         container {
           resources {
             limits = {
