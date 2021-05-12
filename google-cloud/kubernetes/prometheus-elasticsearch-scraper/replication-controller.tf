@@ -20,12 +20,12 @@ resource "kubernetes_replication_controller" "elasticsearch" {
       spec {
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "50Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "25Mi"
             }
