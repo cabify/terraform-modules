@@ -18,10 +18,13 @@ resource "kubernetes_replication_controller" "redis" {
 
     template {
       metadata {
-        labels = {}
+        labels      = {}
         annotations = {}
       }
       spec {
+        automount_service_account_token = false
+        enable_service_links            = false
+
         container {
           resources {
             limits = {
