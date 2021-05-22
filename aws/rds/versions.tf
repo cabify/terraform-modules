@@ -5,7 +5,8 @@ terraform {
       version = "< 2"
     }
     mysql = {
-      source = "terraform-providers/mysql"
+      source  = "local/cabify/mysql"
+      version = "= 1.9.1-p3"
     }
   }
 }
