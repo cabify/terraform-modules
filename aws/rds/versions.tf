@@ -4,5 +4,8 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "< 2"
     }
+    mysql = {
+      source = "terraform-providers/mysql"
+    }
   }
 }
