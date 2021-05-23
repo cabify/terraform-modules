@@ -29,7 +29,7 @@ resource "kubernetes_deployment" "rds" {
       spec {
         restart_policy                  = "Always"
         automount_service_account_token = false
-        enable_service_links            = false
+        enable_service_links            = true
 
         container {
           resources {
@@ -133,7 +133,7 @@ resource "kubernetes_deployment" "rds-read-only" {
       spec {
         restart_policy                  = "Always"
         automount_service_account_token = false
-        enable_service_links            = false
+        enable_service_links            = true
 
         container {
           resources {

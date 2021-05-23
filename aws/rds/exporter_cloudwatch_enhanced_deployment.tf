@@ -32,7 +32,7 @@ resource "kubernetes_deployment" "cloudwatch-enhanced" {
       spec {
         restart_policy                  = "Always"
         automount_service_account_token = false
-        enable_service_links            = false
+        enable_service_links            = true
 
         container {
           resources {
@@ -165,7 +165,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only-enhanced" {
       spec {
         restart_policy                  = "Always"
         automount_service_account_token = false
-        enable_service_links            = false
+        enable_service_links            = true
 
         container {
           resources {

@@ -30,7 +30,7 @@ resource "kubernetes_deployment" "sql_exporter" {
       spec {
         restart_policy                  = "Always"
         automount_service_account_token = false
-        enable_service_links            = false
+        enable_service_links            = true
 
         container {
           resources {
