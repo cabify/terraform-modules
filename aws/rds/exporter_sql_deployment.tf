@@ -1,5 +1,5 @@
 resource "kubernetes_deployment" "sql_exporter" {
-  count = var.sql_exporter_enabled ? 1 : 0
+  count            = var.sql_exporter_enabled ? 1 : 0
   wait_for_rollout = true
   metadata {
     name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-sql-exporter"
@@ -28,16 +28,18 @@ resource "kubernetes_deployment" "sql_exporter" {
         }
       }
       spec {
-        restart_policy = "Always"
+        restart_policy                  = "Always"
+        automount_service_account_token = false
+        enable_service_links            = false
 
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "150m"
               memory = "50Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "150m"
               memory = "50Mi"
             }
@@ -55,13 +57,13 @@ resource "kubernetes_deployment" "sql_exporter" {
           }
 
           volume_mount {
-            name = "sql-exporter-querries"
+            name       = "sql-exporter-querries"
             mount_path = "/etc/sql-exporter-querries/"
           }
 
           volume_mount {
-            name = "sql-exporter-config"
-            mount_path = "/etc/sql-exporter/"
+            name              = "sql-exporter-config"
+            mount_path        = "/etc/sql-exporter/"
             mount_propagation = "None"
           }
 
@@ -80,8 +82,8 @@ resource "kubernetes_deployment" "sql_exporter" {
           name = "sql-exporter-querries"
           config_map {
             default_mode = "0420"
-            optional = false
-            name = kubernetes_config_map.sql_exporter_querries.metadata.0.name
+            optional     = false
+            name         = kubernetes_config_map.sql_exporter_querries.metadata.0.name
           }
         }
 
@@ -89,8 +91,8 @@ resource "kubernetes_deployment" "sql_exporter" {
           name = "sql-exporter-config"
           secret {
             default_mode = "0420"
-            optional = false
-            secret_name = kubernetes_secret.sql_exporter_config.metadata.0.name
+            optional     = false
+            secret_name  = kubernetes_secret.sql_exporter_config.metadata.0.name
           }
         }
       }

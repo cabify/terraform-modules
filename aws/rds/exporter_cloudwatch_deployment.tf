@@ -1,5 +1,5 @@
 resource "kubernetes_deployment" "cloudwatch" {
-  count = var.cloudwatch_enabled ? 1 : 0
+  count            = var.cloudwatch_enabled ? 1 : 0
   wait_for_rollout = true
   metadata {
     name = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-cloudwatch"
@@ -28,16 +28,18 @@ resource "kubernetes_deployment" "cloudwatch" {
         }
       }
       spec {
-        restart_policy = "Always"
+        restart_policy                  = "Always"
+        automount_service_account_token = false
+        enable_service_links            = false
 
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "64Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "48Mi"
             }
@@ -124,7 +126,7 @@ resource "kubernetes_deployment" "cloudwatch" {
 }
 
 resource "kubernetes_deployment" "cloudwatch-read-only" {
-  count = var.cloudwatch_enabled ? var.read_only_replicas : 0
+  count            = var.cloudwatch_enabled ? var.read_only_replicas : 0
   wait_for_rollout = true
 
   metadata {
@@ -159,16 +161,18 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
       }
 
       spec {
-        restart_policy = "Always"
+        restart_policy                  = "Always"
+        automount_service_account_token = false
+        enable_service_links            = false
 
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "64Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "48Mi"
             }

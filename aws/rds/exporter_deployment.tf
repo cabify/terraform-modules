@@ -27,16 +27,18 @@ resource "kubernetes_deployment" "rds" {
         }
       }
       spec {
-        restart_policy = "Always"
+        restart_policy                  = "Always"
+        automount_service_account_token = false
+        enable_service_links            = false
 
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "50Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "25Mi"
             }
@@ -129,16 +131,18 @@ resource "kubernetes_deployment" "rds-read-only" {
       }
 
       spec {
-        restart_policy = "Always"
+        restart_policy                  = "Always"
+        automount_service_account_token = false
+        enable_service_links            = false
 
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "50Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "25Mi"
             }
