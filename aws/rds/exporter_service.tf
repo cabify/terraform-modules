@@ -13,6 +13,8 @@ resource "kubernetes_service" "primary" {
     namespace = var.namespace
   }
 
+  wait_for_load_balancer = true
+
   spec {
     selector = {
       app = kubernetes_deployment.rds.metadata[0].labels.app

@@ -15,6 +15,8 @@ resource "kubernetes_service" "cloudwatch-primary-basic" {
     namespace = var.namespace
   }
 
+  wait_for_load_balancer = true
+
   spec {
     selector = {
       app = kubernetes_deployment.cloudwatch.0.metadata.0.labels.app

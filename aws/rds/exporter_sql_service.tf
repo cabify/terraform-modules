@@ -15,6 +15,8 @@ resource "kubernetes_service" "sql_exporter" {
     namespace = var.namespace
   }
 
+  wait_for_load_balancer = true
+
   spec {
     selector = {
       app = kubernetes_deployment.sql_exporter.0.metadata.0.labels.app
