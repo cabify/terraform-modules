@@ -246,6 +246,7 @@ variable "exporter_collector_perf_flags" {
     "--collect.perf_schema.eventswaits",
     "--collect.perf_schema.file_events",
     "--collect.perf_schema.indexiowaits",
+    "--collect.perf_schema.preparedstatements",
     "--collect.perf_schema.tableiowaits",
     "--collect.perf_schema.tablelocks"
   ]
