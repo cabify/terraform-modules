@@ -2,25 +2,31 @@ resource "kubernetes_replication_controller" "prometheus" {
   metadata {
     name = "prometheus-server"
 
-    labels {
+    labels = {
       app = "prometheus-server"
     }
 
-    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
+    namespace = kubernetes_namespace.prometheus.metadata.0.name
   }
 
   spec {
-    selector {
+    selector = {
       app = "prometheus-server"
     }
 
     template {
+      metadata {
+        name = "prometheus-server"
+        labels = {
+          app = "prometheus-server"
+        }
+      }
       spec {
         restart_policy       = "Always"
-        service_account_name = "${kubernetes_namespace.prometheus.metadata.0.name}"
+        service_account_name = kubernetes_namespace.prometheus.metadata.0.name
 
-        node_selector {
-          "beta.kubernetes.io/instance-type" = "${var.instance_type}"
+        node_selector = {
+          "beta.kubernetes.io/instance-type" = var.instance_type
         }
 
         // "nobody" from prometheus Dockerfile
@@ -33,7 +39,7 @@ resource "kubernetes_replication_controller" "prometheus" {
           name = "service-account-volume"
 
           secret {
-            secret_name  = "${kubernetes_service_account.prometheus.default_secret_name}"
+            secret_name  = kubernetes_service_account.prometheus.default_secret_name
             default_mode = 420
           }
         }
@@ -42,7 +48,7 @@ resource "kubernetes_replication_controller" "prometheus" {
           name = "prometheus-config-volume"
 
           config_map {
-            name         = "${kubernetes_config_map.prometheus.metadata.0.name}"
+            name         = kubernetes_config_map.prometheus.metadata.0.name
             default_mode = 420
           }
         }
@@ -69,7 +75,7 @@ resource "kubernetes_replication_controller" "prometheus" {
           name = "prometheus-storage-volume"
 
           persistent_volume_claim {
-            claim_name = "${kubernetes_persistent_volume_claim.prometheus-server-data.metadata.0.name}"
+            claim_name = kubernetes_persistent_volume_claim.prometheus-server-data.metadata.0.name
           }
         }
 
@@ -83,8 +89,8 @@ resource "kubernetes_replication_controller" "prometheus" {
         }
 
         volume {
-          name      = "trickster-boltdb-cache"
-          empty_dir = {}
+          name = "trickster-boltdb-cache"
+          empty_dir {}
         }
 
         container {
@@ -114,19 +120,19 @@ resource "kubernetes_replication_controller" "prometheus" {
           name  = "prometheus"
 
           resources {
-            requests {
-              memory = "${var.prometheus_memory_request}"
-              cpu    = "${var.prometheus_cpu_request}"
+            requests = {
+              memory = var.prometheus_memory_request
+              cpu    = var.prometheus_cpu_request
             }
 
-            limits {
-              memory = "${var.prometheus_memory_limit}"
-              cpu    = "${var.prometheus_cpu_limit}"
+            limits = {
+              memory = var.prometheus_memory_limit
+              cpu    = var.prometheus_cpu_limit
             }
           }
 
           port {
-            container_port = "${var.prometheus-port}"
+            container_port = var.prometheus-port
           }
 
           volume_mount {
@@ -165,22 +171,22 @@ resource "kubernetes_replication_controller" "prometheus" {
           liveness_probe {
             http_get {
               path = "/-/healthy"
-              port = "${var.prometheus-port}"
+              port = var.prometheus-port
             }
 
-            initial_delay_seconds = "${var.livenessprobe_delay}"
-            period_seconds        = "${var.livenessprobe_period_seconds}"
-            timeout_seconds       = "${var.livenessprobe_timeout_seconds}"
+            initial_delay_seconds = var.livenessprobe_delay
+            period_seconds        = var.livenessprobe_period_seconds
+            timeout_seconds       = var.livenessprobe_timeout_seconds
           }
 
           readiness_probe {
             http_get {
               path = "/-/ready"
-              port = "${var.prometheus-port}"
+              port = var.prometheus-port
             }
 
-            period_seconds  = "${var.readinessprobe_period_seconds}"
-            timeout_seconds = "${var.readinessprobe_timeout_seconds}"
+            period_seconds  = var.readinessprobe_period_seconds
+            timeout_seconds = var.readinessprobe_timeout_seconds
           }
         }
 
@@ -189,23 +195,23 @@ resource "kubernetes_replication_controller" "prometheus" {
           name  = "trickster"
 
           resources {
-            requests {
-              memory = "${var.trickster_memory_request}"
-              cpu    = "${var.trickster_cpu_request}"
+            requests = {
+              memory = var.trickster_memory_request
+              cpu    = var.trickster_cpu_request
             }
 
-            limits {
-              memory = "${var.trickster_memory_limit}"
-              cpu    = "${var.trickster_cpu_limit}"
+            limits = {
+              memory = var.trickster_memory_limit
+              cpu    = var.trickster_cpu_limit
             }
           }
 
           port {
-            container_port = "${var.trickster_port}"
+            container_port = var.trickster_port
           }
 
           port {
-            container_port = "${var.trickster_metrics_port}"
+            container_port = var.trickster_metrics_port
           }
 
           args = [
