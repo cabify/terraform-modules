@@ -7,13 +7,13 @@
 # that there are some changes.
 
 data "template_file" "ingress_nginx" {
-  template = "${file("${path.module}/ingress_nginx_template.yaml")}"
+  template = file("${path.module}/ingress_nginx_template.yaml")
 
-  vars {
-    static_ip = "${google_compute_address.ingress_nginx_static_ip.address}"
+  vars = {
+    static_ip = google_compute_address.ingress_nginx_static_ip.address
   }
 }
 
 resource "k8s_manifest" "ingress_nginx" {
-  content = "${data.template_file.ingress_nginx.rendered}"
+  content = data.template_file.ingress_nginx.rendered
 }
