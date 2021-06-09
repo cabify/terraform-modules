@@ -1,11 +1,11 @@
 resource "kubernetes_service" "oauth2_proxy" {
   metadata {
     name      = "oauth2-proxy"
-    namespace = "${var.oauth2_proxy_deployment_namespace}"
+    namespace = var.oauth2_proxy_deployment_namespace
   }
 
   spec {
-    selector {
+    selector = {
       app = "oauth2-proxy"
     }
 
