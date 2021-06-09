@@ -1,12 +1,10 @@
 terraform {
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
-      version = "= 3.38.0"
+      source = "hashicorp/aws"
     }
     kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2"
+      source = "hashicorp/kubernetes"
     }
     mysql = {
       source  = "local/cabify/mysql"
