@@ -31,12 +31,12 @@ resource "kubernetes_deployment" "exporter" {
 
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "64Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "48Mi"
             }
