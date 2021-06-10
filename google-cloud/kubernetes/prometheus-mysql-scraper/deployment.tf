@@ -27,6 +27,8 @@ resource "kubernetes_deployment" "cloudsql" {
       }
       spec {
         restart_policy = "Always"
+        automount_service_account_token = false
+        enable_service_links = false
 
         volume {
           name = "secret-volume"
@@ -38,12 +40,12 @@ resource "kubernetes_deployment" "cloudsql" {
 
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "50Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "25Mi"
             }
@@ -72,12 +74,12 @@ resource "kubernetes_deployment" "cloudsql" {
 
         container {
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "50Mi"
             }
 
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "25Mi"
             }

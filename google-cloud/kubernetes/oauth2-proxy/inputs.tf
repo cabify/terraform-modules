@@ -2,15 +2,15 @@
 ## Oauth2 Proxy Configuration
 ###############################################################################
 variable "oauth2_proxy_client_id" {
-  type = "string"
+  type = string
 }
 
 variable "oauth2_proxy_client_secret" {
-  type = "string"
+  type = string
 }
 
 variable "oauth2_proxy_cookie" {
-  type = "string"
+  type = string
 }
 
 ###############################################################################
@@ -18,19 +18,19 @@ variable "oauth2_proxy_cookie" {
 ###############################################################################
 
 variable "oauth2_proxy_deployment_namespace" {
-  type    = "string"
+  type    = string
   default = "ingress-nginx"
 }
 
 variable "oauth2_proxy_deployment_replicas" {
-  type    = "string"
+  type    = string
   default = "1"
 }
 
 variable "oauth2_proxy_deployment_image" {
-  type = "string"
+  type = string
 }
 
 variable "oauth2_proxy_deployment_email_domain" {
-  type = "string"
+  type = string
 }

@@ -5,38 +5,38 @@
 resource "kubernetes_config_map" "prometheus" {
   metadata {
     name      = "prometheus-configuration"
-    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
+    namespace = kubernetes_namespace.prometheus.metadata.0.name
   }
 
-  data {
-    prometheus.yml = "${var.prometheus_config}"
+  data = {
+    "prometheus.yml" = var.prometheus_config
   }
 }
 
 data "template_file" "alertrules" {
-  template = "${file("${path.module}/files/config-map-alertrules.yaml")}"
+  template = file("${path.module}/files/config-map-alertrules.yaml")
 
-  vars {
-    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
+  vars = {
+    namespace = kubernetes_namespace.prometheus.metadata.0.name
   }
 }
 
 resource "k8s_manifest" "alertrules" {
-  content    = "${data.template_file.alertrules.rendered}"
-  depends_on = ["kubernetes_config_map.prometheus"]
+  content    = data.template_file.alertrules.rendered
+  depends_on = [kubernetes_config_map.prometheus]
 }
 
 data "template_file" "recordingrules" {
-  template = "${file("${path.module}/files/config-map-recordingrules.yaml")}"
+  template = file("${path.module}/files/config-map-recordingrules.yaml")
 
-  vars {
-    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
+  vars = {
+    namespace = kubernetes_namespace.prometheus.metadata.0.name
   }
 }
 
 resource "k8s_manifest" "recordingrules" {
-  content    = "${data.template_file.recordingrules.rendered}"
-  depends_on = ["kubernetes_config_map.prometheus"]
+  content    = data.template_file.recordingrules.rendered
+  depends_on = [kubernetes_config_map.prometheus]
 }
 
 ################################################################################
@@ -46,10 +46,10 @@ resource "k8s_manifest" "recordingrules" {
 resource "kubernetes_config_map" "trickster" {
   metadata {
     name      = "trickster-config"
-    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
+    namespace = kubernetes_namespace.prometheus.metadata.0.name
   }
 
-  data {
-    trickster.conf = "${var.trickster_config}"
+  data = {
+    "trickster.conf" = var.trickster_config
   }
 }

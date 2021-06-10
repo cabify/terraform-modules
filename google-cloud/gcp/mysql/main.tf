@@ -1,30 +1,30 @@
 # MASTER INSTANCE #
 resource "google_compute_address" "mysqlcluster-module_first" {
-  name  = "mysqlcluster-${var.service_name}-first"
+  name = "mysqlcluster-${var.service_name}-first"
 }
 
 resource "google_compute_instance" "mysqlcluster-module_first" {
   name         = "mysqlcluster-${var.service_name}-first"
-  machine_type = "${var.first_instance_size}"
+  machine_type = var.first_instance_size
 
   # TODO: Improve zone definition to have each node in a different zone, at least for read replicas.
-  zone                = "${var.zone_first}"
-  deletion_protection = ${var.deletion_protection}
+  zone                = var.zone_first
+  deletion_protection = var.deletion_protection
 
   # TODO: Improve with persistent disk (SSD?) for data.
   boot_disk {
     initialize_params {
       size  = 100
-      image = "${var.gcp_image}"
+      image = var.gcp_image
     }
   }
 
   network_interface {
     # ${google_compute_subnetwork.chaos_refugees.self_link}
-    subnetwork = "${var.subnetwork}"
+    subnetwork = var.subnetwork
 
     access_config {
-      nat_ip = "${google_compute_address.mysqlcluster-module_first.address}"
+      nat_ip = google_compute_address.mysqlcluster-module_first.address
     }
   }
 
@@ -33,14 +33,14 @@ resource "google_compute_instance" "mysqlcluster-module_first" {
     host-group             = "mysqlcluster-${var.service_name}"
     block-project-ssh-keys = "TRUE"
     enable-oslogin         = "FALSE"
-    shutdown-script        = "${data.template_file.shutdown_script.rendered}"
+    shutdown-script        = data.template_file.shutdown_script.rendered
   }
 
   # not in metadata to _force_ recreation
-  metadata_startup_script = "${data.template_file.mysqlha_startup_script.rendered}"
+  metadata_startup_script = data.template_file.mysqlha_startup_script.rendered
 
   tags = [
-    "${var.service_name}",
+    var.service_name,
     "mysqlcluster",
     "mysqlcluster-first",
     "mysqlcluster-${var.service_name}",
@@ -69,32 +69,32 @@ resource "google_compute_instance" "mysqlcluster-module_first" {
 # REPLICAS (instances number 2 and 3)
 # Replica A
 resource "google_compute_address" "mysqlcluster-module_second" {
-  name  = "mysqlcluster-${var.service_name}-second"
+  name = "mysqlcluster-${var.service_name}-second"
 }
 
 resource "google_compute_instance" "mysqlcluster-module_second" {
   name         = "mysqlcluster-${var.service_name}-second"
-  machine_type = "${var.replica_instance_size}"
+  machine_type = var.replica_instance_size
 
   # TODO: Improve zone definition to have each node in a different zone, at least for read replicas.
   #TODO
-  zone                = "${var.zone_second}"
-  deletion_protection = ${var.deletion_protection}
+  zone                = var.zone_second
+  deletion_protection = var.deletion_protection
 
   # TODO: Improve with persistent disk (SSD?) for data.
   boot_disk {
     initialize_params {
       size  = 100
-      image = "${var.gcp_image}"
+      image = var.gcp_image
     }
   }
 
   network_interface {
     # ${google_compute_subnetwork.chaos_refugees.self_link}
-    subnetwork = "${var.subnetwork}"
+    subnetwork = var.subnetwork
 
     access_config {
-      nat_ip = "${google_compute_address.mysqlcluster-module_second.address}"
+      nat_ip = google_compute_address.mysqlcluster-module_second.address
     }
   }
 
@@ -103,14 +103,14 @@ resource "google_compute_instance" "mysqlcluster-module_second" {
     host-group             = "mysqlcluster-${var.service_name}"
     block-project-ssh-keys = "TRUE"
     enable-oslogin         = "FALSE"
-    shutdown-script        = "${data.template_file.shutdown_script.rendered}"
+    shutdown-script        = data.template_file.shutdown_script.rendered
   }
 
   # not in metadata to _force_ recreation
-  metadata_startup_script = "${data.template_file.mysqlha_startup_script.rendered}"
+  metadata_startup_script = data.template_file.mysqlha_startup_script.rendered
 
   tags = [
-    "${var.service_name}",
+    var.service_name,
     "mysqlcluster",
     "mysqlcluster-second",
     "mysqlcluster-${var.service_name}",
@@ -138,32 +138,32 @@ resource "google_compute_instance" "mysqlcluster-module_second" {
 
 # Replica B
 resource "google_compute_address" "mysqlcluster-module_third" {
-  name  = "mysqlcluster-${var.service_name}-third"
+  name = "mysqlcluster-${var.service_name}-third"
 }
 
 resource "google_compute_instance" "mysqlcluster-module_third" {
   name         = "mysqlcluster-${var.service_name}-third"
-  machine_type = "${var.replica_instance_size}"
+  machine_type = var.replica_instance_size
 
   # TODO: Improve zone definition to have each node in a different zone, at least for read replicas.
   #TODO
-  zone                = "${var.zone_third}"
-  deletion_protection = ${var.deletion_protection}
+  zone                = var.zone_third
+  deletion_protection = var.deletion_protection
 
   # TODO: Improve with persistent disk (SSD?) for data.
   boot_disk {
     initialize_params {
       size  = 100
-      image = "${var.gcp_image}"
+      image = var.gcp_image
     }
   }
 
   network_interface {
     # ${google_compute_subnetwork.chaos_refugees.self_link}
-    subnetwork = "${var.subnetwork}"
+    subnetwork = var.subnetwork
 
     access_config {
-      nat_ip = "${google_compute_address.mysqlcluster-module_third.address}"
+      nat_ip = google_compute_address.mysqlcluster-module_third.address
     }
   }
 
@@ -172,14 +172,14 @@ resource "google_compute_instance" "mysqlcluster-module_third" {
     host-group             = "mysqlcluster-${var.service_name}"
     block-project-ssh-keys = "TRUE"
     enable-oslogin         = "FALSE"
-    shutdown-script        = "${data.template_file.shutdown_script.rendered}"
+    shutdown-script        = data.template_file.shutdown_script.rendered
   }
 
   # not in metadata to _force_ recreation
-  metadata_startup_script = "${data.template_file.mysqlha_startup_script.rendered}"
+  metadata_startup_script = data.template_file.mysqlha_startup_script.rendered
 
   tags = [
-    "${var.service_name}",
+    var.service_name,
     "mysqlcluster",
     "mysqlcluster-third",
     "mysqlcluster-${var.service_name}",

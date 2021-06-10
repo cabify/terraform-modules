@@ -1,26 +1,26 @@
 variable "name" {
-  type        = "string"
+  type        = string
   description = "Name of the service"
 }
 
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Name of the service"
 }
 
 variable "port" {
-  type        = "string"
+  type        = string
   description = "Port of the service"
 }
 
 variable "https" {
-  type        = "string"
+  type        = string
   description = "Is this service scraped via https?"
   default     = "false"
 }
 
 variable "fqdn" {
-  type        = "string"
+  type        = string
   description = "FQDN for external service to scrape"
   default     = ""
 }

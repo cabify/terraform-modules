@@ -14,7 +14,7 @@ resource "kubernetes_service" "redis" {
     name      = kubernetes_replication_controller.redis.metadata[0].name
     namespace = var.namespace
   }
-
+  wait_for_load_balancer = true
   spec {
     selector = {
       app = kubernetes_replication_controller.redis.metadata[0].labels.app

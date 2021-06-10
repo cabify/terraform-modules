@@ -6,13 +6,6 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-mas
 
   settings {
 
-    ip_configuration {
-      authorized_networks {
-        name  = "dms"
-        value = "${var.dms_instances[0][0]}/32"
-      }
-    }
-
     tier = var.instance_tier
 
     disk_autoresize = var.instance_disk_autoresize
@@ -94,4 +87,20 @@ resource "google_sql_database_instance" "google_sql_database_instance-module-rea
 
   count      = var.instance_read_only_replica_count
   depends_on = [google_sql_database_instance.google_sql_database_instance-module-master]
+}
+
+module "cabify_prometheus_mysql_scraper" {
+  source                           = "github.com/cabify/terraform-modules.git//google-cloud/kubernetes/prometheus-mysql-scraper?ref=ls_terraform013"
+  service_name                     = var.service_name
+  user_name                        = var.user_name
+  user_password                    = var.user_password
+  instance_region                  = var.instance_region
+  project                          = var.project
+  namespace                        = var.namespace
+  owner                            = var.owner
+  tier                             = var.tier
+  instance_read_only_replica_count = var.instance_read_only_replica_count
+  instance_tier                    = var.instance_tier
+  instance_tier_read_only_replica  = var.instance_tier_read_only_replica
+  prometheus-scrape-flag           = var.prometheus-scrape-flag
 }

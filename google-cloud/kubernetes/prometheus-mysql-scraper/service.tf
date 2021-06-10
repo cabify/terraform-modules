@@ -27,6 +27,8 @@ resource "kubernetes_service" "cloudsql" {
 
     type = "ClusterIP"
   }
+
+  wait_for_load_balancer = false
 }
 
 resource "kubernetes_service" "cloudsql-failover" {
