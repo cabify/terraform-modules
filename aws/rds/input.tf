@@ -279,7 +279,7 @@ variable "major_engine_version" {
 
 variable "engine_version" {
   description = "Version of the database to be launched"
-  default     = "5.7.26"
+  default     = "5.7"
   type        = string
 }
 
