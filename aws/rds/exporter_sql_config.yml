@@ -5,8 +5,7 @@ global:
   max_idle_connections: 3
 target:
   data_source_name: 'mysql://${exporter_username}:${exporter_password}@tcp(${exporter_hostname})/information_schema?tls=skip-verify'
-# Kept here just as a reference
-#  collectors:
-#  - users
-#collector_files:
-# - "/etc/sql-exporter-querries/users.yml"
+  collectors:
+  - mysql
+collector_files:
+- "/etc/sql-exporter-querries/mysql.yml"

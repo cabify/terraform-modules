@@ -8,6 +8,6 @@ resource "kubernetes_config_map" "sql_exporter_querries" {
   }
 
   data = {
-    "users.yml" = templatefile("${path.module}/exporter_sql_querries_users.yml", kubernetes_secret.sql_exporter.data)
+    "mysql.yml" = templatefile("${path.module}/exporter_sql_querries_mysql.yml", kubernetes_secret.sql_exporter.data)
   }
 }

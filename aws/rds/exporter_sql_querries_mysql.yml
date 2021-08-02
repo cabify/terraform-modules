@@ -1,0 +1,14 @@
+collector_name: mysql
+metrics:
+  - metric_name: sql_exporter_current_mysql_user_count
+      type: gauge
+      help: 'user count'
+      values: [user, host]
+      query: |
+        SELECT
+          user,
+          host
+        FROM mysql.user
+        WHERE user NOT IN('mysql.session', 'mysql.sys', 'rdsadmin', 'root')
+          AND user LIKE 'user-%'
+        GROUP BY user, host;
