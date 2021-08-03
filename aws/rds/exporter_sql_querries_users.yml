@@ -1,3 +1,4 @@
+# Kept here as reference but not linked
 collector_name: users
 metrics:
   - metric_name: sql_exporter_current_user_count
