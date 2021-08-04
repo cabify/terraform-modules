@@ -3,7 +3,7 @@ metrics:
   - metric_name: sql_exporter_current_mysql_user_count
     type: gauge
     help: 'user count'
-    key_values:
+    key_labels:
       - user
       - host
     values:
