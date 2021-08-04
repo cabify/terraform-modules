@@ -3,11 +3,16 @@ metrics:
   - metric_name: sql_exporter_current_mysql_user_count
       type: gauge
       help: 'user count'
-      values: [user, host]
+      key_values:
+        - user
+        - host
+      values:
+        - user_count
       query: |
         SELECT
           user,
-          host
+          host,
+          1 AS user_count
         FROM mysql.user
         WHERE user NOT IN('mysql.session', 'mysql.sys', 'rdsadmin', 'root')
           AND user LIKE 'user-%'
