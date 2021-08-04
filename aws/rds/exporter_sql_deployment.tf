@@ -56,6 +56,11 @@ resource "kubernetes_deployment" "sql_exporter" {
             container_port = 9399
           }
 
+          env {
+            name  = "POKE_TIMESTAMP"
+            value = "2021-08-04T11:10:48UTC"
+          }
+
           volume_mount {
             name       = "sql-exporter-querries"
             mount_path = "/etc/sql-exporter-querries/"
