@@ -58,7 +58,7 @@ resource "kubernetes_deployment" "sql_exporter" {
 
           env {
             name  = "POKE_TIMESTAMP"
-            value = "2021-08-04T12:30:41UTC"
+            value = "2021-08-04T13:21:41UTC"
           }
 
           volume_mount {
