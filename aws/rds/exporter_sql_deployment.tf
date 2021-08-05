@@ -112,10 +112,6 @@ resource "kubernetes_deployment" "sql_exporter" {
             "http://localhost:9399/config/reload"
           ]
 
-          port {
-            container_port = 9399
-          }
-
           volume_mount {
             name       = "sql-exporter-querries"
             mount_path = "/etc/sql-exporter/querries"
