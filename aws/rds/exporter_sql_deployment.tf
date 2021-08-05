@@ -45,7 +45,7 @@ resource "kubernetes_deployment" "sql_exporter" {
             }
           }
 
-          image = "githubfree/sql_exporter"
+          image = "us.gcr.io/cabify-controlpanel/infrastructure/persistence/sql_exporter/sql_exporter"
           name  = "sql-exporter"
 
           args = [
@@ -80,6 +80,51 @@ resource "kubernetes_deployment" "sql_exporter" {
 
             initial_delay_seconds = 5
             period_seconds        = 60
+          }
+        }
+
+        container {
+          resources {
+            limits = {
+              cpu    = "50m"
+              memory = "20Mi"
+            }
+
+            requests = {
+              cpu    = "50m"
+              memory = "20Mi"
+            }
+          }
+
+          image = "us.gcr.io/cabify-controlpanel/infrastructure/monitoring/dockerfiles/watch/watch:master-5fc29a9"
+          name  = "sql-exporter-config-watcher"
+
+          args = [
+            "-t",
+            "-p=/etc/sql-exporter",
+            "curl",
+            "-X",
+            "POST",
+            "--fail",
+            "-o",
+            "-",
+            "-sS",
+            "http://localhost:9399/config/reload"
+          ]
+
+          port {
+            container_port = 9399
+          }
+
+          volume_mount {
+            name       = "sql-exporter-querries"
+            mount_path = "/etc/sql-exporter/querries"
+          }
+
+          volume_mount {
+            name              = "sql-exporter-config"
+            mount_path        = "/etc/sql-exporter/config"
+            mount_propagation = "None"
           }
         }
 
