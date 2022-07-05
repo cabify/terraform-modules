@@ -96,7 +96,7 @@ resource "kubernetes_deployment" "sql_exporter" {
             }
           }
 
-          image = "us.gcr.io/cabify-controlpanel/infrastructure/monitoring/dockerfiles/watch/watch:master-5fc29a9"
+          image = "us.gcr.io/cabify-controlpanel/infrastructure/monitoring/dockerfiles/watch/watch"
           name  = "sql-exporter-config-watcher"
 
           args = [
