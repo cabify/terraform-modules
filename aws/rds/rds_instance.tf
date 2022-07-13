@@ -73,7 +73,7 @@ resource "aws_db_instance" "read-replica" {
 
   // mysql specific
   engine                      = var.engine_name
-  engine_version              = var.read_only_replica_engine_version == "UNSET" ? var.replicas_engine_version : var.read_only_replica_engine_version
+  engine_version              = var.read_only_replica_engine_version == "UNSET" ? var.engine_version : var.read_only_replica_engine_version
   allow_major_version_upgrade = false
   auto_minor_version_upgrade  = var.tier == "3" ? true : false
   parameter_group_name        = aws_db_parameter_group.rds.id
