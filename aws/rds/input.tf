@@ -180,6 +180,12 @@ variable "read_only_replica_instance_class" {
   default     = "UNSET"
 }
 
+variable "read_only_replica_engine_version" {
+  description = "Engine version of the database replicas to be launched"
+  type        = string
+  default     = "UNSET"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS: Monitoring
 # These parameters have reasonable defaults.
