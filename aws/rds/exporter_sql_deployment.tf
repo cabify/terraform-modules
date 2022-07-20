@@ -6,6 +6,7 @@ resource "kubernetes_deployment" "sql_exporter" {
 
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-sql-exporter"))
+      instance = var.instance_name
       owner = var.owner
       tier = var.tier
       ssot = "persistence-tf"
@@ -28,6 +29,7 @@ resource "kubernetes_deployment" "sql_exporter" {
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}${var.aws_account}-sql-exporter"))
+          instance = var.instance_name
           owner = var.owner
           tier = var.tier
           ssot = "persistence-tf"

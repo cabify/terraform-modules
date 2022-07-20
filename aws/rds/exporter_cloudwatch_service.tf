@@ -13,6 +13,7 @@ resource "kubernetes_service" "cloudwatch-primary-basic" {
 
     labels = {
       app = kubernetes_deployment.cloudwatch.0.metadata.0.labels.app
+      instance = var.instance_name
       owner = var.owner
       tier = var.tier
     }
@@ -55,6 +56,7 @@ resource "kubernetes_service" "cloudwatch-read-replica-basic" {
 
     labels = {
       app = element(kubernetes_deployment.cloudwatch-read-only.*.metadata.0.labels.app, count.index)
+      instance = var.instance_name
       owner = var.owner
       tier = var.tier
     }

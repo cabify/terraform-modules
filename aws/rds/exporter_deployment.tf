@@ -5,6 +5,7 @@ resource "kubernetes_deployment" "rds" {
 
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}"))
+      instance = var.instance_name
       owner = var.owner
       tier = var.tier
       ssot = "persistence-tf"
@@ -27,6 +28,7 @@ resource "kubernetes_deployment" "rds" {
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}${var.aws_account}"))
+          instance = var.instance_name
           owner = var.owner
           tier = var.tier
           ssot = "persistence-tf"
@@ -115,6 +117,7 @@ resource "kubernetes_deployment" "rds-read-only" {
           "${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}",
         ),
       )
+      instance = var.instance_name
       owner = var.owner
       tier = var.tier
       ssot = "persistence-tf"
@@ -136,6 +139,7 @@ resource "kubernetes_deployment" "rds-read-only" {
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}"))
+          instance = var.instance_name
           owner = var.owner
           tier = var.tier
           ssot = "persistence-tf"
