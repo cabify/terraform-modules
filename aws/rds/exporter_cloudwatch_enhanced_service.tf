@@ -12,7 +12,7 @@ resource "kubernetes_service" "cloudwatch-primary-enhanced" {
     }
 
     labels = {
-      app = kubernetes_deployment.cloudwatch-enhanced.0.metadata.labels.app
+      app = kubernetes_deployment.cloudwatch-enhanced.0.metadata.0.labels.app
       owner = var.owner
       tier = var.tier
       ssot = "persistence-tf"

@@ -6,6 +6,7 @@ resource "kubernetes_deployment" "cloudwatch" {
 
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch"))
+      instance = var.instance_name
       owner = var.owner
       tier = var.tier
       ssot = "persistence-tf"
@@ -28,6 +29,7 @@ resource "kubernetes_deployment" "cloudwatch" {
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch"))
+          instance = var.instance_name
           owner = var.owner
           tier = var.tier
           ssot = "persistence-tf"
@@ -145,6 +147,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
           "${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch",
         ),
       )
+      instance = var.instance_name
       owner = var.owner
       tier = var.tier
       ssot = "persistence-tf"
@@ -166,6 +169,7 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch"))
+          instance = var.instance_name
           owner = var.owner
           tier = var.tier
           ssot = "persistence-tf"

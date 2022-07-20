@@ -11,6 +11,7 @@ resource "kubernetes_service" "primary" {
 
     labels = {
       app = kubernetes_deployment.rds.metadata[0].labels.app
+      instance = var.instance_name
       owner = var.owner
       tier = var.tier
       ssot = "persistence-tf"
@@ -56,6 +57,7 @@ resource "kubernetes_service" "read-replica" {
         kubernetes_deployment.rds-read-only.*.metadata.0.labels.app,
         count.index,
       )
+      instance = var.instance_name
       owner = var.owner
       tier = var.tier
       ssot = "persistence-tf"
