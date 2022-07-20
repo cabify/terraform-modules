@@ -11,6 +11,13 @@ resource "kubernetes_service" "cloudwatch-primary-enhanced" {
       prometheus_io_path          = "/enhanced"
     }
 
+    labels = {
+      app = kubernetes_deployment.cloudwatch-enhanced.0.metadata.labels.app
+      owner = var.owner
+      tier = var.tier
+      ssot = "persistence-tf"
+    }
+
     name      = kubernetes_deployment.cloudwatch-enhanced.0.metadata.0.name
     namespace = var.namespace
   }
@@ -46,6 +53,12 @@ resource "kubernetes_service" "cloudwatch-read-replica-enhanced" {
       prometheus_io_path          = "/enhanced"
     }
 
+    labels = {
+      app = element(kubernetes_deployment.cloudwatch-read-only-enhanced.*.metadata.0.labels.app, count.index)
+      owner = var.owner
+      tier = var.tier
+      ssot = "persistence-tf"
+    }
     name      = element(kubernetes_deployment.cloudwatch-read-only-enhanced.*.metadata.0.name, count.index)
     namespace = var.namespace
   }

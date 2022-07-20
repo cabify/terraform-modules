@@ -8,6 +8,9 @@ resource "kubernetes_deployment" "cloudwatch-enhanced" {
 
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cw-e"))
+      owner = var.owner
+      tier = var.tier
+      ssot = "persistence-tf"
     }
 
     namespace = var.namespace
@@ -27,6 +30,9 @@ resource "kubernetes_deployment" "cloudwatch-enhanced" {
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cw-e"))
+          owner = var.owner
+          tier = var.tier
+          ssot = "persistence-tf"
         }
       }
       spec {
@@ -141,6 +147,9 @@ resource "kubernetes_deployment" "cloudwatch-read-only-enhanced" {
           "${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cw-e",
         ),
       )
+      owner = var.owner
+      tier = var.tier
+      ssot = "persistence-tf"
     }
 
     namespace = var.namespace
@@ -159,6 +168,9 @@ resource "kubernetes_deployment" "cloudwatch-read-only-enhanced" {
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cw-e"))
+          owner = var.owner
+          tier = var.tier
+          ssot = "persistence-tf"
         }
       }
 

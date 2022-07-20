@@ -11,6 +11,12 @@ resource "kubernetes_service" "cloudwatch-primary-basic" {
       prometheus_io_path          = "/basic"
     }
 
+    labels = {
+      app = kubernetes_deployment.cloudwatch.0.metadata.0.labels.app
+      owner = var.owner
+      tier = var.tier
+    }
+
     name      = "${kubernetes_deployment.cloudwatch.0.metadata.0.name}-basic"
     namespace = var.namespace
   }
@@ -44,6 +50,13 @@ resource "kubernetes_service" "cloudwatch-read-replica-basic" {
       prometheus_io_tier          = var.tier
       prometheus_io_instance_tier = var.read_only_replica_instance_class == "UNSET" ? var.instance_class : var.read_only_replica_instance_class
       prometheus_io_path          = "/basic"
+    }
+
+
+    labels = {
+      app = element(kubernetes_deployment.cloudwatch-read-only.*.metadata.0.labels.app, count.index)
+      owner = var.owner
+      tier = var.tier
     }
 
     name      = "${element(kubernetes_deployment.cloudwatch-read-only.*.metadata.0.name, count.index)}-basic"

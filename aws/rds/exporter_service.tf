@@ -9,6 +9,13 @@ resource "kubernetes_service" "primary" {
       prometheus_io_instance_tier = var.instance_class
     }
 
+    labels = {
+      app = kubernetes_deployment.rds.metadata[0].labels.app
+      owner = var.owner
+      tier = var.tier
+      ssot = "persistence-tf"
+    }
+
     name      = kubernetes_deployment.rds.metadata[0].name
     namespace = var.namespace
   }
@@ -44,6 +51,15 @@ resource "kubernetes_service" "read-replica" {
       prometheus_io_instance_tier = var.read_only_replica_instance_class == "UNSET" ? var.instance_class : var.read_only_replica_instance_class
     }
 
+    labels = {
+      app = element(
+        kubernetes_deployment.rds-read-only.*.metadata.0.labels.app,
+        count.index,
+      )
+      owner = var.owner
+      tier = var.tier
+      ssot = "persistence-tf"
+    }
     name = element(
       kubernetes_deployment.rds-read-only.*.metadata.0.name,
       count.index,
@@ -57,6 +73,8 @@ resource "kubernetes_service" "read-replica" {
         kubernetes_deployment.rds-read-only.*.metadata.0.labels.app,
         count.index,
       )
+      owner = var.owner
+      tier = var.tier
     }
 
     session_affinity = "ClientIP"
