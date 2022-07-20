@@ -15,6 +15,7 @@ resource "kubernetes_service" "cloudwatch-primary-enhanced" {
       app = kubernetes_deployment.cloudwatch-enhanced.0.metadata.labels.app
       owner = var.owner
       tier = var.tier
+      ssot = "persistence-tf"
     }
 
     name      = kubernetes_deployment.cloudwatch-enhanced.0.metadata.0.name
@@ -56,6 +57,7 @@ resource "kubernetes_service" "cloudwatch-read-replica-enhanced" {
       app = element(kubernetes_deployment.cloudwatch-read-only-enhanced.*.metadata.0.labels.app, count.index)
       owner = var.owner
       tier = var.tier
+      ssot = "persistence-tf"
     }
     name      = element(kubernetes_deployment.cloudwatch-read-only-enhanced.*.metadata.0.name, count.index)
     namespace = var.namespace

@@ -15,6 +15,7 @@ resource "kubernetes_service" "sql_exporter" {
       app = kubernetes_deployment.sql_exporter.0.metadata.0.labels.app
       owner = var.owner
       tier = var.tier
+      ssot = "persistence-tf"
     }
     
     name      = kubernetes_deployment.sql_exporter.0.metadata.0.name

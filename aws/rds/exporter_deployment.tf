@@ -7,6 +7,7 @@ resource "kubernetes_deployment" "rds" {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}"))
       owner = var.owner
       tier = var.tier
+      ssot = "persistence-tf"
     }
 
     namespace = var.namespace
@@ -28,6 +29,7 @@ resource "kubernetes_deployment" "rds" {
           app = format("%.60s", md5("${var.instance_name}${var.aws_account}"))
           owner = var.owner
           tier = var.tier
+          ssot = "persistence-tf"
         }
       }
       spec {
@@ -115,6 +117,7 @@ resource "kubernetes_deployment" "rds-read-only" {
       )
       owner = var.owner
       tier = var.tier
+      ssot = "persistence-tf"
     }
 
     namespace = var.namespace
@@ -135,6 +138,7 @@ resource "kubernetes_deployment" "rds-read-only" {
           app = format("%.60s", md5("${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}"))
           owner = var.owner
           tier = var.tier
+          ssot = "persistence-tf"
         }
       }
 

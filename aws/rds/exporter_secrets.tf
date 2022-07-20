@@ -7,6 +7,7 @@ resource "kubernetes_secret" "rds" {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}"))
       owner = var.owner
       tier = var.tier
+      ssot = "persistence-tf"
     }
   }
 

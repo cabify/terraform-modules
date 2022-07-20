@@ -5,6 +5,7 @@ resource "kubernetes_secret" "sql_exporter" {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-sql-exporter"))
       owner = var.owner
       tier = var.tier
+      ssot = "persistence-tf"
     }
     namespace = var.namespace
   }
@@ -25,6 +26,7 @@ resource "kubernetes_secret" "sql_exporter_config" {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-sql-exporter"))
       owner = var.owner
       tier = var.tier
+      ssot = "persistence-tf"
     }
     namespace = var.namespace
   }
