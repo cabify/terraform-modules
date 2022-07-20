@@ -6,6 +6,8 @@ resource "kubernetes_deployment" "cloudwatch" {
 
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch"))
+      owner = var.owner
+      tier = var.tier
     }
 
     namespace = var.namespace
@@ -25,6 +27,8 @@ resource "kubernetes_deployment" "cloudwatch" {
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}${var.aws_account}-cloudwatch"))
+          owner = var.owner
+          tier = var.tier
         }
       }
       spec {
@@ -139,6 +143,8 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
           "${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch",
         ),
       )
+      owner = var.owner
+      tier = var.tier
     }
 
     namespace = var.namespace
@@ -157,6 +163,8 @@ resource "kubernetes_deployment" "cloudwatch-read-only" {
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}-read-replica-${count.index + 1}-${var.aws_account}-cloudwatch"))
+          owner = var.owner
+          tier = var.tier
         }
       }
 

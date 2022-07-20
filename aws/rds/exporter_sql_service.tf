@@ -11,6 +11,12 @@ resource "kubernetes_service" "sql_exporter" {
       prometheus_io_path          = "/metrics"
     }
 
+    labels = {
+      app = kubernetes_deployment.sql_exporter.0.metadata.0.labels.app
+      owner = var.owner
+      tier = var.tier
+    }
+    
     name      = kubernetes_deployment.sql_exporter.0.metadata.0.name
     namespace = var.namespace
   }

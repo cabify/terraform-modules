@@ -3,6 +3,8 @@ resource "kubernetes_config_map" "sql_exporter_querries" {
     name      = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-sql-exporter-q"
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-sql-exporter"))
+      owner = var.owner
+      tier = var.tier
     }
     namespace = var.namespace
   }

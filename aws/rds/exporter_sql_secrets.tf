@@ -3,6 +3,8 @@ resource "kubernetes_secret" "sql_exporter" {
     name      = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-sql-exporter-s"
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-sql-exporter"))
+      owner = var.owner
+      tier = var.tier
     }
     namespace = var.namespace
   }
@@ -21,6 +23,8 @@ resource "kubernetes_secret" "sql_exporter_config" {
     name      = "${var.instance_name}-${replace(var.aws_account, "cabify-", "")}-sql-exporter-c"
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-sql-exporter"))
+      owner = var.owner
+      tier = var.tier
     }
     namespace = var.namespace
   }

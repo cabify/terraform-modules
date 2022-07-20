@@ -6,6 +6,8 @@ resource "kubernetes_deployment" "sql_exporter" {
 
     labels = {
       app = format("%.60s", md5("${var.instance_name}${var.aws_account}-sql-exporter"))
+      owner = var.owner
+      tier = var.tier
     }
 
     namespace = var.namespace
@@ -25,6 +27,8 @@ resource "kubernetes_deployment" "sql_exporter" {
 
         labels = {
           app = format("%.60s", md5("${var.instance_name}${var.aws_account}-sql-exporter"))
+          owner = var.owner
+          tier = var.tier
         }
       }
       spec {
