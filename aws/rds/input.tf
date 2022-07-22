@@ -129,6 +129,12 @@ variable "port" {
   default     = 3306
 }
 
+variable "spot_scheduling" {
+  description = "Scheduling exporters in spot instances"
+  type        = bool
+  default     = false
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS: GCP migration
 # These parameters have reasonable defaults.

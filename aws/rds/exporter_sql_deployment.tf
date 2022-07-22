@@ -40,6 +40,18 @@ resource "kubernetes_deployment" "sql_exporter" {
         automount_service_account_token = false
         enable_service_links            = true
 
+        # For allowing spot scheduling
+        node_selector = var.spot_scheduling ? { "node.kubernetes.io/lifecycle" = "spot" } : {}
+        dynamic "toleration" {
+          for_each = var.spot_scheduling ? [1] : []
+          content {
+            effect = "NoSchedule"
+            key =  "spot"
+            operator = "Equal"
+            value = "true"
+          }
+        }
+
         container {
           resources {
             limits = {
