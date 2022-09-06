@@ -371,7 +371,7 @@ variable "restore_origin_db_identifier" {
 
 variable "restore_point_in_time" {
   type        = string
-  description = "Exact data for the PIT recover"
+  description = "Exact date for the PIT recover"
   default     = "UNSET"
 }
 
