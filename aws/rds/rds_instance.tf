@@ -50,6 +50,9 @@ resource "aws_db_instance" "primary" {
   // performance_insights_retention_period = 7
 
   // Restore from backup - The block will only appear if var.restore_origin_db_identifier is different than "UNSET"
+  lifecycle {
+    ignore_changes = [restore_to_point_in_time]
+  }
   dynamic "restore_to_point_in_time" {
     for_each = var.restore_origin_db_identifier != "UNSET" ? [1] : []
     content {
