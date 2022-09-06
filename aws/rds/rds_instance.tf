@@ -51,13 +51,12 @@ resource "aws_db_instance" "primary" {
 
   // Restore from backup - The block will only appear if var.restore_origin_db_identifier is different than "UNSET"
   dynamic "restore_to_point_in_time" {
-    for_each = source_db_instance_identifier != "UNSET" ? [1] : []
+    for_each = var.restore_origin_db_identifier != "UNSET" ? [1] : []
     content {
       source_db_instance_identifier = var.restore_origin_db_identifier
       restore_time = var.restore_point_in_time
     }
   }
-
 
 }
 
