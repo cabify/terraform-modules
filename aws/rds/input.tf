@@ -360,6 +360,20 @@ variable "maintenance_window" {
   default     = "mon:10:00-mon:11:00"
 }
 
+#
+# Restore backups
+#
+variable "restore_origin_db_identifier" {
+  type        = string
+  description = "ARN for the source DB to restore"
+  default     = "UNSET"
+}
+
+variable "restore_point_in_time" {
+  type        = string
+  description = "Exact date for the PIT recover"
+  default     = "UNSET"
+}
 
 ###
 # testing only
