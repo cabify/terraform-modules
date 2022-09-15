@@ -30,7 +30,7 @@ resource "aws_db_instance" "primary" {
   engine                      = var.engine_name
   engine_version              = var.engine_version
   allow_major_version_upgrade = false
-  auto_minor_version_upgrade  = var.tier == "3" ? true : false
+  auto_minor_version_upgrade  = var.auto_minor_version_upgrade
   parameter_group_name        = aws_db_parameter_group.rds.id
   option_group_name           = aws_db_option_group.rds.id
 

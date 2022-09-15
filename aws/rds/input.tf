@@ -295,6 +295,12 @@ variable "engine_version" {
   type        = string
 }
 
+variable "auto_minor_version_upgrade" {
+  description = "Upgrade minor versions automatically"
+  default     = false
+  type        = bool
+}
+
 variable "db_parameter" {
   type = list(object({
     apply_method = string
