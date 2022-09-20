@@ -107,4 +107,9 @@ resource "aws_db_instance" "read-replica" {
 
   // Replica
   replicate_source_db = aws_db_instance.primary.id
+
+  // Sometime the replicas need more time to be created (specially with huge DBs)
+  timeouts {
+    create = "80m"
+  }
 }
