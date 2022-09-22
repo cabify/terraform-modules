@@ -110,6 +110,6 @@ resource "aws_db_instance" "read-replica" {
 
   // Sometime the replicas need more time to be created (specially with huge DBs)
   timeouts {
-    create = "80m"
+    create = "180m"
   }
 }
