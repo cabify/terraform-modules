@@ -366,6 +366,12 @@ variable "maintenance_window" {
   default     = "mon:10:00-mon:11:00"
 }
 
+variable "maintenance_replica_window" {
+  type        = string
+  description = "The window to perform maintenance in replicas. Syntax: 'ddd:hh24:mi-ddd:hh24:mi' UTC "
+  default     = "UNSET"
+}
+
 #
 # Restore backups
 #
