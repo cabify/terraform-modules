@@ -68,7 +68,7 @@ resource "aws_db_instance" "read-replica" {
 
   identifier          = "${var.instance_name}-read-replica-${count.index + 1}"
   apply_immediately   = var.apply_immediately
-  maintenance_window  = var.maintenance_window
+  maintenance_window  = var.maintenance_replica_window == "UNSET" ? var.maintenance_window : var.maintenance_replica_window
   skip_final_snapshot = true
   license_model       = var.license_model
   // general
@@ -88,7 +88,7 @@ resource "aws_db_instance" "read-replica" {
   engine                      = var.engine_name
   engine_version              = var.read_only_replica_engine_version == "UNSET" ? var.engine_version : var.read_only_replica_engine_version
   allow_major_version_upgrade = false
-  auto_minor_version_upgrade  = var.tier == "3" ? true : false
+  auto_minor_version_upgrade  = var.auto_minor_version_upgrade
   parameter_group_name        = aws_db_parameter_group.rds.id
   option_group_name           = aws_db_option_group.rds.id
 
